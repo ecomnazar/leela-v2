@@ -7,6 +7,7 @@ import {
   View,
 } from "react-native";
 import Feather from "@expo/vector-icons/Feather";
+import clsx from "clsx";
 
 // @ts-ignore
 export const BottomNavbar = ({ state, descriptors, navigation }) => {
@@ -26,7 +27,7 @@ export const BottomNavbar = ({ state, descriptors, navigation }) => {
   };
 
   return (
-    <View style={styles.tabbar}>
+    <View className="absolute bottom-0 flex-row justify-between items-center bg-white rounded-t-[20px] w-full">
       {/* @ts-ignore */}
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
@@ -69,7 +70,10 @@ export const BottomNavbar = ({ state, descriptors, navigation }) => {
             testID={options.tabBarButtonTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={styles.tabbarItem}
+            className={clsx("flex-1 justify-center items-center", {
+              "h-[75px] pb-[14px]": Platform.OS === "ios",
+              "h-[60px]": Platform.OS !== "ios",
+            })}
           >
             {/* @ts-ignore */}
             {icons[route.name]({
@@ -85,24 +89,3 @@ export const BottomNavbar = ({ state, descriptors, navigation }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  tabbar: {
-    position: "absolute",
-    bottom: 0,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "white",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    width: Dimensions.get("screen").width,
-  },
-  tabbarItem: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    height: Platform.OS === "ios" ? 75 : 60,
-    paddingBottom: Platform.OS === "ios" ? 14 : 0,
-  },
-});
