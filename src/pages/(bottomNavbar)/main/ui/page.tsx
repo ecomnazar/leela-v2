@@ -1,10 +1,13 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import ChatIcon from "assets/icons/chat.svg";
 import { Container } from "@/shared/ui/Container";
 import { Flex } from "@/shared/ui/Flex";
+import { useTheme } from "@/shared/theme/useTheme";
 
 export const MainPage = () => {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <View style={{ marginTop: 50 }}>
       <Text>Main page</Text>
@@ -23,7 +26,19 @@ export const MainPage = () => {
         </Container>
       </View>
       <View className="w-10 h-10 bg-black"></View>
-      <Text className="text-blue-400 dark:text-green-400">Salam</Text>
+      <Text className="text-blue-400 dark:text-black text-[60px]">{theme}</Text>
+      <Pressable
+        className="w-10 h-10 bg-red-300 mt-10"
+        onPress={() => toggleTheme("dark")}
+      >
+        <Text>dark</Text>
+      </Pressable>
+      <Pressable
+        className="w-10 h-10 bg-blue-300 mt-10"
+        onPress={() => toggleTheme("light")}
+      >
+        <Text>light</Text>
+      </Pressable>
     </View>
   );
 };
