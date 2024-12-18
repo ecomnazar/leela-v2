@@ -22,6 +22,8 @@ export const MainPage = () => {
           </Flex>
         </Container>
       </View>
+      <View className="w-10 h-10 bg-black"></View>
+      <Text className="text-blue-400 dark:text-green-400">Salam</Text>
     </View>
   );
 };
