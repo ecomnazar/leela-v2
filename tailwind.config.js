@@ -8,6 +8,8 @@ module.exports = {
       colors: {
         primary: "#33747C",
         grayPrimary: "#8B9497",
+        textPrimary: "#616470",
+        yellowPrimary: "#E5BF85",
       },
     },
   },

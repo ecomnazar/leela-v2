@@ -1,0 +1,25 @@
+import clsx from "clsx";
+import React from "react";
+import { View } from "react-native";
+
+interface Props {
+  mode?: "dark" | "light";
+  className?: string;
+}
+
+export const Coin: React.FC<Props> = ({ mode = "dark", className }) => {
+  return (
+    <View
+      className={clsx(
+        "w-6 h-6 rounded-full bg-textPrimary flex items-center justify-center",
+        className
+      )}
+    >
+      <View className="w-5 h-5 rounded-full bg-yellowPrimary flex items-center justify-center">
+        <View className="w-3 h-3 rounded-full bg-textPrimary flex items-center justify-center">
+          <View className="w-[8px] h-[8px] rounded-full bg-yellowPrimary"></View>
+        </View>
+      </View>
+    </View>
+  );
+};

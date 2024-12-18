@@ -8,5 +8,5 @@ interface Props {
 }
 
 export const Container: React.FC<Props> = ({ children, className }) => {
-  return <View className={clsx("px-4 flex-1", className)}>{children}</View>;
+  return <View className={clsx("px-4", className)}>{children}</View>;
 };
