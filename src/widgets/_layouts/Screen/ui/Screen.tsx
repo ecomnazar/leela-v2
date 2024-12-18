@@ -12,6 +12,7 @@ interface Props {
   children: React.ReactNode;
   showGradient?: boolean;
   enableHuman?: boolean;
+  customHumanGradientColors?: [string, string, string, string];
 }
 
 export const Screen: React.FC<Props> = ({
@@ -19,6 +20,7 @@ export const Screen: React.FC<Props> = ({
   children,
   showGradient = true,
   enableHuman = false,
+  customHumanGradientColors,
 }) => {
   const { theme } = useTheme();
 
@@ -27,10 +29,12 @@ export const Screen: React.FC<Props> = ({
       ? ["#F1F3F7", "#E0E4EA", "#CFD5DD", "#CFD5DD"]
       : ["#2F1A34", "#351D32", "#3A202F", "#3A202F"];
 
-  const humanGradientColors: [string, string, string] =
+  const humanGradientColors: [string, string, string, string] =
     theme === "light"
-      ? ["transparent", "#8992A0", "#8992A0"]
-      : ["transparent", "#361B38", "#361B38"];
+      ? customHumanGradientColors
+        ? customHumanGradientColors
+        : ["transparent", "#8992A0", "#8992A0", "#8992A0"]
+      : ["transparent", "#361B38", "#361B38", "#361B38"];
 
   return (
     <View

@@ -10,7 +10,7 @@ export const SearchSection = () => {
   const { theme } = useTheme();
 
   return (
-    <Container className="mt-6">
+    <Container>
       <Flex justify="between" align="center">
         <View className="relative h-[36px] bg-white w-[88%] rounded-lg">
           <TextInput

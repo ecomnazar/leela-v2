@@ -9,7 +9,7 @@ import { Screen } from "@/widgets/_layouts/Screen";
 import images from "assets/images";
 import { Image } from "expo-image";
 import React from "react";
-import { Text, View } from "react-native";
+import { Platform, Text, View } from "react-native";
 import TickIcon from "assets/icons/tick.svg";
 import clsx from "clsx";
 
@@ -22,12 +22,12 @@ export const TasksPage = () => {
         className={clsx(
           "rounded-full border-[2.5px] border-white flex items-center justify-center",
           {
-            "bg-primary100 border-primary100 w-9 h-9": active,
-            "w-8 h-8": !active,
+            "bg-primary100 border-0 w-9 h-9": active,
+            "w-7 h-7": !active,
           }
         )}
       >
-        {active && <TickIcon width={17} height={17} />}
+        {active && <TickIcon width={18} height={18} />}
       </View>
     );
   };
@@ -45,7 +45,12 @@ export const TasksPage = () => {
 
   const renderMiniDots = () => {
     return (
-      <View className="gap-y-2 my-1.5">
+      <View
+        className={clsx("my-1.5", {
+          "gap-y-[5px]": Platform.OS === "web",
+          "gap-y-2": Platform.OS !== "web",
+        })}
+      >
         {Array.from({ length: 5 }).map((_, index) => {
           return <React.Fragment key={index}>{renderMiniDot()}</React.Fragment>;
         })}
@@ -55,12 +60,12 @@ export const TasksPage = () => {
 
   return (
     <Screen enableHuman>
-      <CustomScrollView paddingTop={300} hasBottomBar>
+      <CustomScrollView paddingTop={250} hasBottomBar>
         <Container>
           <Flex align="end" justify="between">
             <View>
               <Text className="text-white text-6xl">Задачи на{"\n"}день</Text>
-              <Text className="text-white text-sm mt-2">
+              <Text className="text-white text-md font-medium mt-2">
                 Обновляем через: 07:36
               </Text>
             </View>
@@ -81,7 +86,7 @@ export const TasksPage = () => {
               {renderMiniDots()}
             </View>
 
-            <View className="w-[87%] gap-y-2">
+            <View className="w-[84%] gap-y-2">
               {Array.from({ length: 4 }).map((_, index) => {
                 return (
                   <CardHorizontal key={index} className="!h-[86px] !p-1">
