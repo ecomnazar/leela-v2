@@ -4,9 +4,16 @@ import ChatIcon from "assets/icons/chat.svg";
 import { Container } from "@/shared/ui/Container";
 import { Flex } from "@/shared/ui/Flex";
 import { useTheme } from "@/shared/theme/useTheme";
+import { Screen } from "@/widgets/_layouts/Screen";
 
 export const ProfilePage = () => {
   const { theme, toggleTheme } = useTheme();
+
+  return (
+    <Screen enableHuman>
+      <View></View>
+    </Screen>
+  );
 
   return (
     <View style={{ marginTop: 50 }}>

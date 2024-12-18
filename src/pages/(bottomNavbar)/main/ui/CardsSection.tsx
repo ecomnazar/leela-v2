@@ -5,16 +5,14 @@ import { Image } from "expo-image";
 import images from "assets/images";
 import { Flex } from "@/shared/ui/Flex";
 import ChatIcon from "assets/icons/chat.svg";
+import { CardHorizontal } from "@/shared/ui/CardHorizontal";
 
 export const CardsSection = () => {
   return (
     <Container className="mt-6 gap-y-2.5">
       {Array.from({ length: 10 }).map((_, index) => {
         return (
-          <Flex
-            key={index}
-            className="gap-x-4 h-[100px] bg-white dark:bg-backgroundPrimary rounded-2xl border-grayPrimary/40 border p-2"
-          >
+          <CardHorizontal key={index}>
             <View className="h-full w-24 bg-grayPrimary/40 rounded-2xl overflow-hidden">
               <Image
                 source={images.groupExample1}
@@ -38,7 +36,7 @@ export const CardsSection = () => {
                 А как вы обычно интересы настр...
               </Text>
             </View>
-          </Flex>
+          </CardHorizontal>
         );
       })}
     </Container>

@@ -6,7 +6,7 @@ interface Props {
   className?: string;
   children: React.ReactNode;
   justify?: "center" | "between" | "start";
-  align?: "center" | "start";
+  align?: "center" | "start" | "end";
 }
 
 export const Flex: React.FC<Props> = ({
@@ -23,6 +23,7 @@ export const Flex: React.FC<Props> = ({
         "justify-start": justify === "start",
         "items-center": align === "center",
         "items-start": align === "start",
+        "items-end": align === "end",
       })}
     >
       {children}

@@ -6,12 +6,16 @@ interface Props {
   hasBottomBar?: boolean;
   hasHeader?: boolean;
   children: React.ReactNode;
+  paddingTop?: number;
+  paddingBottom?: number;
 }
 
 export const CustomScrollView: React.FC<Props> = ({
   hasBottomBar,
   hasHeader,
   children,
+  paddingTop,
+  paddingBottom,
 }) => {
   const paddingBottomSize = Platform.select({
     android: 80,
@@ -29,8 +33,8 @@ export const CustomScrollView: React.FC<Props> = ({
       bounces={false}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
-        paddingBottom: hasBottomBar ? paddingBottomSize : 0,
-        paddingTop: hasHeader ? paddingTopSize : 0,
+        paddingBottom: hasBottomBar ? paddingBottomSize : paddingBottom || 0,
+        paddingTop: hasHeader ? paddingTopSize : paddingTop || 0,
       }}
     >
       {children}
