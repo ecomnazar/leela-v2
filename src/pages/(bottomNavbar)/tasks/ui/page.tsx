@@ -20,10 +20,10 @@ export const TasksPage = () => {
     return (
       <View
         className={clsx(
-          "rounded-full border-[2.5px] border-white flex items-center justify-center",
+          "rounded-full border-[2.5px] flex items-center justify-center",
           {
-            "bg-primary100 border-0 w-9 h-9": active,
-            "w-7 h-7": !active,
+            "bg-primary100 border-transparent w-9 h-9": active,
+            "w-7 h-7 border-white": !active,
           }
         )}
       >

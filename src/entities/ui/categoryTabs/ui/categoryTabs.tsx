@@ -38,7 +38,7 @@ export const CategoryTabs: React.FC<Props> = ({
               >
                 <Text
                   className={clsx(
-                    "dark:text-white text-[17px] font-semibold border-b-2 pb-1",
+                    "dark:text-white text-[16px] font-semibold border-b-2 pb-1",
                     {
                       "border-yellowPrimary": item === activeCategory,
                       "border-transparent": item !== activeCategory,
