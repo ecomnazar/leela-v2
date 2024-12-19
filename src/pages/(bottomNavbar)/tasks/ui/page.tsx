@@ -27,7 +27,7 @@ export const TasksPage = () => {
           }
         )}
       >
-        {active && <TickIcon width={18} height={18} />}
+        {active && <TickIcon width={18} height={18} fill={"#FFF"} />}
       </View>
     );
   };

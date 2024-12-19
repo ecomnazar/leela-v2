@@ -47,7 +47,11 @@ export const ProfilePage = () => {
               </Text>
             </View>
             <View className="gap-y-3">
-              <RoundedIcon icon="wallet" filled />
+              <RoundedIcon
+                icon="wallet"
+                filled
+                onClick={() => router.push("/wallet")}
+              />
               <RoundedIcon
                 icon="calendar"
                 onClick={() => router.push("/calendar")}
