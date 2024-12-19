@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
-import { Platform, View } from "react-native";
+import { Dimensions, Platform, View } from "react-native";
 
 interface Props {
   className?: string;
@@ -13,6 +13,7 @@ interface Props {
   showGradient?: boolean;
   enableHuman?: boolean;
   customHumanGradientColors?: [string, string, string, string];
+  title?: string;
 }
 
 export const Screen: React.FC<Props> = ({
@@ -21,6 +22,7 @@ export const Screen: React.FC<Props> = ({
   showGradient = true,
   enableHuman = false,
   customHumanGradientColors,
+  title,
 }) => {
   const { theme } = useTheme();
 
@@ -38,11 +40,12 @@ export const Screen: React.FC<Props> = ({
 
   return (
     <View
+      style={{ flex: 1 }}
       className={clsx("h-screen w-screen", className, {
         // "pb-[100px]": hasBottomBar,
       })}
     >
-      <BasicPageHeader />
+      <BasicPageHeader title={title} />
       {enableHuman && (
         <View
           className={clsx(
@@ -67,7 +70,10 @@ export const Screen: React.FC<Props> = ({
         </View>
       )}
       {showGradient && (
-        <View className="absolute top-0 left-0 w-screen h-screen z-[-1]">
+        <View
+          style={{ height: Dimensions.get("screen").height }}
+          className="absolute top-0 left-0 w-screen z-[-1]"
+        >
           <LinearGradient
             colors={backgroundGradientColors}
             style={{

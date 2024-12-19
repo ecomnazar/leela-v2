@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import "@/shared/global.css";
 import { ThemeProvider } from "@/shared/theme/themeProvider";
+import { Platform } from "react-native";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -29,11 +30,15 @@ export default function RootLayout() {
   return (
     <>
       <ThemeProvider>
-        <Stack>
-          <Stack.Screen
-            name="(bottomNavbar)"
-            options={{ headerShown: false }}
-          />
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            animation: Platform.OS === "ios" ? "fade" : "none",
+            presentation: "transparentModal",
+          }}
+        >
+          <Stack.Screen name="(bottomNavbar)" />
+          <Stack.Screen name="calendar" />
         </Stack>
         <StatusBar style="auto" />
       </ThemeProvider>

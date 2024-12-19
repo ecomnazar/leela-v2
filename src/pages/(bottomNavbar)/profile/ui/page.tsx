@@ -11,6 +11,7 @@ import { Image } from "expo-image";
 import images from "assets/images";
 import clsx from "clsx";
 import { RoundedIcon } from "@/shared/ui/RoundedIcon";
+import { router, useNavigation } from "expo-router";
 
 const categories = ["РЕЙТИНГ", "СЕРТИФИКАТЫ", "НАГРАДЫ"];
 
@@ -47,7 +48,10 @@ export const ProfilePage = () => {
             </View>
             <View className="gap-y-3">
               <RoundedIcon icon="wallet" filled />
-              <RoundedIcon icon="calendar" />
+              <RoundedIcon
+                icon="calendar"
+                onClick={() => router.push("/calendar")}
+              />
               <RoundedIcon icon="tripleDots" />
             </View>
           </Flex>
