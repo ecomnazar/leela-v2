@@ -1,10 +1,13 @@
+import React from "react";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import React from "react";
 import { useEffect } from "react";
 import "react-native-reanimated";
+import "@/shared/global.css";
+import { ThemeProvider } from "@/shared/theme/themeProvider";
+import { Platform } from "react-native";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -26,10 +29,19 @@ export default function RootLayout() {
 
   return (
     <>
-      <Stack>
-        <Stack.Screen name="(bottomNavbar)" options={{ headerShown: false }} />
-      </Stack>
-      <StatusBar style="auto" />
+      <ThemeProvider>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            animation: Platform.OS === "ios" ? "fade" : "none",
+            presentation: "transparentModal",
+          }}
+        >
+          <Stack.Screen name="(bottomNavbar)" />
+          <Stack.Screen name="calendar" />
+        </Stack>
+        <StatusBar style="auto" />
+      </ThemeProvider>
     </>
   );
 }

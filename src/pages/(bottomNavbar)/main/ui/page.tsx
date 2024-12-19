@@ -1,12 +1,25 @@
 import React from "react";
-import { Text, View } from "react-native";
-import ChatIcon from "assets/icons/chat.svg";
+import { SearchSection } from "./SearchSection";
+import { CardsSection } from "./CardsSection";
+import { Screen } from "@/widgets/_layouts/Screen";
+import { CustomScrollView } from "@/shared/ui/CustomScrollView";
+import { CategoryTabs } from "@/entities/ui/categoryTabs/ui/categoryTabs";
 
+const categoies = ["ФОРУМ", "ГРУППЫ", "МЕНТОРЫ"];
 export const MainPage = () => {
+  const [activeCategory, setActiveCategory] = React.useState(categoies[0]);
+
   return (
-    <View style={{ marginTop: 50 }}>
-      <Text>Main page</Text>
-      <ChatIcon width={20} height={20} fill={"#213555"} />
-    </View>
+    <Screen>
+      <CustomScrollView hasBottomBar hasHeader>
+        <CategoryTabs
+          categories={categoies}
+          activeCategory={activeCategory}
+          setActiveCategory={setActiveCategory}
+        />
+        <SearchSection />
+        <CardsSection />
+      </CustomScrollView>
+    </Screen>
   );
 };
