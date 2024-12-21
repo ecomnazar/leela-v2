@@ -16,7 +16,7 @@ export const Days = () => {
       contentContainerClassName="px-4 pb-4"
       alwaysBounceHorizontal={false}
     >
-      <Flex className="gap-x-1.5 mt-6">
+      <Flex className="gap-x-1.5">
         {days.map((item, index) => {
           const active = activeDay === item;
           return (

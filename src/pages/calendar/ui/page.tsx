@@ -2,17 +2,16 @@ import React from "react";
 import { Container } from "@/shared/ui/Container";
 import { CustomScrollView } from "@/shared/ui/CustomScrollView";
 import { Screen } from "@/widgets/_layouts/Screen";
-import { Platform, Pressable, ScrollView, Text, View } from "react-native";
-import { Flex } from "@/shared/ui/Flex";
+import { View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import clsx from "clsx";
 import { Days } from "./Days";
 import { Habits } from "./Habits";
+import { PADDING_TOP_WITH_SCREEN_HEADER } from "@/shared/constants/sizes";
 
 export const CalendarPage = () => {
   return (
     <Screen title="Среда, 12 апреля">
-      <CustomScrollView paddingTop={100}>
+      <CustomScrollView paddingTop={PADDING_TOP_WITH_SCREEN_HEADER}>
         <Days />
         <Container className="mt-4">
           <View className="relative h-7 bg-graySecondary/40 dark:bg-black/40 rounded-full">
