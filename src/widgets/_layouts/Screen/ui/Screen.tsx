@@ -14,6 +14,7 @@ interface Props {
   enableHuman?: boolean;
   customHumanGradientColors?: [string, string, string, string];
   title?: string;
+  disableHeader?: boolean;
 }
 
 export const Screen: React.FC<Props> = ({
@@ -23,6 +24,7 @@ export const Screen: React.FC<Props> = ({
   enableHuman = false,
   customHumanGradientColors,
   title,
+  disableHeader,
 }) => {
   const { theme } = useTheme();
 
@@ -45,7 +47,7 @@ export const Screen: React.FC<Props> = ({
         // "pb-[100px]": hasBottomBar,
       })}
     >
-      <BasicPageHeader title={title} />
+      {!disableHeader && <BasicPageHeader title={title} />}
       {enableHuman && (
         <View
           className={clsx(

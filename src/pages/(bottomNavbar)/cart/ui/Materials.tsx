@@ -1,9 +1,10 @@
 import { Coin } from "@/shared/ui/Coin";
 import { Flex } from "@/shared/ui/Flex";
 import images from "assets/images";
+import clsx from "clsx";
 import { Image } from "expo-image";
 import React from "react";
-import { Text, View } from "react-native";
+import { Platform, Text, View } from "react-native";
 
 export const Materials = () => {
   return (
@@ -26,7 +27,15 @@ export const Materials = () => {
                     </View>
                     <View className="justify-between w-full h-full absolute top-0 left-0 p-6">
                       <View>
-                        <Text className="text-center text-white font-semibold text-2xl">
+                        <Text
+                          className={clsx(
+                            "text-center text-white font-semibold",
+                            {
+                              "text-xl": Platform.OS === "web",
+                              "text-2xl": Platform.OS !== "web",
+                            }
+                          )}
+                        >
                           Питер Кью
                         </Text>
                         <View className="mt-2 py-1.5 px-5 bg-primary self-start rounded-tl-2xl rounded-tr-sm rounded-br-2xl rounded-bl-sm mx-auto">
@@ -39,10 +48,15 @@ export const Materials = () => {
                         </Text>
                         <Flex
                           justify="center"
-                          className="mt-4 border-2 border-white w-[85%] mx-auto py-2 rounded-xl gap-x-1 backdrop-blur-sm bg-white/20"
+                          className="mt-4 border-2 border-white w-[85%] mx-auto py-1.5 rounded-xl gap-x-1 backdrop-blur-sm bg-white/20"
                         >
-                          <Coin className="scale-[0.95]" />
-                          <Text className="text-white font-bold text-md">
+                          <Coin className="scale-[0.8]" />
+                          <Text
+                            className={clsx("text-white font-bold text-md", {
+                              "text-xs": Platform.OS === "web",
+                              "text-base": Platform.OS !== "web",
+                            })}
+                          >
                             2,250
                           </Text>
                         </Flex>

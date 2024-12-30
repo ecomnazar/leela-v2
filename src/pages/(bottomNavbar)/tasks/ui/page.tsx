@@ -97,14 +97,38 @@ export const TasksPage = () => {
                       />
                     </View>
                     <View>
-                      <Text className="text-textPrimary dark:text-white/75 text-xl font-semibold">
+                      <Text
+                        className={clsx(
+                          "text-textPrimary dark:text-white/75 font-semibold",
+                          {
+                            "text-base": Platform.OS === "web",
+                            "text-xl": Platform.OS !== "web",
+                          }
+                        )}
+                      >
                         Про “no names”
                       </Text>
-                      <Text className="text-grayPrimary dark:text-white/75 text-sm font-semibold">
+                      <Text
+                        className={clsx(
+                          "text-grayPrimary dark:text-white/75  font-semibold",
+                          {
+                            "text-xs": Platform.OS === "web",
+                            "text-sm": Platform.OS !== "web",
+                          }
+                        )}
+                      >
                         No names
                       </Text>
                       <Flex className="mt-1 gap-x-0.5">
-                        <Text className="text-textPriamry dark:text-white font-bold text-md mt-1">
+                        <Text
+                          className={clsx(
+                            "text-textPrimary dark:text-white font-bold mt-1",
+                            {
+                              "text-xs": Platform.OS === "web",
+                              "text-sm": Platform.OS !== "web",
+                            }
+                          )}
+                        >
                           +2,250
                         </Text>
                         <Coin

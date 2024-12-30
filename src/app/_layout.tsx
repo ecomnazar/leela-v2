@@ -39,6 +39,7 @@ export default function RootLayout() {
         >
           <Stack.Screen name="(bottomNavbar)" />
           <Stack.Screen name="calendar" />
+          <Stack.Screen name="chat" />
         </Stack>
         <StatusBar style="auto" />
       </ThemeProvider>

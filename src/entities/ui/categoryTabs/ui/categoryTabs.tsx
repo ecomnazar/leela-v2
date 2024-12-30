@@ -2,7 +2,7 @@ import { Container } from "@/shared/ui/Container";
 import { Flex } from "@/shared/ui/Flex";
 import clsx from "clsx";
 import React from "react";
-import { Pressable, Text, View } from "react-native";
+import { Platform, Pressable, Text, View } from "react-native";
 
 interface Props {
   className?: string;
@@ -38,12 +38,14 @@ export const CategoryTabs: React.FC<Props> = ({
               >
                 <Text
                   className={clsx(
-                    "dark:text-white text-[16px] font-semibold border-b-2 pb-1",
+                    "dark:text-white font-semibold border-b-2 pb-1",
                     {
                       "border-yellowPrimary": item === activeCategory,
                       "border-transparent": item !== activeCategory,
                       "text-white": fillBackground,
                       "text-textPrimary": !fillBackground,
+                      "text-[15px]": Platform.OS === "web",
+                      "text-[16px]": Platform.OS !== "web",
                     }
                   )}
                 >

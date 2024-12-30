@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, Text, View } from "react-native";
+import { Platform, Pressable, Text, View } from "react-native";
 import ChatIcon from "assets/icons/chat.svg";
 import { Container } from "@/shared/ui/Container";
 import { Flex } from "@/shared/ui/Flex";
@@ -67,8 +67,23 @@ export const ProfilePage = () => {
             {statistics.map((item, index) => {
               return (
                 <View key={index} className="w-1/3 items-center gap-y-2">
-                  <Text className="text-white text-3xl">{item.value}</Text>
-                  <Text className="text-lg text-center leading-6 text-white/60 font-semibold">
+                  <Text
+                    className={clsx("text-white", {
+                      "text-2xl": Platform.OS === "web",
+                      "text-3xl": Platform.OS !== "web",
+                    })}
+                  >
+                    {item.value}
+                  </Text>
+                  <Text
+                    className={clsx(
+                      "text-lg text-center text-white/60 font-medium",
+                      {
+                        "text-sm leading-4": Platform.OS === "web",
+                        "text-lg leading-6": Platform.OS !== "web",
+                      }
+                    )}
+                  >
                     {item.title}
                   </Text>
                 </View>
@@ -115,39 +130,5 @@ export const ProfilePage = () => {
         })}
       </CustomScrollView>
     </Screen>
-  );
-
-  return (
-    <View style={{ marginTop: 50 }}>
-      <Text>Profile page</Text>
-      <ChatIcon width={20} height={20} fill={"#213555"} />
-      <Text className="text-red-300">Tailwind</Text>
-      <View className="flex-row">
-        <Container className="">
-          <Flex className="justify-between pt-10">
-            <View className="bg-red-300 w-full">
-              <Flex justify="center" align="start">
-                <View className="w-10 h-10 bg-blue-400"></View>
-                <View className="w-12 h-12 bg-blue-500"></View>
-              </Flex>
-            </View>
-          </Flex>
-        </Container>
-      </View>
-      <View className="w-10 h-10 bg-black"></View>
-      <Text className="text-blue-400 dark:text-black text-[60px]">{theme}</Text>
-      <Pressable
-        className="w-10 h-10 bg-red-300 mt-10"
-        onPress={() => toggleTheme("dark")}
-      >
-        <Text>dark</Text>
-      </Pressable>
-      <Pressable
-        className="w-10 h-10 bg-blue-300 mt-10"
-        onPress={() => toggleTheme("light")}
-      >
-        <Text>light</Text>
-      </Pressable>
-    </View>
   );
 };
