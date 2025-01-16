@@ -1,13 +1,11 @@
 import React from "react";
-import { Container } from "@/shared/ui/Container";
-import { Text, View } from "react-native";
+import { Card } from "./Card";
+import images from "assets/images";
 import { Flex } from "@/shared/ui/Flex";
+import { Text, View } from "react-native";
+import { Container } from "@/shared/ui/Container";
 import ChevronIcon from "assets/icons/chevron.svg";
 import { COLORS } from "@/shared/constants/colors";
-import { Image } from "expo-image";
-import images from "assets/images";
-import { Icon } from "@/shared/ui/Icon";
-import { Card } from "./Card";
 
 const cards = [
   {
@@ -31,6 +29,7 @@ const cards = [
     image: images.stories5,
   },
 ];
+
 export const CardsSection = () => {
   return (
     <>
@@ -44,7 +43,7 @@ export const CardsSection = () => {
               <ChevronIcon
                 width={12}
                 height={12}
-                fill={COLORS.yellow}
+                fill={COLORS.yellowPrimary}
                 className="-rotate-90 translate-y-[1px]"
               />
               <Text className="text-grayPrimary text-[12.8px] font-semibold">
@@ -57,7 +56,7 @@ export const CardsSection = () => {
       <View className="h-[1.5px] w-full bg-[#D2D4D5] mt-4 mb-3" />
       <View className="gap-y-3">
         {cards.map((item) => {
-          return <Card image={item.image} name={item.name} />;
+          return <Card key={item.image} image={item.image} name={item.name} />;
         })}
       </View>
     </>

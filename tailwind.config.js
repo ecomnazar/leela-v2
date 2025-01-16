@@ -14,6 +14,7 @@ module.exports = {
         graySecondary: "#B8BEC8",
         textPrimary: "#616470",
         yellowPrimary: "#E5BF85",
+        yellowSecondary: "#D4B685",
         backgroundPrimary: "#313547",
         backgroundSecondary: "#272636",
       },

@@ -4,6 +4,7 @@ import TripleDots from "assets/icons/verticalTripleDots.svg";
 import LikeIcon from "assets/icons/like.svg";
 import StaplerIcon from "assets/icons/stapler.svg";
 import CommentIcon from "assets/icons/comment.svg";
+import PlusIcon from "assets/icons/plus.svg";
 import clsx from "clsx";
 
 interface Props {
@@ -13,7 +14,8 @@ interface Props {
     | "like"
     | "dislike"
     | "stapler"
-    | "comment";
+    | "comment"
+    | "plus";
   width?: number;
   height?: number;
   fill?: string;
@@ -71,6 +73,14 @@ export const Icon: React.FC<Props> = ({
       )}
       {type === "comment" && (
         <CommentIcon
+          className={className}
+          width={width}
+          height={height}
+          fill={fill ? fill : "#000"}
+        />
+      )}
+      {type === "plus" && (
+        <PlusIcon
           className={className}
           width={width}
           height={height}
