@@ -1,67 +1,65 @@
 import React from "react";
 import { Container } from "@/shared/ui/Container";
-import { Platform, Pressable, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import { Flex } from "@/shared/ui/Flex";
+import ChevronIcon from "assets/icons/chevron.svg";
+import { COLORS } from "@/shared/constants/colors";
 import { Image } from "expo-image";
 import images from "assets/images";
-import { Flex } from "@/shared/ui/Flex";
-import ChatIcon from "assets/icons/chat.svg";
-import { CardHorizontal } from "@/shared/ui/CardHorizontal";
-import { Link, router } from "expo-router";
-import clsx from "clsx";
+import { Icon } from "@/shared/ui/Icon";
+import { Card } from "./Card";
 
+const cards = [
+  {
+    name: "Алена",
+    image: images.stories1,
+  },
+  {
+    name: "Евгений",
+    image: images.stories2,
+  },
+  {
+    name: "Анжелика",
+    image: images.stories3,
+  },
+  {
+    name: "Юрий",
+    image: images.stories4,
+  },
+  {
+    name: "Оксана",
+    image: images.stories5,
+  },
+];
 export const CardsSection = () => {
   return (
-    <Container className="mt-6 gap-y-2.5">
-      {Array.from({ length: 10 }).map((_, index) => {
-        return (
-          // <Link href={"/chat"} key={index}>
-          <CardHorizontal onPress={() => router.push("/chat")} key={index}>
-            <View className="h-full w-24 bg-grayPrimary/40 rounded-2xl overflow-hidden">
-              <Image
-                source={images.groupExample1}
-                style={{ width: "100%", height: "100%" }}
+    <>
+      <Container className="mt-6">
+        <View className="gap-y-2.5">
+          <Flex justify="between">
+            <Text className="text-grayPrimary text-[12.8px] font-semibold">
+              12567 обсуждений
+            </Text>
+            <Flex className="gap-x-1.5">
+              <ChevronIcon
+                width={12}
+                height={12}
+                fill={COLORS.yellow}
+                className="-rotate-90 translate-y-[1px]"
               />
-            </View>
-            <View>
-              <Text
-                className={clsx(
-                  "text-textPrimary dark:text-white/75 font-semibold",
-                  {
-                    "text-xl": Platform.OS === "web",
-                    "text-2xl": Platform.OS !== "web",
-                  }
-                )}
-              >
-                Звезды
+              <Text className="text-grayPrimary text-[12.8px] font-semibold">
+                сначала новые
               </Text>
-              <Flex className="gap-x-1.5 mt-3">
-                <ChatIcon width={17} height={17} fill={"#8B9497"} />
-                <Text
-                  className={clsx(
-                    "text-grayPrimary dark:text-white/75 font-semibold -translate-y-0.5",
-                    {
-                      "text-[13px]": Platform.OS === "web",
-                      "text-base": Platform.OS !== "web",
-                    }
-                  )}
-                >
-                  Андрей
-                </Text>
-              </Flex>
-              <Text
-                numberOfLines={1}
-                className={clsx("text-grayPrimary/65 mt-1", {
-                  "text-[11px]": Platform.OS === "web",
-                  "text-base": Platform.OS !== "web",
-                })}
-              >
-                А как вы обычно интересы
-              </Text>
-            </View>
-          </CardHorizontal>
-          // </Link>
-        );
-      })}
-    </Container>
+            </Flex>
+          </Flex>
+        </View>
+      </Container>
+      <View className="h-[1.5px] w-full bg-[#D2D4D5] mt-4 mb-3" />
+      <View className="gap-y-3">
+        {cards.map((item) => {
+          return <Card image={item.image} name={item.name} />;
+        })}
+      </View>
+    </>
   );
 };

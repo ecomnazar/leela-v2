@@ -30,7 +30,7 @@ export const Screen: React.FC<Props> = ({
 
   const backgroundGradientColors: [string, string, string, string] =
     theme === "light"
-      ? ["#F1F3F7", "#E0E4EA", "#CFD5DD", "#CFD5DD"]
+      ? ["#FDFEFF", "#FDFEFF", "#FDFEFF", "#FDFEFF"]
       : ["#2F1A34", "#351D32", "#3A202F", "#3A202F"];
 
   const humanGradientColors: [string, string, string, string] =

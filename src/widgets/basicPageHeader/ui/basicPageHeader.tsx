@@ -7,6 +7,7 @@ import React from "react";
 import { Platform, Pressable, Text, View } from "react-native";
 import ChevronIcon from "assets/icons/chevron.svg";
 import { Link, router } from "expo-router";
+import BellIcon from "assets/icons/bell.svg";
 
 interface Props {
   title?: string;
@@ -33,7 +34,10 @@ export const BasicPageHeader: React.FC<Props> = ({ title }) => {
             </Text>
           </Flex>
         )}
-        <BalanceShowcase />
+        <Flex className="gap-x-2">
+          <BellIcon width={23} height={25} fill={"#93989B"} />
+          <BalanceShowcase />
+        </Flex>
       </Flex>
     </Container>
   );
