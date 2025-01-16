@@ -1,6 +1,7 @@
 import React from "react";
 import { Tabs } from "expo-router";
 import { BottomNavbar } from "@/widgets/bottomNavbar/ui/BottomNavbar";
+import { View } from "react-native";
 
 const BottomNavbarLayout = () => {
   return (

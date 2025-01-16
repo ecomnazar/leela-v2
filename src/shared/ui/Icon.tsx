@@ -57,7 +57,8 @@ export const Icon: React.FC<Props> = ({
       )}
       {type === "dislike" && (
         <LikeIcon
-          className={clsx("rotate-180", className)}
+          style={{ transform: [{ rotate: "180deg" }] }}
+          className={clsx("", className)}
           width={width}
           height={height}
           fill={fill ? fill : "#000"}

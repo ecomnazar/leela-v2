@@ -45,6 +45,9 @@ export const CardsSection = () => {
                 height={12}
                 fill={COLORS.yellowPrimary}
                 className="-rotate-90 translate-y-[1px]"
+                style={{
+                  transform: [{ rotate: "-90deg" }, { translateY: -1 }],
+                }}
               />
               <Text className="text-grayPrimary text-[12.8px] font-semibold">
                 сначала новые

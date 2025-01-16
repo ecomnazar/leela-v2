@@ -49,16 +49,16 @@ export const Stories = () => {
                   colors={["#E5BF85", "#FF5752", "#FFAD01"]}
                   style={{
                     position: "absolute",
-                    width: "100%",
-                    height: "100%",
                     left: 0,
                     right: 0,
+                    bottom: 0,
+                    top: 0,
                   }}
                 />
                 <View className="w-full h-full bg-white rounded-full p-0.5">
                   <Image
                     source={story.image}
-                    className="w-full h-full object-cover object-center"
+                    style={{ width: "100%", height: "100%" }}
                   />
                 </View>
               </View>

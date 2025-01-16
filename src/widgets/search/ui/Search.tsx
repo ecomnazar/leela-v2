@@ -1,12 +1,12 @@
-import { Container } from "@/shared/ui/Container";
-import { Flex } from "@/shared/ui/Flex";
 import React from "react";
+import { Flex } from "@/shared/ui/Flex";
+import { Container } from "@/shared/ui/Container";
 import { Pressable, TextInput, View } from "react-native";
 import SettingIcon from "assets/icons/settings.svg";
 import SearchIcon from "assets/icons/search.svg";
 import { useTheme } from "@/shared/theme/useTheme";
 
-export const SearchSection = () => {
+export const Search = () => {
   const { theme } = useTheme();
 
   return (
@@ -22,11 +22,7 @@ export const SearchSection = () => {
           </View>
         </View>
         <Pressable>
-          <SettingIcon
-            width={24}
-            height={24}
-            fill={theme === "light" ? "#8B9497" : "#FFFFFF"}
-          />
+          <SettingIcon width={24} height={24} fill={"#8B9497"} />
         </Pressable>
       </Flex>
     </Container>

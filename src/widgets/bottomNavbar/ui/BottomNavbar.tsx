@@ -26,17 +26,17 @@ const labels = {
 export const BottomNavbar = ({ state, descriptors, navigation }) => {
   const { theme } = useTheme();
 
-  const fill = theme === "light" ? "#33747C" : "#fff";
+  const fill = theme === "light" ? "#33747C" : "#33747C";
   const notFill = theme === "light" ? "#8B9497" : "#594455";
 
   return (
     <View
       className={clsx(
-        "absolute bottom-0 flex-row justify-between items-center rounded-t-[20px] w-full border border-grayPrimary/40",
-        {
-          "bg-white": theme === "light",
-          "bg-[#2F152A]": theme !== "light",
-        }
+        "absolute bg-white bottom-0 flex-row justify-between items-center rounded-t-[20px] w-full border border-grayPrimary/40"
+        // {
+        //   "bg-white": theme === "light",
+        //   "bg-white": theme !== "light",
+        // }
       )}
     >
       {/* @ts-ignore */}

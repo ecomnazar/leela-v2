@@ -5,7 +5,7 @@ import { Icon } from "@/shared/ui/Icon";
 import images from "assets/images";
 import { Image } from "expo-image";
 import React from "react";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 
 interface Props {
   image: string;
@@ -19,10 +19,7 @@ export const Card: React.FC<Props> = ({ image, name }) => {
         <Flex align="start" justify="between">
           <Flex className="gap-x-3">
             <View className="w-[44px] h-[44px] rounded-full overflow-hidden">
-              <Image
-                source={image}
-                className="w-full h-full object-cover object-center"
-              />
+              <Image source={image} style={{ width: "100%", height: "100%" }} />
             </View>
             <View className="-space-y-0.5">
               <Text className="text-textPrimary text-lg font-semibold">
@@ -31,17 +28,19 @@ export const Card: React.FC<Props> = ({ image, name }) => {
               <Text className="text-grayPrimary text-[13.3px]">Гость</Text>
             </View>
           </Flex>
-          <Flex>
+          <Flex className="gap-x-3">
             <Text className="text-textPrimary font-semibold text-[13.8px]">
               09.05.24
             </Text>
-            <Icon type="heart" className="ml-3.5 mr-2" />
-            <Icon
-              type="verticalTripleDots"
-              width={20}
-              height={20}
-              fill={COLORS.textPrimary}
-            />
+            <Flex className="gap-x-1">
+              <Icon type="heart" className="" />
+              <Icon
+                type="verticalTripleDots"
+                width={20}
+                height={20}
+                fill={COLORS.textPrimary}
+              />
+            </Flex>
           </Flex>
         </Flex>
         <View className="mt-2">
@@ -75,12 +74,9 @@ export const Card: React.FC<Props> = ({ image, name }) => {
                     2
                   </Text>
                 </Flex>
-                <Icon
-                  type="dislike"
-                  width={25}
-                  height={25}
-                  className="translate-y-[3px]"
-                />
+                <Pressable className="translate-y-[3px]">
+                  <Icon type="dislike" width={25} height={25} />
+                </Pressable>
               </Flex>
               <Flex className="gap-x-2.5">
                 <Flex className="gap-x-2">
