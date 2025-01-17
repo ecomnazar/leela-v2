@@ -7,7 +7,6 @@ import { Text, View } from "react-native";
 import { Flex } from "@/shared/ui/Flex";
 import { Icon } from "@/shared/ui/Icon";
 import { Search } from "@/widgets/search";
-import { StoryView } from "./StoryView";
 
 export const MainPage = () => {
   return (

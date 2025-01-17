@@ -1,4 +1,5 @@
 import { COLORS } from "@/shared/constants/colors";
+import { Badge } from "@/shared/ui/Badge";
 import { Container } from "@/shared/ui/Container";
 import { Flex } from "@/shared/ui/Flex";
 import { Icon } from "@/shared/ui/Icon";
@@ -45,16 +46,8 @@ export const Card: React.FC<Props> = ({ image, name }) => {
         </Flex>
         <View className="mt-2">
           <Flex className="gap-x-2">
-            <View className="bg-[#B3A6D3] w-fit px-2.5 py-1 rounded-full">
-              <Text className="text-white font-semibold text-[12px] uppercase">
-                Нутрициология
-              </Text>
-            </View>
-            <View className="bg-[#EDD3CC] w-fit px-2.5 py-1 rounded-full">
-              <Text className="text-white font-semibold text-[12px] uppercase">
-                КРАСОТА
-              </Text>
-            </View>
+            <Badge color="#B3A6D3">Нутрициология</Badge>
+            <Badge color="#EDD3CC">КРАСОТА</Badge>
           </Flex>
           <View className="mt-1.5">
             <Text className="text-[#353848] opacity-80 text-lg font-semibold">
