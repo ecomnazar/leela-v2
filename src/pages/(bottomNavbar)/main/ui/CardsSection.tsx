@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "./Card";
 import images from "assets/images";
 import { Flex } from "@/shared/ui/Flex";
-import { Text, View } from "react-native";
+import { Animated, Text, View } from "react-native";
 import { Container } from "@/shared/ui/Container";
 import ChevronIcon from "assets/icons/chevron.svg";
 import { COLORS } from "@/shared/constants/colors";
@@ -29,11 +29,94 @@ const cards = [
     name: "Оксана",
     image: images.stories5,
   },
+  {
+    name: "Алена",
+    image: images.stories1,
+  },
+  {
+    name: "Евгений",
+    image: images.stories2,
+  },
+  {
+    name: "Анжелика",
+    image: images.stories3,
+  },
+  {
+    name: "Юрий",
+    image: images.stories4,
+  },
+  {
+    name: "Оксана",
+    image: images.stories5,
+  },
+  {
+    name: "Алена",
+    image: images.stories1,
+  },
+  {
+    name: "Евгений",
+    image: images.stories2,
+  },
+  {
+    name: "Анжелика",
+    image: images.stories3,
+  },
+  {
+    name: "Юрий",
+    image: images.stories4,
+  },
+  {
+    name: "Оксана",
+    image: images.stories5,
+  },
+  {
+    name: "Алена",
+    image: images.stories1,
+  },
+  {
+    name: "Евгений",
+    image: images.stories2,
+  },
+  {
+    name: "Анжелика",
+    image: images.stories3,
+  },
+  {
+    name: "Юрий",
+    image: images.stories4,
+  },
+  {
+    name: "Оксана",
+    image: images.stories5,
+  },
 ];
 
-export const CardsSection = () => {
+const MAX = 200;
+const MIN = 100;
+const DIS = MAX - MIN;
+
+const DynamicHeader = ({ value }: { value: Animated.Value }) => {
+  const animatedHeaderHeight = value.interpolate({
+    inputRange: [0, DIS],
+    outputRange: [MAX, MIN],
+    extrapolate: "clamp",
+  });
+  return (
+    <Animated.View
+      style={{ height: animatedHeaderHeight }}
+      className={"w-24 bg-red-300"}
+    ></Animated.View>
+  );
+};
+
+interface Props {
+  scrollOffsetY: Animated.Value;
+}
+
+export const CardsSection: React.FC<Props> = ({ scrollOffsetY }) => {
   return (
     <>
+      {/* <DynamicHeader value={scrollOffsetY} /> */}
       <Container className="mt-6">
         <View className="gap-y-2.5">
           <Flex justify="between">
@@ -58,12 +141,23 @@ export const CardsSection = () => {
         </View>
       </Container>
       <View className="h-[1.5px] w-full bg-[#D2D4D5] mt-4" />
-      <CustomScrollView hasBottomBar>
+      <CustomScrollView
+        hasBottomBar
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: { y: scrollOffsetY },
+              },
+            },
+          ],
+          { useNativeDriver: false }
+        )}
+        scrollEventThrottle={16} // Оптимальная частота обновления
+      >
         <View className="gap-y-3 mt-3">
-          {cards.map((item) => {
-            return (
-              <Card key={item.image} image={item.image} name={item.name} />
-            );
+          {cards.map((item, index) => {
+            return <Card key={index} image={item.image} name={item.name} />;
           })}
         </View>
       </CustomScrollView>

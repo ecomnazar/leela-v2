@@ -4,7 +4,6 @@ import { Container } from "@/shared/ui/Container";
 import { Pressable, TextInput, View } from "react-native";
 import SettingIcon from "assets/icons/settings.svg";
 import SearchIcon from "assets/icons/search.svg";
-import { useTheme } from "@/shared/theme/useTheme";
 
 export const Search = () => {
   return (

@@ -3,7 +3,7 @@ import images from "assets/images";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
-import { ScrollView, Text, View } from "react-native";
+import { Animated, Platform, ScrollView, Text, View } from "react-native";
 
 const stories = [
   {
@@ -32,18 +32,40 @@ const stories = [
     image: images.stories5,
   },
 ];
-export const Stories = () => {
+
+const STORIES_MIN_HEIGHT = 0;
+const STORIES_MAX_HEIGHT = Platform.OS === "web" ? 700 : 200;
+const DIS = STORIES_MAX_HEIGHT - STORIES_MIN_HEIGHT;
+
+interface Props {
+  value: Animated.Value;
+}
+
+export const Stories: React.FC<Props> = ({ value }) => {
+  const animatedHeight = value.interpolate({
+    inputRange: [0, DIS],
+    outputRange: [STORIES_MAX_HEIGHT, STORIES_MIN_HEIGHT],
+    extrapolate: "clamp",
+  });
+
   return (
-    <ScrollView
-      className="mt-20 h-[200px]"
-      contentContainerClassName="px-4"
+    <Animated.ScrollView
+      style={{
+        height: animatedHeight,
+        marginTop: Platform.select({
+          android: 84,
+          web: 64,
+          ios: 105,
+        }),
+      }}
+      contentContainerStyle={{ paddingHorizontal: 16 }}
       showsHorizontalScrollIndicator={false}
       horizontal
     >
       <Flex className="gap-x-3">
         {stories.map((story) => {
           return (
-            <View key={story.image}>
+            <View key={story.name}>
               <View className="w-[72px] h-[72px] relative rounded-full overflow-hidden flex items-center justify-center p-0.5">
                 <LinearGradient
                   colors={["#E5BF85", "#FF5752", "#FFAD01"]}
@@ -69,6 +91,6 @@ export const Stories = () => {
           );
         })}
       </Flex>
-    </ScrollView>
+    </Animated.ScrollView>
   );
 };

@@ -16,8 +16,8 @@ export const Card = () => {
             style={{ width: "100%", height: "100%" }}
           />
         </View>
-        <View style={{ flexShrink: 1 }} className="h-full justify-between py-1">
-          <View>
+        <View className="py-1 flex-1 h-[92px]">
+          <View className="">
             <Text
               className="text-textPrimary text-[12.8px] font-semibold"
               numberOfLines={1}
@@ -33,7 +33,7 @@ export const Card = () => {
               Являясь всего лишь частью общей картины, ключевые...
             </Text>
           </View>
-          <View>
+          <View className="mt-auto">
             <Flex justify="between">
               <Flex className="gap-x-1">
                 <Icon type="coinLight" width={20} height={20} />

@@ -4,18 +4,18 @@ import { Stories } from "./Stories";
 import { Search } from "@/widgets/search";
 import { FixedButton } from "./FixedButton";
 import { Screen } from "@/widgets/_layouts/Screen";
-import { CustomScrollView } from "@/shared/ui/CustomScrollView";
+import { Animated } from "react-native";
 
 export const MainPage = () => {
+  const scrollOffsetY = React.useRef(new Animated.Value(0)).current;
+
   return (
     <>
       <Screen>
-        <Stories />
+        <Stories value={scrollOffsetY} />
         <Search />
-        {/* <CustomScrollView hasBottomBar> */}
-        <CardsSection />
-        {/* </CustomScrollView> */}
-        <FixedButton />
+        <CardsSection scrollOffsetY={scrollOffsetY} />
+        <FixedButton scrollOffsetY={scrollOffsetY} />
       </Screen>
       {/* <StoryView /> */}
     </>
