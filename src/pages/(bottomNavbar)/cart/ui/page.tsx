@@ -8,7 +8,7 @@ import { Cards } from "./Cards";
 
 export const CartPage = () => {
   return (
-    <Screen>
+    <Screen centerTitle="МАРКЕТ">
       <CustomScrollView hasBottomBar hasHeader>
         <Categories />
         <Search />

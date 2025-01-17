@@ -7,8 +7,6 @@ import SearchIcon from "assets/icons/search.svg";
 import { useTheme } from "@/shared/theme/useTheme";
 
 export const Search = () => {
-  const { theme } = useTheme();
-
   return (
     <Container className="mt-4">
       <Flex justify="between" align="center">

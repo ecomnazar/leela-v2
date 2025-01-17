@@ -1,10 +1,10 @@
+import React from "react";
 import { useTheme } from "@/shared/theme/useTheme";
 import { BasicPageHeader } from "@/widgets/basicPageHeader";
 import images from "assets/images";
 import clsx from "clsx";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
-import React from "react";
 import { Dimensions, Platform, View } from "react-native";
 
 interface Props {
@@ -14,6 +14,7 @@ interface Props {
   enableHuman?: boolean;
   customHumanGradientColors?: [string, string, string, string];
   title?: string;
+  centerTitle?: string;
   disableHeader?: boolean;
 }
 
@@ -25,6 +26,7 @@ export const Screen: React.FC<Props> = ({
   customHumanGradientColors,
   title,
   disableHeader,
+  centerTitle,
 }) => {
   const { theme } = useTheme();
 
@@ -32,7 +34,6 @@ export const Screen: React.FC<Props> = ({
     theme === "light"
       ? ["#FDFEFF", "#FDFEFF", "#FDFEFF", "#FDFEFF"]
       : ["#FDFEFF", "#FDFEFF", "#FDFEFF", "#FDFEFF"];
-  // : ["#2F1A34", "#351D32", "#3A202F", "#3A202F"];
 
   const humanGradientColors: [string, string, string, string] =
     theme === "light"
@@ -48,7 +49,9 @@ export const Screen: React.FC<Props> = ({
         // "pb-[100px]": hasBottomBar,
       })}
     >
-      {!disableHeader && <BasicPageHeader title={title} />}
+      {!disableHeader && (
+        <BasicPageHeader title={title} centerTitle={centerTitle} />
+      )}
       {enableHuman && (
         <View
           className={clsx(

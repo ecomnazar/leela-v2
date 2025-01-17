@@ -6,6 +6,7 @@ import { Text, View } from "react-native";
 import { Container } from "@/shared/ui/Container";
 import ChevronIcon from "assets/icons/chevron.svg";
 import { COLORS } from "@/shared/constants/colors";
+import { CustomScrollView } from "@/shared/ui/CustomScrollView";
 
 const cards = [
   {
@@ -56,12 +57,16 @@ export const CardsSection = () => {
           </Flex>
         </View>
       </Container>
-      <View className="h-[1.5px] w-full bg-[#D2D4D5] mt-4 mb-3" />
-      <View className="gap-y-3">
-        {cards.map((item) => {
-          return <Card key={item.image} image={item.image} name={item.name} />;
-        })}
-      </View>
+      <View className="h-[1.5px] w-full bg-[#D2D4D5] mt-4" />
+      <CustomScrollView hasBottomBar>
+        <View className="gap-y-3 mt-3">
+          {cards.map((item) => {
+            return (
+              <Card key={item.image} image={item.image} name={item.name} />
+            );
+          })}
+        </View>
+      </CustomScrollView>
     </>
   );
 };

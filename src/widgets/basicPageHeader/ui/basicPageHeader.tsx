@@ -11,9 +11,10 @@ import BellIcon from "assets/icons/bell.svg";
 
 interface Props {
   title?: string;
+  centerTitle?: string;
 }
 
-export const BasicPageHeader: React.FC<Props> = ({ title }) => {
+export const BasicPageHeader: React.FC<Props> = ({ title, centerTitle }) => {
   return (
     <Container
       className={clsx("absolute w-full z-[10]", {
@@ -33,6 +34,14 @@ export const BasicPageHeader: React.FC<Props> = ({ title }) => {
               {title}
             </Text>
           </Flex>
+        )}
+        {centerTitle && (
+          <Text
+            className="absolute left-1/2 text-textPrimary text-[18px] font-medium"
+            style={{ transform: [{ translateX: "-50%" }] }}
+          >
+            {centerTitle}
+          </Text>
         )}
         <Flex className="gap-x-2">
           <BellIcon width={23} height={25} fill={"#93989B"} />

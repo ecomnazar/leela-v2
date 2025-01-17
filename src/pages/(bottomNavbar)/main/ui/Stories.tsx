@@ -35,7 +35,7 @@ const stories = [
 export const Stories = () => {
   return (
     <ScrollView
-      className="mt-6"
+      className="mt-20 h-[200px]"
       contentContainerClassName="px-4"
       showsHorizontalScrollIndicator={false}
       horizontal
