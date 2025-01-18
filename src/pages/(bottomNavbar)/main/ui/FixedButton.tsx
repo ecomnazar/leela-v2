@@ -1,27 +1,32 @@
 import React from "react";
 import { Flex } from "@/shared/ui/Flex";
 import { Icon } from "@/shared/ui/Icon";
-import { Animated, Platform, Text, View } from "react-native";
+import { Animated, Platform, Pressable, Text, View } from "react-native";
 import { COLORS } from "@/shared/constants/colors";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
+import { useModal } from "@/shared/zustand/useModal";
 
 export const FixedButton = () => {
+  const { openModal } = useModal();
   const { scrollOffsetY } = React.useContext(MainPageContext);
 
   const buttonWidth = scrollOffsetY.interpolate({
-    inputRange: [0, 20], // Измените на нужные значения
-    outputRange: [Platform.OS === "web" ? 202 : 184, 51], // Начальная и конечная ширина кнопки
-    extrapolate: "clamp", // Ограничиваем анимацию, чтобы не выходила за пределы
-  });
-
-  const textOpacity = scrollOffsetY.interpolate({
-    inputRange: [0, 20], // Тоже измените в зависимости от вашего случая
-    outputRange: [1, 0], // Плавно исчезает текст
+    inputRange: [0, 20],
+    outputRange: [Platform.OS === "web" ? 202 : 184, 51],
     extrapolate: "clamp",
   });
 
+  const textOpacity = scrollOffsetY.interpolate({
+    inputRange: [0, 20],
+    outputRange: [1, 0],
+    extrapolate: "clamp",
+  });
+
+  const handleClick = () => openModal("create-account");
+
   return (
-    <View
+    <Pressable
+      onPress={handleClick}
       className="absolute right-0 z-10 pr-4 items-end"
       style={{
         bottom: Platform.select({
@@ -36,7 +41,7 @@ export const FixedButton = () => {
       </View>
       <Animated.View
         style={{
-          width: buttonWidth, // Применяем анимацию ширины,
+          width: buttonWidth,
           height: 51,
           borderRadius: 999,
           backgroundColor: COLORS.yellowPrimary,
@@ -48,15 +53,6 @@ export const FixedButton = () => {
           align="center"
           className="gap-x-1.5 -translate-y-[1px]"
         >
-          {/* <View className="w-[15px] h-[15px] pl-10">
-            <Icon
-              type="plus"
-              fill="#FFFFFF"
-              width={15}
-              height={15}
-              // className="translate-y-[1px]"
-            />
-          </View> */}
           <Animated.View style={{ opacity: textOpacity }}>
             <Text
               numberOfLines={1}
@@ -72,6 +68,6 @@ export const FixedButton = () => {
           </Animated.View>
         </Flex>
       </Animated.View>
-    </View>
+    </Pressable>
   );
 };

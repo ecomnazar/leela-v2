@@ -15,13 +15,11 @@ interface Props {
 export const BottomSheet: React.FC<Props> = ({ isOpen, onClose, children }) => {
   const bottomSheetModalRef = React.useRef<BottomSheetModal>(null);
 
-  const handlePresentModalPress = React.useCallback(() => {
-    bottomSheetModalRef.current?.present();
-  }, []);
+  const handlePresentModalPress = () => bottomSheetModalRef.current?.present();
 
-  const handleSheetChanges = React.useCallback((index: number) => {
-    onClose();
-  }, []);
+  const handleSheetChanges = (index: number) => {
+    if (index === -1) onClose();
+  };
 
   React.useEffect(() => {
     if (isOpen) {

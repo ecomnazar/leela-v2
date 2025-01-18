@@ -24,7 +24,7 @@ export const Badge: React.FC<Props> = ({
       })}
     >
       <Text
-        className={clsx("text-white font-bold uppercase", {
+        className={clsx("text-white font-bold", {
           "text-[12px]": size === "medium",
           "text-[11px]": size === "small",
         })}

@@ -4,11 +4,9 @@ import { Stories } from "./Stories";
 import { Search } from "@/widgets/search";
 import { FixedButton } from "./FixedButton";
 import { Screen } from "@/widgets/_layouts/Screen";
-import { Animated } from "react-native";
+import { AskQuestionModal } from "./modals/AskQuestionModal";
 
 export const MainPage = () => {
-  // const scrollOffsetY = React.useRef(new Animated.Value(0)).current;
-
   return (
     <>
       <Screen>
@@ -18,6 +16,8 @@ export const MainPage = () => {
         <FixedButton />
       </Screen>
       {/* <StoryView /> */}
+      {/* modals */}
+      <AskQuestionModal />
     </>
   );
 };
