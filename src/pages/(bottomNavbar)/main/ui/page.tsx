@@ -7,15 +7,15 @@ import { Screen } from "@/widgets/_layouts/Screen";
 import { Animated } from "react-native";
 
 export const MainPage = () => {
-  const scrollOffsetY = React.useRef(new Animated.Value(0)).current;
+  // const scrollOffsetY = React.useRef(new Animated.Value(0)).current;
 
   return (
     <>
       <Screen>
-        <Stories value={scrollOffsetY} />
+        <Stories />
         <Search />
-        <CardsSection scrollOffsetY={scrollOffsetY} />
-        <FixedButton scrollOffsetY={scrollOffsetY} />
+        <CardsSection />
+        <FixedButton />
       </Screen>
       {/* <StoryView /> */}
     </>

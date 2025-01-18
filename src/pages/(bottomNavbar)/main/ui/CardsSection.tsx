@@ -7,6 +7,7 @@ import { Container } from "@/shared/ui/Container";
 import ChevronIcon from "assets/icons/chevron.svg";
 import { COLORS } from "@/shared/constants/colors";
 import { CustomScrollView } from "@/shared/ui/CustomScrollView";
+import { MainPageContext } from "@/shared/providers/mainPageProvider";
 
 const cards = [
   {
@@ -109,11 +110,9 @@ const DynamicHeader = ({ value }: { value: Animated.Value }) => {
   );
 };
 
-interface Props {
-  scrollOffsetY: Animated.Value;
-}
+export const CardsSection = () => {
+  const { scrollOffsetY } = React.useContext(MainPageContext);
 
-export const CardsSection: React.FC<Props> = ({ scrollOffsetY }) => {
   return (
     <>
       {/* <DynamicHeader value={scrollOffsetY} /> */}

@@ -3,20 +3,19 @@ import { Flex } from "@/shared/ui/Flex";
 import { Icon } from "@/shared/ui/Icon";
 import { Animated, Platform, Text, View } from "react-native";
 import { COLORS } from "@/shared/constants/colors";
+import { MainPageContext } from "@/shared/providers/mainPageProvider";
 
-interface Props {
-  scrollOffsetY: Animated.Value;
-}
+export const FixedButton = () => {
+  const { scrollOffsetY } = React.useContext(MainPageContext);
 
-export const FixedButton: React.FC<Props> = ({ scrollOffsetY }) => {
   const buttonWidth = scrollOffsetY.interpolate({
-    inputRange: [0, 500], // Измените на нужные значения
+    inputRange: [0, 20], // Измените на нужные значения
     outputRange: [Platform.OS === "web" ? 202 : 184, 51], // Начальная и конечная ширина кнопки
     extrapolate: "clamp", // Ограничиваем анимацию, чтобы не выходила за пределы
   });
 
   const textOpacity = scrollOffsetY.interpolate({
-    inputRange: [0, 500], // Тоже измените в зависимости от вашего случая
+    inputRange: [0, 20], // Тоже измените в зависимости от вашего случая
     outputRange: [1, 0], // Плавно исчезает текст
     extrapolate: "clamp",
   });

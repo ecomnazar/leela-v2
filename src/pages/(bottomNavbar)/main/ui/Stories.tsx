@@ -1,3 +1,4 @@
+import { MainPageContext } from "@/shared/providers/mainPageProvider";
 import { Flex } from "@/shared/ui/Flex";
 import images from "assets/images";
 import { Image } from "expo-image";
@@ -37,12 +38,9 @@ const STORIES_MIN_HEIGHT = 0;
 const STORIES_MAX_HEIGHT = Platform.OS === "web" ? 700 : 200;
 const DIS = STORIES_MAX_HEIGHT - STORIES_MIN_HEIGHT;
 
-interface Props {
-  value: Animated.Value;
-}
-
-export const Stories: React.FC<Props> = ({ value }) => {
-  const animatedHeight = value.interpolate({
+export const Stories = () => {
+  const { scrollOffsetY } = React.useContext(MainPageContext);
+  const animatedHeight = scrollOffsetY.interpolate({
     inputRange: [0, DIS],
     outputRange: [STORIES_MAX_HEIGHT, STORIES_MIN_HEIGHT],
     extrapolate: "clamp",
