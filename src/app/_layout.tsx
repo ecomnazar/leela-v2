@@ -11,9 +11,43 @@ import { Platform } from "react-native";
 import { PortalProvider } from "@/shared/ui/Portal";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { ReduxProvider } from "@/shared/store/provider";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+const App = () => {
+  return (
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        animation: Platform.OS === "ios" ? "fade" : "none",
+        presentation: "transparentModal",
+      }}
+    >
+      <Stack.Screen name="(bottomNavbar)" />
+      <Stack.Screen name="calendar" />
+      <Stack.Screen name="chat" />
+    </Stack>
+  );
+};
+
+const RootLayoutProvider = () => {
+  return (
+    <ThemeProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <ReduxProvider>
+          <BottomSheetModalProvider>
+            <PortalProvider>
+              <StatusBar style="inverted" />
+              <App />
+            </PortalProvider>
+          </BottomSheetModalProvider>
+        </ReduxProvider>
+      </GestureHandlerRootView>
+    </ThemeProvider>
+  );
+};
 
 export default function RootLayout() {
   const [loaded] = useFonts({
@@ -30,28 +64,5 @@ export default function RootLayout() {
     return null;
   }
 
-  return (
-    <>
-      <ThemeProvider>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <BottomSheetModalProvider>
-            <PortalProvider>
-              <Stack
-                screenOptions={{
-                  headerShown: false,
-                  animation: Platform.OS === "ios" ? "fade" : "none",
-                  presentation: "transparentModal",
-                }}
-              >
-                <Stack.Screen name="(bottomNavbar)" />
-                <Stack.Screen name="calendar" />
-                <Stack.Screen name="chat" />
-              </Stack>
-              <StatusBar style="inverted" />
-            </PortalProvider>
-          </BottomSheetModalProvider>
-        </GestureHandlerRootView>
-      </ThemeProvider>
-    </>
-  );
+  return <RootLayoutProvider />;
 }
