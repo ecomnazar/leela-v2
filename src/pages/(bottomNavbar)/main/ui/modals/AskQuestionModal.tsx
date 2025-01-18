@@ -9,10 +9,12 @@ import React from "react";
 import { Text, TextInput, View } from "react-native";
 
 export const AskQuestionModal = () => {
-  const { isOpen, closeModal } = useModal();
+  const { isOpen, closeModal, type } = useModal();
+
+  const open = isOpen && type === "ask-question";
 
   return (
-    <BottomSheet isOpen={isOpen} onClose={closeModal}>
+    <BottomSheet isOpen={open} onClose={closeModal}>
       <Container>
         <Text className="text-textPrimary text-[30px] text-center font-medium mt-4">
           Задать вопрос

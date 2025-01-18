@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Card } from "./Card";
 import images from "assets/images";
 import { Flex } from "@/shared/ui/Flex";
-import { Animated, Text, View } from "react-native";
+import { Animated, Pressable, Text, View } from "react-native";
 import { Container } from "@/shared/ui/Container";
 import ChevronIcon from "assets/icons/chevron.svg";
 import { COLORS } from "@/shared/constants/colors";
 import { CustomScrollView } from "@/shared/ui/CustomScrollView";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
+import { useModal } from "@/shared/zustand/useModal";
 
 const cards = [
   {
@@ -111,7 +112,10 @@ const DynamicHeader = ({ value }: { value: Animated.Value }) => {
 };
 
 export const CardsSection = () => {
+  const { openModal } = useModal();
   const { scrollOffsetY } = React.useContext(MainPageContext);
+
+  const handlePress = () => openModal("create-account");
 
   return (
     <>
@@ -132,9 +136,11 @@ export const CardsSection = () => {
                   transform: [{ rotate: "-90deg" }, { translateY: -1 }],
                 }}
               />
-              <Text className="text-grayPrimary text-[12.8px] font-semibold">
-                сначала новые
-              </Text>
+              <Pressable onPress={handlePress}>
+                <Text className="text-grayPrimary text-[12.8px] font-semibold">
+                  сначала новые
+                </Text>
+              </Pressable>
             </Flex>
           </Flex>
         </View>

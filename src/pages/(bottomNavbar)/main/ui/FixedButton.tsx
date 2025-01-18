@@ -22,7 +22,7 @@ export const FixedButton = () => {
     extrapolate: "clamp",
   });
 
-  const handleClick = () => openModal("create-account");
+  const handleClick = () => openModal("ask-question");
 
   return (
     <Pressable

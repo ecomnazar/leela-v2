@@ -10,6 +10,7 @@ import { ThemeProvider } from "@/shared/theme/themeProvider";
 import { Platform } from "react-native";
 import { PortalProvider } from "@/shared/ui/Portal";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -32,22 +33,24 @@ export default function RootLayout() {
   return (
     <>
       <ThemeProvider>
-        <BottomSheetModalProvider>
-          <PortalProvider>
-            <Stack
-              screenOptions={{
-                headerShown: false,
-                animation: Platform.OS === "ios" ? "fade" : "none",
-                presentation: "transparentModal",
-              }}
-            >
-              <Stack.Screen name="(bottomNavbar)" />
-              <Stack.Screen name="calendar" />
-              <Stack.Screen name="chat" />
-            </Stack>
-            <StatusBar style="inverted" />
-          </PortalProvider>
-        </BottomSheetModalProvider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <BottomSheetModalProvider>
+            <PortalProvider>
+              <Stack
+                screenOptions={{
+                  headerShown: false,
+                  animation: Platform.OS === "ios" ? "fade" : "none",
+                  presentation: "transparentModal",
+                }}
+              >
+                <Stack.Screen name="(bottomNavbar)" />
+                <Stack.Screen name="calendar" />
+                <Stack.Screen name="chat" />
+              </Stack>
+              <StatusBar style="inverted" />
+            </PortalProvider>
+          </BottomSheetModalProvider>
+        </GestureHandlerRootView>
       </ThemeProvider>
     </>
   );

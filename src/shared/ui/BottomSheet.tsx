@@ -1,10 +1,11 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
+import { Easing } from "react-native-reanimated";
 
 interface Props {
   isOpen: boolean;
@@ -21,10 +22,24 @@ export const BottomSheet: React.FC<Props> = ({ isOpen, onClose, children }) => {
     if (index === -1) onClose();
   };
 
+  const animationConfigs =
+    Platform.OS !== "web"
+      ? {
+          duration: 500,
+          easing: Easing.out(Easing.cubic),
+        }
+      : null;
+
   React.useEffect(() => {
     if (isOpen) {
       handlePresentModalPress();
     }
+
+    return () => {
+      if (Platform.OS === "web") {
+        bottomSheetModalRef.current?.close();
+      }
+    };
   }, [isOpen]);
 
   return (
@@ -33,6 +48,8 @@ export const BottomSheet: React.FC<Props> = ({ isOpen, onClose, children }) => {
         style={{ zIndex: 20 }}
         ref={bottomSheetModalRef}
         onChange={handleSheetChanges}
+        // @ts-ignore
+        animationConfigs={animationConfigs}
         handleIndicatorStyle={{
           backgroundColor: "#e5e5e5",
           height: 6,
@@ -54,7 +71,7 @@ export const BottomSheet: React.FC<Props> = ({ isOpen, onClose, children }) => {
               width: "100%",
               height: "100%",
             }}
-          ></BottomSheetBackdrop>
+          />
         )}
       >
         <BottomSheetView style={[styles.contentContainer]}>
@@ -73,12 +90,3 @@ const styles = StyleSheet.create({
     position: "relative",
   },
 });
-
-{
-  /* <BlurView
-              style={StyleSheet.absoluteFill}
-              intensity={10}
-              tint="light"
-              experimentalBlurMethod="blur"
-            /> */
-}

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type TModalType = "create-account";
+type TModalType = "create-account" | "ask-question";
 
 interface State {
   type: TModalType;

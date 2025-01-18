@@ -5,6 +5,7 @@ import { Search } from "@/widgets/search";
 import { FixedButton } from "./FixedButton";
 import { Screen } from "@/widgets/_layouts/Screen";
 import { AskQuestionModal } from "./modals/AskQuestionModal";
+import { CreateAccountModal } from "./modals/CreateAccountModal";
 
 export const MainPage = () => {
   return (
@@ -18,6 +19,7 @@ export const MainPage = () => {
       {/* <StoryView /> */}
       {/* modals */}
       <AskQuestionModal />
+      <CreateAccountModal />
     </>
   );
 };
