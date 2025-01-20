@@ -28,6 +28,7 @@ const App = () => {
       <Stack.Screen name="(bottomNavbar)" />
       <Stack.Screen name="calendar" />
       <Stack.Screen name="chat" />
+      <Stack.Screen name="chat/comment" />
     </Stack>
   );
 };

@@ -13,6 +13,7 @@ interface Props {
   showGradient?: boolean;
   enableHuman?: boolean;
   customHumanGradientColors?: [string, string, string, string];
+  customGradientColors?: [string, string, string, string];
   title?: string;
   centerTitle?: string;
   disableHeader?: boolean;
@@ -24,6 +25,7 @@ export const Screen: React.FC<Props> = ({
   showGradient = true,
   enableHuman = false,
   customHumanGradientColors,
+  customGradientColors,
   title,
   disableHeader,
   centerTitle,
@@ -32,7 +34,9 @@ export const Screen: React.FC<Props> = ({
 
   const backgroundGradientColors: [string, string, string, string] =
     theme === "light"
-      ? ["#FDFEFF", "#FDFEFF", "#FDFEFF", "#FDFEFF"]
+      ? customGradientColors
+        ? customGradientColors
+        : ["#FDFEFF", "#FDFEFF", "#FDFEFF", "#FDFEFF"]
       : ["#FDFEFF", "#FDFEFF", "#FDFEFF", "#FDFEFF"];
 
   const humanGradientColors: [string, string, string, string] =

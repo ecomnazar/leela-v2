@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "./Card";
 import images from "assets/images";
 import { Flex } from "@/shared/ui/Flex";
 import { Animated, Pressable, Text, View } from "react-native";
@@ -9,6 +8,7 @@ import { COLORS } from "@/shared/constants/colors";
 import { CustomScrollView } from "@/shared/ui/CustomScrollView";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
 import { useModal } from "@/shared/zustand/useModal";
+import { PostCard } from "@/entities/ui/postCard";
 
 const cards = [
   {
@@ -160,9 +160,16 @@ export const CardsSection = () => {
         )}
         scrollEventThrottle={16} // Оптимальная частота обновления
       >
-        <View className="gap-y-3 mt-3">
+        <View className="gap-y-3 mt-1">
           {cards.map((item, index) => {
-            return <Card key={index} image={item.image} name={item.name} />;
+            return (
+              <PostCard
+                key={index}
+                image={item.image}
+                name={item.name}
+                role="Гость"
+              />
+            );
           })}
         </View>
       </CustomScrollView>

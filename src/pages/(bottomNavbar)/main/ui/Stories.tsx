@@ -1,3 +1,4 @@
+import { StoryAvatar } from "@/entities/ui/storyAvatar";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
 import { Flex } from "@/shared/ui/Flex";
 import images from "assets/images";
@@ -63,29 +64,13 @@ export const Stories = () => {
       <Flex className="gap-x-3">
         {stories.map((story) => {
           return (
-            <View key={story.name}>
-              <View className="w-[72px] h-[72px] relative rounded-full overflow-hidden flex items-center justify-center p-0.5">
-                <LinearGradient
-                  colors={["#E5BF85", "#FF5752", "#FFAD01"]}
-                  style={{
-                    position: "absolute",
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    top: 0,
-                  }}
-                />
-                <View className="w-full h-full bg-white rounded-full p-0.5">
-                  <Image
-                    source={story.image}
-                    style={{ width: "100%", height: "100%" }}
-                  />
-                </View>
-              </View>
-              <Text className="text-textPrimary text-[11px] font-normal text-center mt-1">
-                {story.name}
-              </Text>
-            </View>
+            <StoryAvatar
+              key={story.name}
+              image={story.image}
+              name={story.name}
+              size="medium"
+              isActive={true}
+            />
           );
         })}
       </Flex>
