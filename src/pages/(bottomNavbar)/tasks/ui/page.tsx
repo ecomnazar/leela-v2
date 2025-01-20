@@ -1,70 +1,59 @@
 import { useTheme } from "@/shared/theme/useTheme";
-import { CardHorizontal } from "@/shared/ui/CardHorizontal";
-import { Coin } from "@/shared/ui/Coin";
 import { Container } from "@/shared/ui/Container";
 import { CustomScrollView } from "@/shared/ui/CustomScrollView";
 import { Flex } from "@/shared/ui/Flex";
 import { RoundedIcon } from "@/shared/ui/RoundedIcon";
 import { Screen } from "@/widgets/_layouts/Screen";
-import images from "assets/images";
-import { Image } from "expo-image";
 import React from "react";
-import { Platform, Text, View } from "react-native";
-import TickIcon from "assets/icons/tick.svg";
+import { Text, View } from "react-native";
 import clsx from "clsx";
+import { Icon } from "@/shared/ui/Icon";
+import { PlanCard } from "./PlanCard";
+
+const VerticalLine = () => (
+  <View
+    className="w-[1px] bg-white h-[60px]"
+    style={{ transform: [{ translateY: 4 }] }}
+  />
+);
+const Dot = ({ active }: { active?: boolean }) => {
+  return (
+    <View
+      className={clsx(
+        "rounded-full border-[2.5px] flex items-center justify-center w-8 h-8",
+        {
+          "bg-white border-transparent": active,
+          "border-white": !active,
+        }
+      )}
+    >
+      {active && <Icon type="tick" fill={"#509193"} width={18} height={18} />}
+    </View>
+  );
+};
+
+const tasks = [
+  true,
+  true,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+];
 
 export const TasksPage = () => {
-  const { theme } = useTheme();
-
-  const renderMegaDot = (active: boolean) => {
-    return (
-      <View
-        className={clsx(
-          "rounded-full border-[2.5px] flex items-center justify-center",
-          {
-            "bg-primary100 border-transparent w-9 h-9": active,
-            "w-7 h-7 border-white": !active,
-          }
-        )}
-      >
-        {active && <TickIcon width={18} height={18} fill={"#FFF"} />}
-      </View>
-    );
-  };
-
-  const renderMiniDot = () => {
-    return (
-      <View
-        className={clsx("w-1.5 h-1.5 rounded-full", {
-          "bg-white": theme === "light",
-          "bg-white/20": theme === "dark",
-        })}
-      ></View>
-    );
-  };
-
-  const renderMiniDots = () => {
-    return (
-      <View
-        className={clsx("my-1.5", {
-          "gap-y-[5px]": Platform.OS === "web",
-          "gap-y-2": Platform.OS !== "web",
-        })}
-      >
-        {Array.from({ length: 5 }).map((_, index) => {
-          return <React.Fragment key={index}>{renderMiniDot()}</React.Fragment>;
-        })}
-      </View>
-    );
-  };
-
   return (
     <Screen enableHuman>
       <CustomScrollView paddingTop={250} hasBottomBar>
         <Container>
           <Flex align="end" justify="between">
             <View>
-              <Text className="text-white text-6xl">Задачи на{"\n"}день</Text>
+              <Text className="text-white text-6xl">План</Text>
               <Text className="text-white text-md font-medium mt-2">
                 Обновляем через: 07:36
               </Text>
@@ -75,69 +64,32 @@ export const TasksPage = () => {
 
         <Container className="mt-6">
           <Flex justify="between" align="start">
-            <View className="w-[13%] items-center translate-y-7">
-              {renderMegaDot(true)}
-              {renderMiniDots()}
-              {renderMegaDot(true)}
-              {renderMiniDots()}
-              {renderMegaDot(false)}
-              {renderMiniDots()}
-              {renderMegaDot(false)}
-              {renderMiniDots()}
-            </View>
-
-            <View className="w-[84%] gap-y-2">
-              {Array.from({ length: 4 }).map((_, index) => {
+            {/* <View className="w-[13%] items-center">
+              {tasks.map((item, index) => {
                 return (
-                  <CardHorizontal key={index} className="!h-[86px] !p-1">
-                    <View className="h-full w-24 bg-grayPrimary/40 rounded-2xl overflow-hidden">
-                      <Image
-                        source={images.groupExample1}
-                        style={{ width: "100%", height: "100%" }}
-                      />
+                  <View key={index} className="items-center">
+                    <Dot active={item} />
+                    <VerticalLine />
+                  </View>
+                );
+              })}
+            </View> */}
+
+            <View className="gap-y-2 flex-1">
+              {tasks.map((item, index) => {
+                return (
+                  <Flex key={index} justify="between" align="start">
+                    <View
+                      className="w-[13%] items-center"
+                      style={{ transform: [{ translateY: 30 }] }}
+                    >
+                      <Dot active={item} />
+                      <VerticalLine />
                     </View>
-                    <View>
-                      <Text
-                        className={clsx(
-                          "text-textPrimary dark:text-white/75 font-semibold",
-                          {
-                            "text-base": Platform.OS === "web",
-                            "text-xl": Platform.OS !== "web",
-                          }
-                        )}
-                      >
-                        Про “no names”
-                      </Text>
-                      <Text
-                        className={clsx(
-                          "text-grayPrimary dark:text-white/75  font-semibold",
-                          {
-                            "text-xs": Platform.OS === "web",
-                            "text-sm": Platform.OS !== "web",
-                          }
-                        )}
-                      >
-                        No names
-                      </Text>
-                      <Flex className="mt-1 gap-x-0.5">
-                        <Text
-                          className={clsx(
-                            "text-textPrimary dark:text-white font-bold mt-1",
-                            {
-                              "text-xs": Platform.OS === "web",
-                              "text-sm": Platform.OS !== "web",
-                            }
-                          )}
-                        >
-                          +2,250
-                        </Text>
-                        <Coin
-                          className="scale-[0.9] translate-y-0.5"
-                          mode={theme === "light" ? "light" : "dark"}
-                        />
-                      </Flex>
+                    <View className="w-[84%]">
+                      <PlanCard isEnable={item} />
                     </View>
-                  </CardHorizontal>
+                  </Flex>
                 );
               })}
             </View>

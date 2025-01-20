@@ -11,6 +11,8 @@ import CourseIcon from "assets/icons/market/course.svg";
 import LicenseIcon from "assets/icons/market/license.svg";
 import CoinLightIcon from "assets/icons/coinLight.svg";
 import ChevronIcon from "assets/icons/chevron.svg";
+import TickIcon from "assets/icons/tickIcon.svg";
+import LockIcon from "assets/icons/lock.svg";
 
 import clsx from "clsx";
 
@@ -28,7 +30,9 @@ interface Props {
     | "course"
     | "license"
     | "coinLight"
-    | "chevron";
+    | "chevron"
+    | "tick"
+    | "lock";
   width?: number;
   height?: number;
   fill?: string;
@@ -144,6 +148,22 @@ export const Icon: React.FC<Props> = ({
       )}
       {type === "chevron" && (
         <ChevronIcon
+          className={className}
+          width={width}
+          height={height}
+          fill={fill ? fill : "#000"}
+        />
+      )}
+      {type === "tick" && (
+        <TickIcon
+          className={className}
+          width={width}
+          height={height}
+          fill={fill ? fill : "#000"}
+        />
+      )}
+      {type === "lock" && (
+        <LockIcon
           className={className}
           width={width}
           height={height}
