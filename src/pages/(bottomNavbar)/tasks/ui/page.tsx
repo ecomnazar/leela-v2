@@ -9,6 +9,8 @@ import { Text, View } from "react-native";
 import clsx from "clsx";
 import { Icon } from "@/shared/ui/Icon";
 import { PlanCard } from "./PlanCard";
+import Star from "@/shared/ui/Star";
+import Chart from "@/shared/ui/Chart";
 
 const VerticalLine = () => (
   <View
@@ -16,6 +18,7 @@ const VerticalLine = () => (
     style={{ transform: [{ translateY: 4 }] }}
   />
 );
+
 const Dot = ({ active }: { active?: boolean }) => {
   return (
     <View
@@ -47,9 +50,20 @@ const tasks = [
 ];
 
 export const TasksPage = () => {
+  const [activeIndex, setActiveIndex] = React.useState(1);
+
   return (
-    <Screen enableHuman>
+    <Screen>
       <CustomScrollView paddingTop={250} hasBottomBar>
+        <View className="relative mb-[500px] h-[500px] p-20 flex items-center justify-center bg-gray-200">
+          <View className="absolute z-10 top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+            <Star size={180} />
+          </View>
+          <View className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+            <Chart activeIndex={1} size={360} innerRadius={110}></Chart>
+          </View>
+        </View>
+
         <Container>
           <Flex align="end" justify="between">
             <View>
@@ -64,17 +78,6 @@ export const TasksPage = () => {
 
         <Container className="mt-6">
           <Flex justify="between" align="start">
-            {/* <View className="w-[13%] items-center">
-              {tasks.map((item, index) => {
-                return (
-                  <View key={index} className="items-center">
-                    <Dot active={item} />
-                    <VerticalLine />
-                  </View>
-                );
-              })}
-            </View> */}
-
             <View className="gap-y-2 flex-1">
               {tasks.map((item, index) => {
                 return (
