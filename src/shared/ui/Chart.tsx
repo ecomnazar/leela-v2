@@ -1,19 +1,19 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
-import Svg, { Path, G, Text } from "react-native-svg";
+import { View, StyleSheet, Pressable } from "react-native";
+import Svg, { G, Path, Text } from "react-native-svg";
 
 interface Props {
-  size: number;
-  innerRadius: number;
+  size?: number;
+  innerRadius?: number;
   labels?: string[];
-  activeIndex?: number | null;
+  activeIndex?: number;
 }
 
 const RadarChart: React.FC<Props> = ({
-  size = 320, // Увеличиваем размер SVG
+  size = 320,
   innerRadius = 85,
-  labels = ["A", "B", "C", "D", "E"],
-  activeIndex = null,
+  labels = ["САМОЦЕННОСТЬ", "СЕМЬЯ", "ЗДОРОВЬЕ", "РЕАЛИЗАЦИЯ", "ДЕНЬГИ"],
+  activeIndex = 1,
 }) => {
   const radius = size / 2;
   const centerX = radius;
@@ -26,20 +26,18 @@ const RadarChart: React.FC<Props> = ({
     let activeSection = null;
 
     for (let i = 0; i < labels.length; i++) {
-      const isActive = false;
-      //   const isActive = i === activeIndex;
+      const isActive = i === activeIndex;
       const sectionRadius = radius;
       const sectionCenterY = centerY;
 
-      const startAngle = i * angleStep + Math.PI; // Поворот на 180 градусов
+      const startAngle = i * angleStep + Math.PI;
       const endAngle = (i + 1) * angleStep + Math.PI;
       const x1 = centerX + sectionRadius * Math.sin(startAngle);
       const y1 = sectionCenterY - sectionRadius * Math.cos(startAngle);
       const x2 = centerX + sectionRadius * Math.sin(endAngle);
       const y2 = sectionCenterY - sectionRadius * Math.cos(endAngle);
 
-      // Уменьшаем трансформацию для активной секции, чтобы она не выходила за пределы
-      const scaleFactor = 0.1; // Уменьшаем увеличение для активного сектора
+      const scaleFactor = 0;
       const translateX = isActive
         ? scaleFactor * radius * Math.sin((startAngle + endAngle) / 2)
         : 0;
@@ -50,31 +48,29 @@ const RadarChart: React.FC<Props> = ({
       const section = (
         <G
           key={i}
-          transform={
-            isActive
-              ? `translate(${translateX}, ${translateY})` // Применяем сдвиг только для активной секции
-              : ""
-          }
+          transform={isActive ? `translate(${translateX}, ${translateY})` : ""}
         >
           <Path
             d={`M ${centerX} ${sectionCenterY} L ${x1} ${y1} A ${sectionRadius} ${sectionRadius} 0 0 1 ${x2} ${y2} Z`}
             fill={colors[i]}
+            filter={isActive ? "url(#shadow)" : ""}
           />
-          {/* <Text
+          <Text
             x={
               centerX +
-              (sectionRadius + 20) * Math.sin((startAngle + endAngle) / 2)
+              (sectionRadius - 40) * Math.sin((startAngle + endAngle) / 2)
             }
             y={
               sectionCenterY -
-              (sectionRadius + 20) * Math.cos((startAngle + endAngle) / 2)
+              (sectionRadius - 40) * Math.cos((startAngle + endAngle) / 2)
             }
             textAnchor="middle"
             alignmentBaseline="middle"
-            fontSize={14}
+            fontSize={11}
+            fill={"#FFF"}
           >
             {labels[i]}
-          </Text> */}
+          </Text>
         </G>
       );
 
@@ -101,8 +97,8 @@ const RadarChart: React.FC<Props> = ({
         style={[
           styles.centerContainer,
           {
-            width: innerRadius * 2 * 0.9, // Уменьшаем на 90%
-            height: innerRadius * 2 * 0.9, // Уменьшаем на 90%
+            width: innerRadius * 2 * 0.9,
+            height: innerRadius * 2 * 0.9,
             borderRadius: innerRadius,
           },
         ]}
