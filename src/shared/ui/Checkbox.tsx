@@ -2,8 +2,12 @@ import React from "react";
 import { Pressable, View } from "react-native";
 import TickIcon from "assets/icons/tick.svg";
 
-export const Checkbox = () => {
-  const [isChecked, setIsChecked] = React.useState(false);
+interface Props {
+  checked?: boolean;
+}
+
+export const Checkbox: React.FC<Props> = ({ checked }) => {
+  const [isChecked, setIsChecked] = React.useState(checked ? checked : false);
 
   const handlePress = () => setIsChecked((prev) => !prev);
 

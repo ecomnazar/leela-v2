@@ -4,6 +4,7 @@ import { Container } from "@/shared/ui/Container";
 import { Pressable, TextInput, View } from "react-native";
 import SettingIcon from "assets/icons/settings.svg";
 import SearchIcon from "assets/icons/search.svg";
+import { router } from "expo-router";
 
 export const Search = () => {
   return (
@@ -18,7 +19,7 @@ export const Search = () => {
             <SearchIcon width={19} height={19} />
           </View>
         </View>
-        <Pressable>
+        <Pressable onPress={() => router.push("/mainFilter")}>
           <SettingIcon width={24} height={24} fill={"#8B9497"} />
         </Pressable>
       </Flex>

@@ -17,6 +17,7 @@ module.exports = {
         yellowSecondary: "#D4B685",
         backgroundPrimary: "#313547",
         backgroundSecondary: "#272636",
+        backgroundTertiary: "#FDFEFF",
       },
     },
   },

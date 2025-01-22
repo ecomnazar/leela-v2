@@ -7,7 +7,7 @@ import { NotificationCard } from "./NotificationCard";
 
 export const NotificationsPage = () => {
   return (
-    <View className="w-screen h-screen bg-[#FDFEFF] flex-1">
+    <View className="w-screen h-screen bg-backgroundTertiary flex-1">
       <PageHeader title="Уведомление" />
       <View className="gap-y-4">
         <Container className="mt-4">

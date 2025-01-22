@@ -16,6 +16,7 @@ import LockIcon from "assets/icons/lock.svg";
 import ShineIcon from "assets/icons/shine.svg";
 
 import clsx from "clsx";
+import { ViewStyle } from "react-native";
 
 interface Props {
   type:
@@ -39,6 +40,7 @@ interface Props {
   height?: number;
   fill?: string;
   className?: string;
+  style?: ViewStyle;
 }
 
 export const Icon: React.FC<Props> = ({
@@ -47,6 +49,7 @@ export const Icon: React.FC<Props> = ({
   height = 22,
   fill,
   className,
+  style,
 }) => {
   return (
     <>
@@ -154,6 +157,7 @@ export const Icon: React.FC<Props> = ({
           width={width}
           height={height}
           fill={fill ? fill : "#000"}
+          style={style}
         />
       )}
       {type === "tick" && (

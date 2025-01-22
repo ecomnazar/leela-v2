@@ -31,6 +31,7 @@ const App = () => {
       {/* <Stack.Screen name="chat" /> */}
       <Stack.Screen name="chat/comment/[id]" />
       <Stack.Screen name="notifications" />
+      <Stack.Screen name="mainFilter" />
     </Stack>
   );
 };
