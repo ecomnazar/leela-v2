@@ -5,12 +5,12 @@ import { StarWithChart } from "./StarWithChart";
 import { TasksList } from "./TasksList";
 import { Animated } from "react-native";
 
-export const TasksPage = () => {
+export const PlanPage = () => {
   const scrollOffsetY = new Animated.Value(0);
 
   const animatedOpacity = scrollOffsetY.interpolate({
     inputRange: [0, 1000],
-    outputRange: [1, 0.2], // Adjust the output range as needed
+    outputRange: [1, 0.2],
     extrapolate: "clamp",
   });
 

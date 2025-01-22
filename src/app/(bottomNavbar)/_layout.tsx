@@ -13,7 +13,7 @@ const BottomNavbarLayout = () => {
         }}
       >
         <Tabs.Screen name="index" />
-        <Tabs.Screen name="tasks" />
+        <Tabs.Screen name="plan" />
         <Tabs.Screen name="cart" />
         <Tabs.Screen name="profile" />
       </Tabs>

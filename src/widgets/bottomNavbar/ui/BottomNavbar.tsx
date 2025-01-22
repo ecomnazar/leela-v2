@@ -1,66 +1,29 @@
 import clsx from "clsx";
 import React from "react";
 import { Animated, Platform, Pressable, Text, View } from "react-native";
-import Feather from "@expo/vector-icons/Feather";
-import ChatIcon from "assets/icons/navbar/chat.svg";
-import TasksIcon from "assets/icons/navbar/tasks.svg";
-import CartIcon from "assets/icons/navbar/cart.svg";
-import ProfileIcon from "assets/icons/navbar/profile.svg";
-import { useTheme } from "@/shared/theme/useTheme";
-import { MainPageContext } from "@/shared/providers/mainPageProvider";
 
-const icons = {
-  index: (props: any) => <ChatIcon width={26} height={26} {...props} />,
-  tasks: (props: any) => <TasksIcon width={24} height={24} {...props} />,
-  cart: (props: any) => <CartIcon width={28} height={28} {...props} />,
-  profile: (props: any) => <ProfileIcon width={28} height={28} {...props} />,
-};
+import { labels } from "../constants/labels";
+import { Icon } from "./Icon";
+import { useOpacity } from "../hooks/useOpacity";
 
-const labels = {
-  index: "ФОРУМ",
-  tasks: "ПЛАН",
-  cart: "МАРКЕТ",
-  profile: "ПРОФИЛЬ",
-};
-
-// @ts-ignore
-export const BottomNavbar = ({ state, descriptors, navigation }) => {
-  const { theme } = useTheme();
-  const { scrollOffsetY } = React.useContext(MainPageContext);
-
-  const opacity = scrollOffsetY.interpolate({
-    inputRange: [0, 500], // Измените на нужные значения
-    outputRange: [1, 0], // Начальная и конечная ширина кнопки
-    extrapolate: "clamp", // Ограничиваем анимацию, чтобы не выходила за пределы
-  });
-
-  const fill = theme === "light" ? "#33747C" : "#33747C";
-  const notFill = theme === "light" ? "#8B9497" : "#594455";
+export const BottomNavbar = ({ state, descriptors, navigation }: any) => {
+  const opacity = useOpacity();
 
   return (
     <Animated.View style={{ opacity }}>
-      <View
-        className={clsx(
-          "absolute bg-white bottom-0 flex-row justify-between items-center rounded-t-[20px] w-full border border-grayPrimary/40"
-          // {
-          //   "bg-white": theme === "light",
-          //   "bg-white": theme !== "light",
-          // }
-        )}
-      >
-        {/* @ts-ignore */}
-        {state.routes.map((route, index) => {
+      <View className="absolute bg-white bottom-0 flex-row justify-between items-center rounded-t-[20px] w-full border border-grayPrimary/40">
+        {(state.routes as any[]).map((route, index) => {
           const { options } = descriptors[route.key];
+          const isFocused = state.index === index;
+
+          if (["_sitemap", "_not-found"].includes(route.name)) return null;
+
           const label: keyof typeof labels =
             options.tabBarLabel !== undefined
               ? options.tabBarLabel
               : options.title !== undefined
               ? options.title
               : route.name;
-
-          if (["_sitemap", "_not-found"].includes(route.name)) return null;
-
-          const isFocused = state.index === index;
 
           const onPress = () => {
             const event = navigation.emit({
@@ -74,13 +37,6 @@ export const BottomNavbar = ({ state, descriptors, navigation }) => {
             }
           };
 
-          const onLongPress = () => {
-            navigation.emit({
-              type: "tabLongPress",
-              target: route.key,
-            });
-          };
-
           return (
             <Pressable
               key={index}
@@ -89,17 +45,12 @@ export const BottomNavbar = ({ state, descriptors, navigation }) => {
               accessibilityLabel={options.tabBarAccessibilityLabel}
               testID={options.tabBarButtonTestID}
               onPress={onPress}
-              onLongPress={onLongPress}
               className={clsx("flex-1 justify-center items-center", {
                 "h-[95px] pb-[14px]": Platform.OS === "ios",
                 "h-[80px]": Platform.OS !== "ios",
               })}
             >
-              {/* @ts-ignore */}
-              {icons[route.name]({
-                fill: isFocused ? fill : notFill,
-              })}
-              {/* <Text>ABC</Text> */}
+              <Icon route={route} isFocused={isFocused} />
               <Text className="text-textPrimary mt-2 text-[11px] font-medium">
                 {labels[label]}
               </Text>
