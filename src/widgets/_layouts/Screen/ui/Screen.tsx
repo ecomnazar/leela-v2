@@ -33,18 +33,14 @@ export const Screen: React.FC<Props> = ({
   const { theme } = useTheme();
 
   const backgroundGradientColors: [string, string, string, string] =
-    theme === "light"
+    customGradientColors
       ? customGradientColors
-        ? customGradientColors
-        : ["#FDFEFF", "#FDFEFF", "#FDFEFF", "#FDFEFF"]
       : ["#FDFEFF", "#FDFEFF", "#FDFEFF", "#FDFEFF"];
 
   const humanGradientColors: [string, string, string, string] =
-    theme === "light"
+    customHumanGradientColors
       ? customHumanGradientColors
-        ? customHumanGradientColors
-        : ["transparent", "#8992A0", "#8992A0", "#8992A0"]
-      : ["transparent", "#361B38", "#361B38", "#361B38"];
+      : ["transparent", "#8992A0", "#8992A0", "#8992A0"];
 
   return (
     <View

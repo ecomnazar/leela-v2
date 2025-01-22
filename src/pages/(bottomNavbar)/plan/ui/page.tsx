@@ -16,7 +16,7 @@ export const PlanPage = () => {
 
   return (
     <Screen
-      customGradientColors={["transparent", "#8992A0", "#8992A0", "#8992A0"]}
+      customGradientColors={["transparent", "#DEE4EE", "#8992A0", "#AEB6C4"]}
     >
       <StarWithChart opacity={animatedOpacity} />
       <CustomScrollView

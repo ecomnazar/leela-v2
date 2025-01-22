@@ -18,7 +18,7 @@ export const CardHorizontal: React.FC<Props> = ({
     <Pressable onPress={onPress}>
       <Flex
         className={clsx(
-          "gap-x-3 h-[95px] bg-white dark:bg-backgroundPrimary rounded-2xl border-grayPrimary/40 border p-1 pr-2",
+          "gap-x-3 h-[95px] bg-white rounded-2xl border-grayPrimary/40 border p-1 pr-2",
           className
         )}
       >

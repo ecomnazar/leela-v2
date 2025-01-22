@@ -33,24 +33,18 @@ export const PlanCard: React.FC<Props> = ({ isEnable }) => {
       <View style={{ flexShrink: 1 }} className="h-full py-1">
         <View>
           <Text
-            className={clsx(
-              "text-textPrimary dark:text-white/75 font-semibold",
-              {
-                "text-sm": Platform.OS === "web",
-                "text-xl": Platform.OS !== "web",
-              }
-            )}
+            className={clsx("text-textPrimary  font-semibold", {
+              "text-sm": Platform.OS === "web",
+              "text-xl": Platform.OS !== "web",
+            })}
           >
             Самодиагностика
           </Text>
           <Text
-            className={clsx(
-              "text-grayPrimary dark:text-white/75 font-medium mt-0.5",
-              {
-                "text-[10px]": Platform.OS === "web",
-                "text-sm": Platform.OS !== "web",
-              }
-            )}
+            className={clsx("text-grayPrimary  font-medium mt-0.5", {
+              "text-[10px]": Platform.OS === "web",
+              "text-sm": Platform.OS !== "web",
+            })}
           >
             Являясь всего лишь частью общей картины, ключевые...
           </Text>
@@ -58,13 +52,10 @@ export const PlanCard: React.FC<Props> = ({ isEnable }) => {
         <Flex justify="between" align="end" className="mt-auto">
           <Flex className="mt-1 gap-x-0.5">
             <Text
-              className={clsx(
-                "text-textPrimary dark:text-white font-extrabold",
-                {
-                  "text-sm": Platform.OS === "web",
-                  "text-base": Platform.OS !== "web",
-                }
-              )}
+              className={clsx("text-textPrimary  font-extrabold", {
+                "text-sm": Platform.OS === "web",
+                "text-base": Platform.OS !== "web",
+              })}
             >
               +2,250
             </Text>
