@@ -3,7 +3,7 @@ import { CustomScrollView } from "@/shared/ui/CustomScrollView";
 import { Screen } from "@/widgets/_layouts/Screen";
 import { StarWithChart } from "./StarWithChart";
 import { TasksList } from "./TasksList";
-import { Animated, View } from "react-native";
+import { Animated } from "react-native";
 
 export const TasksPage = () => {
   const scrollOffsetY = new Animated.Value(0);

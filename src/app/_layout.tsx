@@ -12,6 +12,7 @@ import { PortalProvider } from "@/shared/ui/Portal";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ReduxProvider } from "@/shared/store/provider";
+import { EventProvider } from "react-native-outside-press";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -39,10 +40,12 @@ const RootLayoutProvider = () => {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <ReduxProvider>
           <BottomSheetModalProvider>
-            <PortalProvider>
-              <StatusBar style="inverted" />
-              <App />
-            </PortalProvider>
+            <EventProvider>
+              <PortalProvider>
+                <StatusBar style="inverted" />
+                <App />
+              </PortalProvider>
+            </EventProvider>
           </BottomSheetModalProvider>
         </ReduxProvider>
       </GestureHandlerRootView>
