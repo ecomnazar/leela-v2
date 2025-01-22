@@ -30,6 +30,7 @@ const App = () => {
       <Stack.Screen name="calendar" />
       {/* <Stack.Screen name="chat" /> */}
       <Stack.Screen name="chat/comment/[id]" />
+      <Stack.Screen name="notifications" />
     </Stack>
   );
 };

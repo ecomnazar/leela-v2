@@ -30,6 +30,7 @@ export const CustomScrollView: React.FC<Props> = ({
     ios: 100,
     web: 50,
   });
+
   return (
     <ScrollView
       {...props}

@@ -10,7 +10,7 @@ import { CreateAccountModal } from "./modals/CreateAccountModal";
 export const MainPage = () => {
   return (
     <>
-      <Screen>
+      <Screen enableHeader>
         <Stories />
         <Search />
         <CardsSection />

@@ -1,81 +1,45 @@
 import React from "react";
-import { useTheme } from "@/shared/theme/useTheme";
-import { BasicPageHeader } from "@/widgets/basicPageHeader";
-import images from "assets/images";
 import clsx from "clsx";
-import { Image } from "expo-image";
+import { BasicPageHeader } from "@/widgets/basicPageHeader";
 import { LinearGradient } from "expo-linear-gradient";
 import { Dimensions, Platform, View } from "react-native";
+import { Container } from "@/shared/ui/Container";
+import { BackButton } from "@/shared/ui/BackButton";
+import { CustomScrollView } from "@/shared/ui/CustomScrollView";
+import { PADDING_TOP_WITHOUT_SCREEN_HEADER } from "@/shared/constants/sizes";
 
 interface Props {
   className?: string;
   children: React.ReactNode;
   showGradient?: boolean;
-  enableHuman?: boolean;
-  customHumanGradientColors?: [string, string, string, string];
   customGradientColors?: [string, string, string, string];
   title?: string;
   centerTitle?: string;
   disableHeader?: boolean;
+  enableHeader?: boolean;
+  showBackButton?: boolean;
+  enableScroll?: boolean;
 }
 
 export const Screen: React.FC<Props> = ({
   className,
   children,
   showGradient = true,
-  enableHuman = false,
-  customHumanGradientColors,
   customGradientColors,
   title,
-  disableHeader,
+  enableHeader,
   centerTitle,
+  showBackButton,
+  enableScroll,
 }) => {
-  const { theme } = useTheme();
-
   const backgroundGradientColors: [string, string, string, string] =
     customGradientColors
       ? customGradientColors
       : ["#FDFEFF", "#FDFEFF", "#FDFEFF", "#FDFEFF"];
 
-  const humanGradientColors: [string, string, string, string] =
-    customHumanGradientColors
-      ? customHumanGradientColors
-      : ["transparent", "#8992A0", "#8992A0", "#8992A0"];
-
-  return (
-    <View
-      style={{ flex: 1 }}
-      className={clsx("h-screen w-screen", className, {
-        // "pb-[100px]": hasBottomBar,
-      })}
-    >
-      {!disableHeader && (
-        <BasicPageHeader title={title} centerTitle={centerTitle} />
-      )}
-      {enableHuman && (
-        <View
-          className={clsx(
-            "absolute left-0 w-screen h-screen z-[0] flex items-center",
-            {
-              "top-10": Platform.OS === "web",
-              "top-20": Platform.OS === "ios",
-              "top-16": Platform.OS === "android",
-            }
-          )}
-        >
-          <Image
-            source={theme === "light" ? images.manLight : images.manDark}
-            style={{ width: "90%", height: "90%", resizeMode: "center" }}
-          />
-          <View className="absolute top-0 left-0 w-screen h-screen">
-            <LinearGradient
-              colors={humanGradientColors}
-              style={{ width: "100%", height: "100%" }}
-            />
-          </View>
-        </View>
-      )}
-      {showGradient && (
+  const renderGradient = () => {
+    return (
+      showGradient && (
         <View
           style={{ height: Dimensions.get("screen").height }}
           className="absolute top-0 left-0 w-screen z-[-1]"
@@ -88,8 +52,28 @@ export const Screen: React.FC<Props> = ({
             }}
           />
         </View>
+      )
+    );
+  };
+
+  return (
+    <View style={{ flex: 1 }} className={clsx("h-screen w-screen", className)}>
+      {enableHeader && (
+        <BasicPageHeader title={title} centerTitle={centerTitle} />
       )}
-      {children}
+      {renderGradient()}
+
+      {enableScroll && (
+        <CustomScrollView paddingTop={PADDING_TOP_WITHOUT_SCREEN_HEADER}>
+          {showBackButton && (
+            <Container>
+              <BackButton />
+            </Container>
+          )}
+          {children}
+        </CustomScrollView>
+      )}
+      {!enableScroll && children}
     </View>
   );
 };

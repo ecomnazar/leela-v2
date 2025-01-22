@@ -5,3 +5,9 @@ export const PADDING_TOP_WITH_SCREEN_HEADER = Platform.select({
   ios: 120,
   web: 70,
 });
+
+export const PADDING_TOP_WITHOUT_SCREEN_HEADER = Platform.select({
+  android: 50,
+  ios: 50,
+  web: 20,
+});

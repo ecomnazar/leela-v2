@@ -44,7 +44,9 @@ export const BasicPageHeader: React.FC<Props> = ({ title, centerTitle }) => {
           </Text>
         )}
         <Flex className="gap-x-2">
-          <BellIcon width={23} height={25} fill={"#93989B"} />
+          <Pressable onPress={() => router.push("/notifications")}>
+            <BellIcon width={23} height={25} fill={"#93989B"} />
+          </Pressable>
           <BalanceShowcase />
         </Flex>
       </Flex>
