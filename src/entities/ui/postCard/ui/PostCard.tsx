@@ -5,9 +5,10 @@ import { Container } from "@/shared/ui/Container";
 import { Flex } from "@/shared/ui/Flex";
 import { Icon } from "@/shared/ui/Icon";
 import { router } from "expo-router";
-import { Pressable, Text, View } from "react-native";
+import { Platform, Pressable, Text, View } from "react-native";
 import { StoryAvatar } from "../../storyAvatar";
 import clsx from "clsx";
+import { CustomText } from "@/shared/ui/CustomText";
 
 interface Props {
   image: string;
@@ -27,26 +28,28 @@ export const PostCard: React.FC<Props> = ({
   role,
 }) => {
   return (
-    <Container className={clsx("mt-4", className)}>
+    <Container className={clsx("mt-2", className)}>
       <View>
         <Flex align={type === "post" ? "start" : "center"} justify="between">
-          <Flex className="gap-x-3">
+          <Flex className="gap-x-2.5">
             <StoryAvatar
               image={image}
               size="small"
               isActive={isStoriesActive}
             />
             <View className="-space-y-0.5">
-              <Text className="text-textPrimary text-lg font-semibold">
+              <CustomText weight="bold" size={18}>
                 {name}
-              </Text>
-              <Text className="text-grayPrimary text-[13.3px]">{role}</Text>
+              </CustomText>
+              <CustomText size={13} color="grayPrimary" weight="regular">
+                {role}
+              </CustomText>
             </View>
           </Flex>
-          <Flex className="gap-x-3">
-            <Text className="text-textPrimary font-semibold text-[13.8px]">
+          <Flex className="gap-x-3" style={{ transform: [{ translateY: 2 }] }}>
+            <CustomText weight="bold" size={14}>
               09.05.24
-            </Text>
+            </CustomText>
             {type === "post" && (
               <Flex className="gap-x-1">
                 <Icon type="heart" className="" />
@@ -63,46 +66,58 @@ export const PostCard: React.FC<Props> = ({
         <View className="mt-2">
           {type === "post" && (
             <Flex className="gap-x-2">
-              <Badge color="#B3A6D3">Нутрициология</Badge>
+              <Badge color="#B3A6D3" uppercase>
+                Нутрициология
+              </Badge>
               <Badge color="#EDD3CC">КРАСОТА</Badge>
             </Flex>
           )}
           <View className="mt-1.5">
             {type === "post" && (
-              <Text className="text-[#353848] opacity-80 text-lg font-semibold">
+              <CustomText
+                weight="bold"
+                size={18}
+                color="primarySecondary"
+                className="mb-0.5"
+              >
                 Гипотериоз и седина
-              </Text>
+              </CustomText>
             )}
-            <Text className="text-[#5F616F] text-[12.8px] mt-[1px]">
-              Здравствуйте, как связана седина и гипотериоз? Сначала я думала,
-              что это просто генетика.
-            </Text>
+            <CustomText
+              color="description"
+              size={13}
+              weight="regular"
+              className="mt-[1px]"
+            >
+              Здравствуйте, как связана седина и гипотериоз?{"\n"}Сначала я
+              думала, что это просто генетика.
+            </CustomText>
           </View>
           <View className="mt-4">
             <Flex justify="between" className="mb-4">
               <Flex className="gap-x-2.5">
                 <Flex className="gap-x-2">
                   <Icon type="like" width={25} height={25} />
-                  <Text className="text-textPrimary font-semibold text-sm">
+                  <CustomText weight="semibold" size={14}>
                     2
-                  </Text>
+                  </CustomText>
                 </Flex>
                 <Pressable className="translate-y-[3px]">
                   <Icon type="dislike" width={25} height={25} />
                 </Pressable>
               </Flex>
               {type === "post" && (
-                <Flex className="gap-x-2.5">
-                  <Flex className="gap-x-2">
+                <Flex className="gap-x-4">
+                  <Flex className="gap-x-1.5">
                     <Icon
                       type="stapler"
                       width={21}
                       height={21}
                       fill={COLORS.textPrimary}
                     />
-                    <Text className="text-textPrimary font-semibold text-sm">
+                    <CustomText weight="semibold" size={14}>
                       1
-                    </Text>
+                    </CustomText>
                   </Flex>
                   <Flex className="gap-x-2">
                     <Pressable onPress={() => router.push("/chat/comment/1")}>
@@ -113,9 +128,9 @@ export const PostCard: React.FC<Props> = ({
                         fill={COLORS.textPrimary}
                       />
                     </Pressable>
-                    <Text className="text-textPrimary font-semibold text-sm">
+                    <CustomText weight="semibold" size={14}>
                       2
-                    </Text>
+                    </CustomText>
                   </Flex>
                 </Flex>
               )}

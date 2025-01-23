@@ -20,6 +20,13 @@ module.exports = {
         backgroundTertiary: "#FDFEFF",
         darkGreen: "#32737B",
       },
+      fontFamily: {
+        wixRegular: "wix-regular",
+        wixMedium: "wix-medium",
+        wixSemibold: "wix-semi-bold",
+        wixBold: "wix-bold",
+        wixExtrabold: "wix-extra-bold",
+      },
     },
   },
   plugins: [],

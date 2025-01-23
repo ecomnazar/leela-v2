@@ -5,14 +5,22 @@ import { Animated, Platform, Pressable, Text, View } from "react-native";
 import { COLORS } from "@/shared/constants/colors";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
 import { useModal } from "@/shared/zustand/useModal";
+import { CustomText } from "@/shared/ui/CustomText";
 
 export const FixedButton = () => {
   const { openModal } = useModal();
   const { scrollOffsetY } = React.useContext(MainPageContext);
 
   const buttonWidth = scrollOffsetY.interpolate({
-    inputRange: [0, 20],
-    outputRange: [Platform.OS === "web" ? 202 : 184, 51],
+    inputRange: [0, 1],
+    outputRange: [
+      Platform.select({
+        web: 207,
+        android: 194,
+        ios: 204,
+      })!,
+      51,
+    ],
     extrapolate: "clamp",
   });
 
@@ -54,17 +62,17 @@ export const FixedButton = () => {
           className="gap-x-1.5 -translate-y-[1px]"
         >
           <Animated.View style={{ opacity: textOpacity }}>
-            <Text
+            <CustomText
+              weight="bold"
               numberOfLines={1}
+              color="white"
+              size={19}
               style={{
-                color: "#FFF",
-                fontSize: 19,
-                fontWeight: 500,
                 paddingRight: 16,
               }}
             >
               Задать вопрос
-            </Text>
+            </CustomText>
           </Animated.View>
         </Flex>
       </Animated.View>

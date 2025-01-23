@@ -1,15 +1,15 @@
 import { BatteryIcon } from "@/shared/ui/BatteryIcon";
+import { CustomText } from "@/shared/ui/CustomText";
 import { Flex } from "@/shared/ui/Flex";
 import React from "react";
-import { Text } from "react-native";
 
 export const EnergyShowcase = () => {
   return (
     <Flex className="gap-x-0.5">
       <BatteryIcon />
-      <Text className="text-textPrimary dark:text-white font-bold text-md">
+      <CustomText size={13} weight="bold">
         50%
-      </Text>
+      </CustomText>
     </Flex>
   );
 };

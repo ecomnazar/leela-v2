@@ -1,4 +1,5 @@
 import { Coin } from "@/shared/ui/Coin";
+import { CustomText } from "@/shared/ui/CustomText";
 import { Flex } from "@/shared/ui/Flex";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
@@ -8,7 +9,9 @@ export const BalanceShowcase = () => {
   return (
     <Flex className="gap-x-1 pl-1 pr-2.5 h-[30px] rounded-full relative overflow-hidden shadow-md">
       <Coin />
-      <Text className="font-bold text-white text-md">2,250</Text>
+      <CustomText weight="bold" size={13} color="white">
+        2,250
+      </CustomText>
       <LinearGradient
         style={{
           position: "absolute",

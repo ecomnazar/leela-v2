@@ -106,7 +106,7 @@ export const ScrollableCardsList = () => {
       )}
       scrollEventThrottle={16}
     >
-      <View className="relative gap-y-3 mt-1">
+      <View className="relative gap-y-2 mt-2">
         {cards.map((item, index) => {
           return (
             <PostCard

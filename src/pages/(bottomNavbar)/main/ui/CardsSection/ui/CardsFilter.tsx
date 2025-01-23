@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Flex } from "@/shared/ui/Flex";
-import { Pressable, Text, View } from "react-native";
+import { Platform, Pressable, Text, View } from "react-native";
 import { Container } from "@/shared/ui/Container";
 import ChevronIcon from "assets/icons/chevron.svg";
 import { COLORS } from "@/shared/constants/colors";
 import { Dropdown } from "@/shared/ui/Dropdown";
 import OutsidePressHandler from "react-native-outside-press";
+import { CustomText } from "@/shared/ui/CustomText";
 const filters = [
   "сначала новые",
   "сначала популярные",
@@ -25,12 +26,12 @@ export const CardsFilter = () => {
   };
 
   return (
-    <Container className="mt-6 relative z-10">
+    <Container className="mt-3 relative z-10">
       <View className="gap-y-2.5">
         <Flex justify="between">
-          <Text className="text-grayPrimary text-[12.8px] font-semibold">
+          <CustomText color="grayPrimary" weight="bold" size={13}>
             12567 обсуждений
-          </Text>
+          </CustomText>
           <Flex className="gap-x-1.5">
             <ChevronIcon
               width={12}
@@ -48,9 +49,9 @@ export const CardsFilter = () => {
             >
               <View className="relative">
                 <Pressable className="relative" onPress={handlePress}>
-                  <Text className="text-grayPrimary text-[14px] font-semibold">
+                  <CustomText color="grayPrimary" weight="bold" size={13}>
                     {activeFilter}
-                  </Text>
+                  </CustomText>
                 </Pressable>
                 <Dropdown<TFilterType>
                   isOpen={isOpen}

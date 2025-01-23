@@ -3,10 +3,9 @@ import { CardsSection } from "./CardsSection";
 import { Stories } from "./Stories";
 import { Search } from "@/widgets/search";
 import { FixedButton } from "./FixedButton";
-import { Screen } from "@/widgets/_layouts/Screen";
 import { AskQuestionModal } from "./modals/AskQuestionModal";
 import { CreateAccountModal } from "./modals/CreateAccountModal";
-import { Animated, ScrollView, View } from "react-native";
+import { Animated, View } from "react-native";
 import { PADDING_TOP_WITH_SCREEN_HEADER } from "@/shared/constants/sizes";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
 import { BasicPageHeader } from "@/widgets/basicPageHeader";
@@ -28,7 +27,6 @@ export const MainPage = () => {
           style={{
             flex: 1,
             backgroundColor: "#F2F2F2",
-            // transform: [{ translateY: animatedHeight }],
             marginTop: animatedHeight,
           }}
         >
@@ -37,9 +35,6 @@ export const MainPage = () => {
         </Animated.View>
       </View>
       <FixedButton />
-      {/* <Screen enableHeader>
-      </Screen> */}
-      {/* <StoryView /> */}
       {/* modals */}
       <AskQuestionModal />
       <CreateAccountModal />

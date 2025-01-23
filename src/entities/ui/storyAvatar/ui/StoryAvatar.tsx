@@ -1,3 +1,4 @@
+import { CustomText } from "@/shared/ui/CustomText";
 import clsx from "clsx";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
@@ -40,14 +41,18 @@ export const StoryAvatar: React.FC<Props> = ({
             }}
           />
         )}
-        <View className="w-full h-full bg-white rounded-full p-0.5">
+        <View
+          className={clsx("w-full h-full rounded-full p-0.5", {
+            "bg-white": isActive,
+          })}
+        >
           <Image source={image} style={{ width: "100%", height: "100%" }} />
         </View>
       </View>
       {size === "medium" && (
-        <Text className="text-textPrimary text-[11px] font-normal text-center mt-1">
+        <CustomText size={11} weight="regular" className="text-center mt-1">
           {name}
-        </Text>
+        </CustomText>
       )}
     </View>
   );

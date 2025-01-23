@@ -36,6 +36,7 @@ export const CustomScrollView: React.FC<Props> = ({
       {...props}
       alwaysBounceVertical={false}
       bounces={false}
+      overScrollMode="never"
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         paddingBottom: hasBottomBar ? paddingBottomSize : paddingBottom || 0,

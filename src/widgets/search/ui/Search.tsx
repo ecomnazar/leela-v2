@@ -12,7 +12,7 @@ export const Search = () => {
       <Flex justify="between" align="center">
         <View className="relative h-[36px] bg-[#ECF1F7] w-[88%] rounded-lg">
           <TextInput
-            className="w-full h-full pl-10 placeholder:opacity-40 placeholder:text-[#2F3446] placeholder:text-md outline-none"
+            className="w-full h-full pl-10 placeholder:opacity-40 placeholder:text-[#2F3446] placeholder:text-md outline-none font-wixRegular"
             placeholder="Search"
           />
           <View className="absolute top-1/2 left-3 -translate-y-1/2">

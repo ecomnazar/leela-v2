@@ -5,6 +5,7 @@ import { Animated, Platform, Pressable, Text, View } from "react-native";
 import { labels } from "../constants/labels";
 import { Icon } from "./Icon";
 import { useOpacity } from "../hooks/useOpacity";
+import { CustomText } from "@/shared/ui/CustomText";
 
 export const BottomNavbar = ({ state, descriptors, navigation }: any) => {
   const opacity = useOpacity();
@@ -51,9 +52,9 @@ export const BottomNavbar = ({ state, descriptors, navigation }: any) => {
               })}
             >
               <Icon route={route} isFocused={isFocused} />
-              <Text className="text-textPrimary mt-2 text-[11px] font-medium">
+              <CustomText size={11} weight="semibold" className="mt-2">
                 {labels[label]}
-              </Text>
+              </CustomText>
             </Pressable>
           );
         })}
