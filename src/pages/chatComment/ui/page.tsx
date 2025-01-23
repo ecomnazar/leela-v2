@@ -35,7 +35,7 @@ export const ChatCommentPage = () => {
         />
       </View>
       <View className="bg-[#EDF1F6] p-8 border border-grayPrimary/40">
-        <View className=" bg-[#FEFBF6] rounded-[18px] border border-grayPrimary/40 p-5 pb-4">
+        <View className=" bg-[#FEFBF6] rounded-[16px] border border-grayPrimary/40 p-5 pb-4">
           <Flex justify="between" className="mb-3">
             <Flex className="gap-x-3">
               <Image
