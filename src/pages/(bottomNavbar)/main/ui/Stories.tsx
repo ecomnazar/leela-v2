@@ -2,10 +2,8 @@ import { StoryAvatar } from "@/entities/ui/storyAvatar";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
 import { Flex } from "@/shared/ui/Flex";
 import images from "assets/images";
-import { Image } from "expo-image";
-import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
-import { Animated, Platform, ScrollView, Text, View } from "react-native";
+import { Animated, Platform, ScrollView, View } from "react-native";
 
 const stories = [
   {
@@ -35,45 +33,47 @@ const stories = [
   },
 ];
 
-const STORIES_MIN_HEIGHT = 0;
-const STORIES_MAX_HEIGHT = Platform.OS === "web" ? 700 : 200;
-const DIS = STORIES_MAX_HEIGHT - STORIES_MIN_HEIGHT;
+const STORIES_MAX_HEIGHT = Platform.OS === "web" ? 200 : 200;
 
 export const Stories = () => {
-  const { scrollOffsetY } = React.useContext(MainPageContext);
-  const animatedHeight = scrollOffsetY.interpolate({
-    inputRange: [0, DIS],
-    outputRange: [STORIES_MAX_HEIGHT, STORIES_MIN_HEIGHT],
-    extrapolate: "clamp",
-  });
+  // const { scrollOffsetY } = React.useContext(MainPageContext);
+  // const animatedHeight = scrollOffsetY.interpolate({
+  //   inputRange: [0, STORIES_MAX_HEIGHT],
+  //   outputRange: [STORIES_MAX_HEIGHT, 0],
+  //   extrapolate: "clamp",
+  // });
 
   return (
-    <Animated.ScrollView
-      style={{
-        height: animatedHeight,
-        marginTop: Platform.select({
-          android: 84,
-          web: 64,
-          ios: 105,
-        }),
-      }}
-      contentContainerStyle={{ paddingHorizontal: 16 }}
-      showsHorizontalScrollIndicator={false}
-      horizontal
-    >
-      <Flex className="gap-x-3">
-        {stories.map((story) => {
-          return (
-            <StoryAvatar
-              key={story.name}
-              image={story.image}
-              name={story.name}
-              size="medium"
-              isActive={true}
-            />
-          );
-        })}
-      </Flex>
-    </Animated.ScrollView>
+    <View style={{ height: 92 }}>
+      <ScrollView
+        style={
+          {
+            // height: 200,
+            // marginTop: Platform.select({
+            //   android: 84,
+            //   web: 64,
+            //   ios: 105,
+            // }),
+          }
+        }
+        contentContainerStyle={{ paddingHorizontal: 16 }}
+        showsHorizontalScrollIndicator={false}
+        horizontal
+      >
+        <Flex className="gap-x-3">
+          {stories.map((story) => {
+            return (
+              <StoryAvatar
+                key={story.name}
+                image={story.image}
+                name={story.name}
+                size="medium"
+                isActive={true}
+              />
+            );
+          })}
+        </Flex>
+      </ScrollView>
+    </View>
   );
 };
