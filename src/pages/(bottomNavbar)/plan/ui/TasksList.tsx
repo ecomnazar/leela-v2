@@ -6,6 +6,7 @@ import React from "react";
 import { PlanCard } from "./PlanCard";
 import { Text, View } from "react-native";
 import { RoundedIcon } from "@/shared/ui/RoundedIcon";
+import { CustomText } from "@/shared/ui/CustomText";
 
 const tasks = [
   true,
@@ -62,10 +63,12 @@ export const TasksList = () => {
       <Container>
         <Flex align="end" justify="between">
           <View>
-            <Text className="text-white text-5xl">План</Text>
-            <Text className="text-white text-md font-medium mt-2">
+            <CustomText color="white" weight="medium" size={40}>
+              План
+            </CustomText>
+            <CustomText size={13} color="white" weight="semibold">
               Обновляем через: 07:36
-            </Text>
+            </CustomText>
           </View>
           <RoundedIcon icon="setting" />
         </Flex>

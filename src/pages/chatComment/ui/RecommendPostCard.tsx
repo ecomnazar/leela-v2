@@ -7,6 +7,7 @@ import images from "assets/images";
 import { Image } from "expo-image";
 import { router } from "expo-router";
 import { Pressable, Text, View, ViewStyle } from "react-native";
+import { CustomText } from "@/shared/ui/CustomText";
 
 interface Props {
   style: ViewStyle;
@@ -32,28 +33,32 @@ export const RecommendPostCard: React.FC<Props> = ({ style }) => {
             <Text className="text-grayPrimary text-[12px]">Эксперт</Text>
           </View>
         </Flex>
-        <Text
-          className="text-darkGreen font-semibold text-base"
+        <CustomText
+          color="darkGreen"
+          size={14}
+          weight="bold"
           style={{ transform: [{ translateY: -4 }] }}
         >
           Открыть
-        </Text>
+        </CustomText>
       </Flex>
       <Flex>
         <Badge color="#96BFAD" className="w-fit">
           ПРАКТИКА - ДЕНЕЖНАЯ ТЕНЬ
         </Badge>
       </Flex>
-      <Text className="text-textPrimary text-[13px] mt-3">
+      <CustomText weight="medium" size={13} className="mt-3">
         Деньги воспроизводят ваши привычные доминирующие эмоции. Денежная... еще
-      </Text>
+      </CustomText>
 
       <View className="bg-[#ABA2A0] h-[130px] rounded-2xl mt-3"></View>
       <Flex justify="between" className="mt-3">
         <Flex className="gap-x-2.5">
           <Flex className="gap-x-2">
             <Icon type="like" width={25} height={25} />
-            <Text className="text-textPrimary font-semibold text-sm">2</Text>
+            <CustomText weight="extrabold" size={14}>
+              2
+            </CustomText>
           </Flex>
           <Pressable className="translate-y-[3px]">
             <Icon type="dislike" width={25} height={25} />
@@ -67,7 +72,9 @@ export const RecommendPostCard: React.FC<Props> = ({ style }) => {
               height={21}
               fill={COLORS.textPrimary}
             />
-            <Text className="text-textPrimary font-semibold text-sm">1</Text>
+            <CustomText weight="extrabold" size={14}>
+              1
+            </CustomText>
           </Flex>
           <Flex className="gap-x-2">
             <Pressable onPress={() => router.push("/chat/comment/1")}>
@@ -78,7 +85,9 @@ export const RecommendPostCard: React.FC<Props> = ({ style }) => {
                 fill={COLORS.textPrimary}
               />
             </Pressable>
-            <Text className="text-textPrimary font-semibold text-sm">2</Text>
+            <CustomText weight="extrabold" size={14}>
+              2
+            </CustomText>
           </Flex>
         </Flex>
       </Flex>

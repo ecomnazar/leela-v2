@@ -2,6 +2,7 @@ import React from "react";
 import { StoryAvatar } from "@/entities/ui/storyAvatar";
 import { Flex } from "@/shared/ui/Flex";
 import { Text } from "react-native";
+import { CustomText } from "@/shared/ui/CustomText";
 
 interface Props {
   avatar: string;
@@ -29,25 +30,45 @@ export const NotificationCard: React.FC<Props> = ({
   };
 
   const renderHours = () => {
-    return <Text className="text-[#5F616F60] text-"> 1 дн.</Text>;
+    return (
+      <CustomText
+        color="description"
+        size={13}
+        weight="medium"
+        className="opacity-40"
+      >
+        {" "}
+        1 дн.
+      </CustomText>
+    );
   };
 
   const renderNotificationText = () => {
     if (notificationType === "newPost") {
       return (
-        <Text className="text-[#5F616F] text-sm" style={{ flexShrink: 1 }}>
-          <Text className="font-semibold">{names}</Text>
+        <CustomText
+          color="description"
+          weight="medium"
+          size={13}
+          style={{ flexShrink: 1 }}
+        >
+          <Text className="font-wixBold">{names}</Text>
           {notificationText()}
           {renderHours()}
-        </Text>
+        </CustomText>
       );
     }
     return (
-      <Text className="text-[#5F616F] text-sm" style={{ flexShrink: 1 }}>
+      <CustomText
+        color="description"
+        weight="medium"
+        size={13}
+        style={{ flexShrink: 1 }}
+      >
         {notificationText()}
-        <Text className="font-semibold"> {names}</Text>
+        <Text className="font-wixBold"> {names}</Text>
         {renderHours()}
-      </Text>
+      </CustomText>
     );
   };
 

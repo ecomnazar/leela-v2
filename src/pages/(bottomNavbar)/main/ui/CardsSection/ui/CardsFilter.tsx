@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Flex } from "@/shared/ui/Flex";
-import { Platform, Pressable, Text, View } from "react-native";
+import { Pressable, View } from "react-native";
 import { Container } from "@/shared/ui/Container";
 import ChevronIcon from "assets/icons/chevron.svg";
 import { COLORS } from "@/shared/constants/colors";
 import { Dropdown } from "@/shared/ui/Dropdown";
 import OutsidePressHandler from "react-native-outside-press";
 import { CustomText } from "@/shared/ui/CustomText";
+
 const filters = [
   "сначала новые",
   "сначала популярные",

@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import React from "react";
-import { Pressable, Text } from "react-native";
+import { Pressable } from "react-native";
+import { CustomText } from "./CustomText";
 
 interface Props {
   className?: string;
@@ -15,7 +16,9 @@ export const Button: React.FC<Props> = ({ className, children }) => {
         className
       )}
     >
-      <Text className="text-[17px] text-white font-semibold">{children}</Text>
+      <CustomText color="white" size={18.5} weight="bold">
+        {children}
+      </CustomText>
     </Pressable>
   );
 };

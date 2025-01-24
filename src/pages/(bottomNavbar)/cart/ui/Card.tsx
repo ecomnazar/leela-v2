@@ -1,4 +1,5 @@
 import { Badge } from "@/shared/ui/Badge";
+import { CustomText } from "@/shared/ui/CustomText";
 import { Flex } from "@/shared/ui/Flex";
 import { Icon } from "@/shared/ui/Icon";
 import images from "assets/images";
@@ -18,30 +19,36 @@ export const Card = () => {
         </View>
         <View className="py-1 flex-1 h-[92px]">
           <View className="">
-            <Text
-              className="text-textPrimary text-[12.8px] font-semibold"
+            <CustomText
+              size={13}
+              weight="bold"
               numberOfLines={1}
               ellipsizeMode="tail"
             >
               Название тренажера
-            </Text>
-            <Text
-              className="text-[10.7px] text-textPrimary mt-0.5"
+            </CustomText>
+            <CustomText
+              size={11}
+              weight="semibold"
               numberOfLines={2}
               ellipsizeMode="tail"
             >
               Являясь всего лишь частью общей картины, ключевые...
-            </Text>
+            </CustomText>
           </View>
           <View className="mt-auto">
-            <Flex justify="between">
+            <Flex justify="between" align="end">
               <Flex className="gap-x-1">
-                <Icon type="coinLight" width={20} height={20} />
-                <Text className="text-textPrimary font-bold text-[12.8px]">
+                <Icon type="coinLight" width={19} height={19} />
+                <CustomText
+                  size={14}
+                  weight="extrabold"
+                  style={{ transform: [{ translateY: -1 }] }}
+                >
                   2,250
-                </Text>
+                </CustomText>
               </Flex>
-              <Badge color="#FAC4B2" size="small">
+              <Badge color="#FAC4B2" size="medium">
                 1ч 15м
               </Badge>
             </Flex>

@@ -1,15 +1,18 @@
 import { PADDING_TOP_WITHOUT_SCREEN_HEADER } from "@/shared/constants/sizes";
 import { BackButton } from "@/shared/ui/BackButton";
 import { Container } from "@/shared/ui/Container";
+import { CustomText } from "@/shared/ui/CustomText";
 import { Flex } from "@/shared/ui/Flex";
+import clsx from "clsx";
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
 interface Props {
   title?: string;
+  disableBorder?: boolean;
 }
 
-export const PageHeader: React.FC<Props> = ({ title }) => {
+export const PageHeader: React.FC<Props> = ({ title, disableBorder }) => {
   return (
     <>
       <Container
@@ -17,14 +20,16 @@ export const PageHeader: React.FC<Props> = ({ title }) => {
           paddingTop: PADDING_TOP_WITHOUT_SCREEN_HEADER,
           paddingBottom: 16,
         }}
-        className="border-b border-[#D2D4D5]"
+        className={clsx("", {
+          "border-b border-[#D2D4D5]": !disableBorder,
+        })}
       >
         <Flex justify="between">
           <BackButton />
           {title && (
-            <Text className="text-textPrimary font-semibold text-lg">
+            <CustomText size={17} weight="bold">
               {title}
-            </Text>
+            </CustomText>
           )}
           <View className="opacity-0 pointer-events-none">
             <BackButton />

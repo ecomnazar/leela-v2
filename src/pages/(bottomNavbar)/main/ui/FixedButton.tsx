@@ -17,7 +17,7 @@ export const FixedButton = () => {
       Platform.select({
         web: 207,
         android: 194,
-        ios: 204,
+        ios: 208,
       })!,
       51,
     ],

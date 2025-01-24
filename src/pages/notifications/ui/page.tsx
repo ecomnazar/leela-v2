@@ -2,8 +2,9 @@ import { Container } from "@/shared/ui/Container";
 import { PageHeader } from "@/widgets/pageHeader";
 import images from "assets/images";
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { NotificationCard } from "./NotificationCard";
+import { CustomText } from "@/shared/ui/CustomText";
 
 export const NotificationsPage = () => {
   return (
@@ -11,7 +12,9 @@ export const NotificationsPage = () => {
       <PageHeader title="Уведомление" />
       <View className="gap-y-4">
         <Container className="mt-4">
-          <Text className="text-textPrimary font-semibold text-xl">Вчера</Text>
+          <CustomText weight="bold" size={19} color="primarySecondary">
+            Вчера
+          </CustomText>
           <View className="mt-6 gap-y-2">
             <NotificationCard
               avatar={images.stories2}
@@ -34,9 +37,9 @@ export const NotificationsPage = () => {
           </View>
         </Container>
         <Container className="mt-4">
-          <Text className="text-textPrimary font-semibold text-xl">
+          <CustomText weight="bold" size={19} color="primarySecondary">
             Последние 7 дней
-          </Text>
+          </CustomText>
           <View className="mt-6 gap-y-2">
             <NotificationCard
               avatar={images.stories2}

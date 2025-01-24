@@ -10,7 +10,8 @@ interface Props extends TextProps {
     | "white"
     | "grayPrimary"
     | "primarySecondary"
-    | "description";
+    | "description"
+    | "darkGreen";
   size?: number;
   style?: TextStyle;
 }
@@ -38,6 +39,7 @@ export const CustomText: React.FC<Props> = ({
         "text-grayPrimary": color === "grayPrimary",
         "text-[#353848] opacity-80": color === "primarySecondary",
         "text-[#5F616F]": color === "description",
+        "text-darkGreen": color === "darkGreen",
       })}
       style={{ fontSize: size, ...style }}
     >

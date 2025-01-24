@@ -32,7 +32,6 @@ export default function CustomSlider() {
     setCurrentIndex(index);
   };
 
-  //   const renderItem = ({ item }) => (
   const renderItem = () => (
     <RecommendPostCard
       style={{ width: ITEM_WIDTH, marginHorizontal: ITEM_MARGIN }}

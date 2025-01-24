@@ -3,7 +3,7 @@ import { CustomScrollView } from "@/shared/ui/CustomScrollView";
 import { Screen } from "@/widgets/_layouts/Screen";
 import { StarWithChart } from "./StarWithChart";
 import { TasksList } from "./TasksList";
-import { Animated } from "react-native";
+import { Animated, Platform } from "react-native";
 
 export const PlanPage = () => {
   const scrollOffsetY = new Animated.Value(0);
@@ -14,10 +14,13 @@ export const PlanPage = () => {
     extrapolate: "clamp",
   });
 
+  const gradient =
+    Platform.OS === "ios"
+      ? ["transparent", "transparent", "#8992A0", "#AEB6C4"]
+      : ["transparent", "#DEE4EE", "#8992A0", "#AEB6C4"];
+
   return (
-    <Screen
-      customGradientColors={["transparent", "#DEE4EE", "#8992A0", "#AEB6C4"]}
-    >
+    <Screen customGradientColors={gradient} enableHeader>
       <StarWithChart opacity={animatedOpacity} />
       <CustomScrollView
         onScroll={Animated.event(
@@ -31,7 +34,7 @@ export const PlanPage = () => {
           { useNativeDriver: false }
         )}
         scrollEventThrottle={16}
-        paddingTop={440}
+        paddingTop={Platform.OS === "ios" ? 480 : 440}
         hasBottomBar
       >
         <TasksList />

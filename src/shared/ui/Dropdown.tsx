@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
+import { CustomText } from "./CustomText";
 
 interface Props<T extends string> {
   className?: string;
@@ -33,9 +34,14 @@ export const Dropdown = <T extends string>({
               }
             )}
           >
-            <Text className="text-grayPrimary font-semibold text-sm w-full whitespace-nowrap text-right">
+            <CustomText
+              color="grayPrimary"
+              weight="bold"
+              size={13}
+              className="w-full whitespace-nowrap text-right"
+            >
               {item}
-            </Text>
+            </CustomText>
           </Pressable>
         );
       })}

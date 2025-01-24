@@ -5,11 +5,17 @@ import React from "react";
 
 export const Filter = () => {
   return (
-    <Container className="mt-2">
+    <Container className="mt-3">
       <Flex className="gap-x-2">
-        <Badge color="#616470">ВСЕ</Badge>
-        <Badge color="#BBC9B7">по подписке</Badge>
-        <Badge color="#D3A6CF">отношения</Badge>
+        <Badge uppercase size="medium" color="#616470">
+          ВСЕ
+        </Badge>
+        <Badge uppercase size="medium" color="#BBC9B7">
+          по подписке
+        </Badge>
+        <Badge uppercase size="medium" color="#D3A6CF">
+          отношения
+        </Badge>
       </Flex>
     </Container>
   );

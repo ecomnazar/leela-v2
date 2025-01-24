@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import { BasicPageHeader } from "@/widgets/basicPageHeader";
 import { LinearGradient } from "expo-linear-gradient";
-import { Dimensions, Platform, View } from "react-native";
+import { Dimensions, View } from "react-native";
 import { Container } from "@/shared/ui/Container";
 import { BackButton } from "@/shared/ui/BackButton";
 import { CustomScrollView } from "@/shared/ui/CustomScrollView";
@@ -12,7 +12,7 @@ interface Props {
   className?: string;
   children: React.ReactNode;
   showGradient?: boolean;
-  customGradientColors?: [string, string, string, string];
+  customGradientColors?: string[];
   title?: string;
   centerTitle?: string;
   disableHeader?: boolean;
@@ -33,8 +33,8 @@ export const Screen: React.FC<Props> = ({
   enableScroll,
 }) => {
   const backgroundGradientColors: [string, string, string, string] =
-    customGradientColors
-      ? customGradientColors
+    customGradientColors && customGradientColors.length === 4
+      ? (customGradientColors as [string, string, string, string])
       : ["#FDFEFF", "#FDFEFF", "#FDFEFF", "#FDFEFF"];
 
   const renderGradient = () => {

@@ -4,6 +4,7 @@ import { COLORS } from "@/shared/constants/colors";
 import { Flex } from "@/shared/ui/Flex";
 import { Icon } from "@/shared/ui/Icon";
 import { Pressable, ScrollView, Text, View } from "react-native";
+import { CustomText } from "@/shared/ui/CustomText";
 
 type IconType = "trainer" | "session" | "course" | "license";
 
@@ -52,14 +53,14 @@ export const Categories = () => {
                   height={height}
                 />
               </View>
-              <Text
-                className={clsx("uppercase font-bold text-[11px]", {
-                  "text-white": active,
-                  "text-textPrimary": !active,
-                })}
+              <CustomText
+                color={active ? "white" : "primary"}
+                weight="extrabold"
+                size={10}
+                className="uppercase"
               >
                 {name}
-              </Text>
+              </CustomText>
             </Pressable>
           );
         })}

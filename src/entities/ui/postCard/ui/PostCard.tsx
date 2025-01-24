@@ -5,7 +5,7 @@ import { Container } from "@/shared/ui/Container";
 import { Flex } from "@/shared/ui/Flex";
 import { Icon } from "@/shared/ui/Icon";
 import { router } from "expo-router";
-import { Platform, Pressable, Text, View } from "react-native";
+import { Pressable, View } from "react-native";
 import { StoryAvatar } from "../../storyAvatar";
 import clsx from "clsx";
 import { CustomText } from "@/shared/ui/CustomText";
@@ -46,7 +46,10 @@ export const PostCard: React.FC<Props> = ({
               </CustomText>
             </View>
           </Flex>
-          <Flex className="gap-x-3" style={{ transform: [{ translateY: 2 }] }}>
+          <Flex
+            className="gap-x-3"
+            style={{ transform: [{ translateY: type === "post" ? 2 : -12 }] }}
+          >
             <CustomText weight="bold" size={14}>
               09.05.24
             </CustomText>

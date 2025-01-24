@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { CustomText } from "./CustomText";
 
 interface Props {
@@ -18,6 +18,7 @@ export const Badge: React.FC<Props> = ({
   size = "medium",
   uppercase,
 }) => {
+  const textSize = size === "medium" ? 11 : size === "small" ? 10 : 9;
   return (
     <View
       style={{ backgroundColor: color }}
@@ -29,10 +30,9 @@ export const Badge: React.FC<Props> = ({
     >
       <CustomText
         weight="extrabold"
-        className={clsx("text-white", {
-          "text-[11px]": size === "medium",
-          "text-[10px]": size === "small",
-          "text-[9px]": size === "megaSmall",
+        size={textSize}
+        color="white"
+        className={clsx("", {
           uppercase: uppercase,
         })}
       >
