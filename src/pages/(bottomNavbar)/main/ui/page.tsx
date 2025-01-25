@@ -6,9 +6,8 @@ import { FixedButton } from "./FixedButton";
 import { AskQuestionModal } from "./modals/AskQuestionModal";
 import { CreateAccountModal } from "./modals/CreateAccountModal";
 import { Animated, View } from "react-native";
-import { PADDING_TOP_WITH_SCREEN_HEADER } from "@/shared/constants/sizes";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
-import { BasicPageHeader } from "@/widgets/basicPageHeader";
+import { PageHeader } from "@/widgets/pageHeader";
 
 export const MainPage = () => {
   const { scrollOffsetY } = React.useContext(MainPageContext);
@@ -20,8 +19,8 @@ export const MainPage = () => {
 
   return (
     <>
-      <BasicPageHeader />
-      <View style={{ flex: 1, paddingTop: PADDING_TOP_WITH_SCREEN_HEADER }}>
+      <PageHeader enableEnergyShowcase enableBalanceShowcase disableBorder />
+      <View style={{ flex: 1, marginTop: 10 }}>
         <Stories />
         <Animated.View
           style={{

@@ -9,6 +9,8 @@ const stories3 = require("./images/stories/3.png");
 const stories4 = require("./images/stories/4.png");
 const stories5 = require("./images/stories/5.png");
 const fullStory = require("./images/stories/fullStory.png");
+const middleStar = require("./images/stars/middleStar.png");
+const bigStar = require("./images/stars/middleStar.png");
 
 export default {
   groupExample1,
@@ -22,4 +24,6 @@ export default {
   stories4,
   stories5,
   fullStory,
+  middleStar,
+  bigStar,
 };

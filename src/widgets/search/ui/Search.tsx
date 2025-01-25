@@ -10,7 +10,7 @@ export const Search = () => {
   return (
     <Container className="mt-4">
       <Flex justify="between" align="center">
-        <View className="relative h-[36px] bg-[#ECF1F7] w-[88%] rounded-lg">
+        <View className="relative h-[36px] bg-gray-200 w-[88%] rounded-lg">
           <TextInput
             className="w-full h-full pl-10 placeholder:opacity-40 placeholder:text-[#2F3446] placeholder:text-md outline-none font-wixRegular"
             placeholder="Search"

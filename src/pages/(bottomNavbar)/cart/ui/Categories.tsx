@@ -3,7 +3,7 @@ import React from "react";
 import { COLORS } from "@/shared/constants/colors";
 import { Flex } from "@/shared/ui/Flex";
 import { Icon } from "@/shared/ui/Icon";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import { CustomText } from "@/shared/ui/CustomText";
 
 type IconType = "trainer" | "session" | "course" | "license";
@@ -28,7 +28,7 @@ export const Categories = () => {
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
-      contentContainerClassName="px-4 mt-10"
+      contentContainerClassName="px-4 mt-6"
     >
       <Flex className="gap-x-3">
         {categories.map((category) => {

@@ -1,3 +1,5 @@
+import images from "assets/images";
+import { Image } from "expo-image";
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import Svg, {
@@ -16,11 +18,53 @@ interface Props {
   pointContents?: React.ReactNode[];
 }
 
+const Star = () => {
+  return (
+    <View
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Image
+        source={images.bigStar}
+        style={{
+          width: 44,
+          height: 44,
+          transform: [{ translateX: 4 }, { translateY: -8 }],
+        }}
+      />
+    </View>
+  );
+};
+
 const StarWithRoundedEdges: React.FC<Props> = ({
   size = 130,
-  pointsData = [100, 80, 50, 20, 40],
+  pointsData = [100, 100, 100, 100, 100],
   pointColors = ["#F0CA89", "#F0CA89", "#F0CA89", "#F0CA89", "#F0CA89"],
-  pointContents = [<View></View>, <View />, <View />, <View />, <View />],
+  pointContents = [
+    <View className="relative">
+      <Star />
+    </View>,
+    <View className="relative">
+      <Star />
+    </View>,
+    <View className="relative">
+      <Star />
+    </View>,
+    <View className="relative">
+      <Star />
+    </View>,
+    <View className="relative">
+      <Star />
+    </View>,
+  ],
 }) => {
   const points = 5; // Количество углов звезды
   const outerRadius = size / 2;

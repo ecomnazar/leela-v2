@@ -4,13 +4,14 @@ import { Screen } from "@/widgets/_layouts/Screen";
 import { StarWithChart } from "./StarWithChart";
 import { TasksList } from "./TasksList";
 import { Animated, Platform } from "react-native";
+import { PageHeader } from "@/widgets/pageHeader";
 
 export const PlanPage = () => {
   const scrollOffsetY = new Animated.Value(0);
 
-  const animatedOpacity = scrollOffsetY.interpolate({
-    inputRange: [0, 1000],
-    outputRange: [1, 0.2],
+  const animatedStarOpacity = scrollOffsetY.interpolate({
+    inputRange: [0, 100],
+    outputRange: [1, 0],
     extrapolate: "clamp",
   });
 
@@ -20,8 +21,18 @@ export const PlanPage = () => {
       : ["transparent", "#DEE4EE", "#8992A0", "#AEB6C4"];
 
   return (
-    <Screen customGradientColors={gradient} enableHeader>
-      <StarWithChart opacity={animatedOpacity} />
+    <Screen customGradientColors={gradient}>
+      <Animated.View style={{}}>
+        <PageHeader
+          enableEnergyShowcase
+          enableBalanceShowcase
+          title="ПЛАН"
+          disableBorder
+          scrollOffsetY={scrollOffsetY}
+          animated
+        />
+      </Animated.View>
+      <StarWithChart opacity={animatedStarOpacity} />
       <CustomScrollView
         onScroll={Animated.event(
           [
@@ -34,7 +45,7 @@ export const PlanPage = () => {
           { useNativeDriver: false }
         )}
         scrollEventThrottle={16}
-        paddingTop={Platform.OS === "ios" ? 480 : 440}
+        paddingTop={Platform.OS === "ios" ? 380 : 380}
         hasBottomBar
       >
         <TasksList />

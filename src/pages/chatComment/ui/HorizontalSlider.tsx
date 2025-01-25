@@ -40,7 +40,7 @@ export default function CustomSlider() {
 
   return (
     <View>
-      <View className="bg-[#EDF1F6] py-4 w-[380px] border border-grayPrimary/40">
+      <View className="bg-[#EDF1F6] py-4 border border-grayPrimary/40">
         <View style={{ flex: 1 }}>
           <FlatList
             data={DATA}
