@@ -14,11 +14,24 @@ import { getPublicThemes } from "@/entities/theme/model/themeThunk";
 export const MainPage = () => {
   const dispatch = useAppDispatch();
   const { scrollOffsetY } = React.useContext(MainPageContext);
+
   const animatedHeight = scrollOffsetY.interpolate({
     inputRange: [0, 200],
     outputRange: [0, -100],
     extrapolate: "clamp",
   });
+
+  const animatedStyle = {
+    transform: [
+      {
+        translateY: scrollOffsetY.interpolate({
+          inputRange: [0, 200],
+          outputRange: [200, 100],
+          extrapolate: "clamp",
+        }),
+      },
+    ],
+  };
 
   React.useEffect(() => {
     dispatch(getPublicThemes());
@@ -30,11 +43,12 @@ export const MainPage = () => {
       <View style={{ flex: 1, marginTop: 10 }}>
         <Stories />
         <Animated.View
-          style={{
-            flex: 1,
-            backgroundColor: "#F2F2F2",
-            marginTop: animatedHeight,
-          }}
+          style={[
+            { flex: 1, backgroundColor: "#F2F2F2", marginTop: -200 },
+            animatedStyle,
+          ]}
+          shouldRasterizeIOS={true}
+          renderToHardwareTextureAndroid={true}
         >
           <Search />
           <CardsSection />

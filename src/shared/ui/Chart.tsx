@@ -26,7 +26,7 @@ const RadarChart: React.FC<Props> = ({
     let activeSection = null;
 
     for (let i = 0; i < labels.length; i++) {
-      const isActive = i === activeIndex;
+      // const isActive = i === activeIndex;
       const sectionRadius = radius;
       const sectionCenterY = centerY;
 
@@ -38,22 +38,12 @@ const RadarChart: React.FC<Props> = ({
       const y2 = sectionCenterY - sectionRadius * Math.cos(endAngle);
 
       const scaleFactor = 0;
-      const translateX = isActive
-        ? scaleFactor * radius * Math.sin((startAngle + endAngle) / 2)
-        : 0;
-      const translateY = isActive
-        ? -scaleFactor * radius * Math.cos((startAngle + endAngle) / 2)
-        : 0;
 
       const section = (
-        <G
-          key={i}
-          transform={isActive ? `translate(${translateX}, ${translateY})` : ""}
-        >
+        <G key={i}>
           <Path
             d={`M ${centerX} ${sectionCenterY} L ${x1} ${y1} A ${sectionRadius} ${sectionRadius} 0 0 1 ${x2} ${y2} Z`}
             fill={colors[i]}
-            filter={isActive ? "url(#shadow)" : ""}
           />
           <Text
             x={
@@ -74,11 +64,7 @@ const RadarChart: React.FC<Props> = ({
         </G>
       );
 
-      if (isActive) {
-        activeSection = section;
-      } else {
-        sections.push(section);
-      }
+      sections.push(section);
     }
 
     if (activeSection) {
