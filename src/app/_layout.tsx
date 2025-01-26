@@ -14,10 +14,15 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ReduxProvider } from "@/shared/store/provider";
 import { EventProvider } from "react-native-outside-press";
 
+// @ts-ignore
 import wixRegular from "assets/fonts/wixMadeforDisplay/WixMadeforDisplay-Regular.ttf";
+// @ts-ignore
 import wixMedium from "assets/fonts/wixMadeforDisplay/WixMadeforDisplay-Medium.ttf";
+// @ts-ignore
 import wixSemiBold from "assets/fonts/wixMadeforDisplay/WixMadeforDisplay-SemiBold.ttf";
+// @ts-ignore
 import wixBold from "assets/fonts/wixMadeforDisplay/WixMadeforDisplay-Bold.ttf";
+// @ts-ignore
 import wixExtraBold from "assets/fonts/wixMadeforDisplay/WixMadeforDisplay-ExtraBold.ttf";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -68,10 +73,6 @@ export default function RootLayout() {
     "wix-semi-bold": wixSemiBold,
     "wix-bold": wixBold,
     "wix-extra-bold": wixExtraBold,
-    // wixMedium: require("./assets/fonts/wixMadeforDisplay/WixMadeforDisplay-Medium.ttf"),
-    // wixSemiBold: require("./assets/fonts/wixMadeforDisplay/WixMadeforDisplay-SemiBold.ttf"),
-    // wixBold: require("./assets/fonts/wixMadeforDisplay/WixMadeforDisplay-Bold.ttf"),
-    // wixExtraBold: require("./assets/fonts/wixMadeforDisplay/WixMadeforDisplay-ExtraBold.ttf"),
   });
 
   useEffect(() => {

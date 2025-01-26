@@ -1,7 +1,14 @@
 import React from "react";
 import { Flex } from "@/shared/ui/Flex";
 import { Icon } from "@/shared/ui/Icon";
-import { Animated, Platform, Pressable, Text, View } from "react-native";
+import {
+  Animated,
+  Linking,
+  Platform,
+  Pressable,
+  Text,
+  View,
+} from "react-native";
 import { COLORS } from "@/shared/constants/colors";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
 import { useModal } from "@/shared/zustand/useModal";
@@ -30,7 +37,12 @@ export const FixedButton = () => {
     extrapolate: "clamp",
   });
 
-  const handleClick = () => openModal("ask-question");
+  const handleClick = () => {
+    Linking.openURL(
+      `https://nonames.kalasov.com/oauth2/authorization/google?companyId=df31f9f2-b890-4647-80f2-51eae1f2753d&redirect_uri=${process.env.EXPO_PUBLIC_GOOGLE_REDIRECT_URL}`
+    );
+    // openModal("ask-question")
+  };
 
   return (
     <Pressable

@@ -8,14 +8,21 @@ import { CreateAccountModal } from "./modals/CreateAccountModal";
 import { Animated, View } from "react-native";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
 import { PageHeader } from "@/widgets/pageHeader";
+import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
+import { getPublicThemes } from "@/entities/theme/model/themeThunk";
 
 export const MainPage = () => {
+  const dispatch = useAppDispatch();
   const { scrollOffsetY } = React.useContext(MainPageContext);
   const animatedHeight = scrollOffsetY.interpolate({
     inputRange: [0, 200],
     outputRange: [0, -100],
     extrapolate: "clamp",
   });
+
+  React.useEffect(() => {
+    dispatch(getPublicThemes());
+  }, []);
 
   return (
     <>
