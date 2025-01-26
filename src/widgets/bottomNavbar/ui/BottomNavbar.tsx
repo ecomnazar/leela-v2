@@ -38,8 +38,6 @@ export const BottomNavbar = ({ state, descriptors, navigation }: any) => {
             }
           };
 
-          console.log(label);
-
           return (
             <Pressable
               key={index}

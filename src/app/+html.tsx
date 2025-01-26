@@ -16,6 +16,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
         />
 
         <link rel="manifest" href="/manifest.json" />
+        <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
 
         {/* 
           Disable body scrolling on web. This makes ScrollView components work closer to how they do on native. 
