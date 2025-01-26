@@ -38,6 +38,8 @@ export const BottomNavbar = ({ state, descriptors, navigation }: any) => {
             }
           };
 
+          console.log(label);
+
           return (
             <Pressable
               key={index}
@@ -49,6 +51,7 @@ export const BottomNavbar = ({ state, descriptors, navigation }: any) => {
               className={clsx("flex-1 justify-center items-center", {
                 "h-[95px] pb-[14px]": Platform.OS === "ios",
                 "h-[80px]": Platform.OS !== "ios",
+                "pointer-events-none opacity-20": label === "profile",
               })}
             >
               <Icon route={route} isFocused={isFocused} />
