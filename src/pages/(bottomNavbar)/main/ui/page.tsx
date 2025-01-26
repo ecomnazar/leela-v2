@@ -1,25 +1,63 @@
 import React from "react";
-import { SearchSection } from "./SearchSection";
 import { CardsSection } from "./CardsSection";
-import { Screen } from "@/widgets/_layouts/Screen";
-import { CustomScrollView } from "@/shared/ui/CustomScrollView";
-import { CategoryTabs } from "@/entities/ui/categoryTabs/ui/categoryTabs";
+import { Stories } from "./Stories";
+import { Search } from "@/widgets/search";
+import { FixedButton } from "./FixedButton";
+import { AskQuestionModal } from "./modals/AskQuestionModal";
+import { CreateAccountModal } from "./modals/CreateAccountModal";
+import { Animated, View } from "react-native";
+import { MainPageContext } from "@/shared/providers/mainPageProvider";
+import { PageHeader } from "@/widgets/pageHeader";
+import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
+import { getPublicThemes } from "@/entities/theme/model/themeThunk";
 
-const categoies = ["ФОРУМ", "ГРУППЫ", "МЕНТОРЫ"];
 export const MainPage = () => {
-  const [activeCategory, setActiveCategory] = React.useState(categoies[0]);
+  const dispatch = useAppDispatch();
+  const { scrollOffsetY } = React.useContext(MainPageContext);
+
+  const animatedHeight = scrollOffsetY.interpolate({
+    inputRange: [0, 200],
+    outputRange: [0, -100],
+    extrapolate: "clamp",
+  });
+
+  const animatedStyle = {
+    transform: [
+      {
+        translateY: scrollOffsetY.interpolate({
+          inputRange: [0, 200],
+          outputRange: [200, 100],
+          extrapolate: "clamp",
+        }),
+      },
+    ],
+  };
+
+  React.useEffect(() => {
+    dispatch(getPublicThemes());
+  }, []);
 
   return (
-    <Screen>
-      <CustomScrollView hasBottomBar hasHeader>
-        <CategoryTabs
-          categories={categoies}
-          activeCategory={activeCategory}
-          setActiveCategory={setActiveCategory}
-        />
-        <SearchSection />
-        <CardsSection />
-      </CustomScrollView>
-    </Screen>
+    <>
+      <PageHeader enableEnergyShowcase enableBalanceShowcase disableBorder />
+      <View style={{ flex: 1, marginTop: 10 }}>
+        <Stories />
+        <Animated.View
+          style={[
+            { flex: 1, backgroundColor: "#F2F2F2", marginTop: -200 },
+            animatedStyle,
+          ]}
+          shouldRasterizeIOS={true}
+          renderToHardwareTextureAndroid={true}
+        >
+          <Search />
+          <CardsSection />
+        </Animated.View>
+      </View>
+      <FixedButton />
+      {/* modals */}
+      <AskQuestionModal />
+      <CreateAccountModal />
+    </>
   );
 };

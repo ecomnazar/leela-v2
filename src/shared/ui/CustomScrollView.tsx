@@ -1,13 +1,14 @@
 import React from "react";
-import { Platform, ScrollView } from "react-native";
+import { Platform, ScrollView, StyleProp, ViewStyle } from "react-native";
 
-interface Props {
+interface Props extends React.ComponentProps<typeof ScrollView> {
   className?: string;
   hasBottomBar?: boolean;
   hasHeader?: boolean;
   children: React.ReactNode;
   paddingTop?: number;
   paddingBottom?: number;
+  style?: StyleProp<ViewStyle>;
 }
 
 export const CustomScrollView: React.FC<Props> = ({
@@ -16,6 +17,8 @@ export const CustomScrollView: React.FC<Props> = ({
   children,
   paddingTop,
   paddingBottom,
+  style,
+  ...props
 }) => {
   const paddingBottomSize = Platform.select({
     android: 80,
@@ -27,15 +30,19 @@ export const CustomScrollView: React.FC<Props> = ({
     ios: 100,
     web: 50,
   });
+
   return (
     <ScrollView
+      {...props}
       alwaysBounceVertical={false}
       bounces={false}
+      overScrollMode="never"
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         paddingBottom: hasBottomBar ? paddingBottomSize : paddingBottom || 0,
         paddingTop: hasHeader ? paddingTopSize : paddingTop || 0,
       }}
+      style={style ? style : {}}
     >
       {children}
     </ScrollView>
