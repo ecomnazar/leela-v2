@@ -3,7 +3,7 @@ import { BottomSheet } from "@/shared/ui/BottomSheet";
 import { Container } from "@/shared/ui/Container";
 import { Flex } from "@/shared/ui/Flex";
 import { useModal } from "@/shared/zustand/useModal";
-import { Pressable, Text, View } from "react-native";
+import { Linking, Pressable, Text, View } from "react-native";
 import AppleIcon from "assets/icons/apple.svg";
 import GoogleIcon from "assets/icons/google.svg";
 
@@ -23,6 +23,12 @@ export const CreateAccountModal = () => {
     },
     onError: (error) => console.log("Login Failed:", error),
   });
+
+  const handleLogin = () => {
+    Linking.openURL(
+      "https://accounts.google.com/o/oauth2/v2/auth?client_id=1050890406153-7cb24c1nabhn2grvr3gsms4avm72s5ik.apps.googleusercontent.com&redirect_uri=https://t.me/nonamesnobot/start&response_type=code&scope=email"
+    );
+  };
 
   return (
     <BottomSheet isOpen={open} onClose={closeModal}>
@@ -45,7 +51,7 @@ export const CreateAccountModal = () => {
             </Flex>
           </Pressable>
           <Pressable
-            onPress={login}
+            onPress={handleLogin}
             className="border border-[#1F1F1F] h-[46px] rounded-xl flex items-center justify-center"
           >
             <Flex className="gap-x-2">
