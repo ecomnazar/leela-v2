@@ -14,38 +14,15 @@ export const CreateAccountModal = () => {
   const { isOpen, closeModal, type } = useModal();
   const open = isOpen && type === "create-account";
 
-  const [user, setUser] = React.useState([]);
-  const [profile, setProfile] = React.useState([]);
-
   const login = useGoogleLogin({
     flow: "auth-code",
     redirect_uri: "https://t.me/nonamesnobot/start",
+    ux_mode: "redirect",
     onSuccess: (codeResponse) => {
       console.log(codeResponse);
-
-      // setUser(codeResponse)
     },
     onError: (error) => console.log("Login Failed:", error),
   });
-
-  // React.useEffect(() => {
-  //   if (user) {
-  //     axios
-  //       .get(
-  //         `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${user.access_token}`,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${user.access_token}`,
-  //             Accept: "application/json",
-  //           },
-  //         }
-  //       )
-  //       .then((res) => {
-  //         setProfile(res.data);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, [user]);
 
   return (
     <BottomSheet isOpen={open} onClose={closeModal}>
