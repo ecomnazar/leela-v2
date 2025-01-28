@@ -13,10 +13,13 @@ import { COLORS } from "@/shared/constants/colors";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
 import { useModal } from "@/shared/zustand/useModal";
 import { CustomText } from "@/shared/ui/CustomText";
+import { useGoogleAuth } from "@/shared/hooks/useGoogleAuth";
 
 export const FixedButton = () => {
   const { openModal } = useModal();
   const { scrollOffsetY } = React.useContext(MainPageContext);
+
+  const googleAuth = useGoogleAuth();
 
   const buttonWidth = scrollOffsetY.interpolate({
     inputRange: [0, 1],
@@ -38,11 +41,8 @@ export const FixedButton = () => {
   });
 
   const handleClick = () => {
-    Linking.openURL(
-      // `https://nonames.kalasov.com/oauth2/authorization/google?companyId=df31f9f2-b890-4647-80f2-51eae1f2753d&redirect_uri=${process.env.EXPO_PUBLIC_GOOGLE_REDIRECT_URL}`
-      `https://nonames.kalasov.com/oauth2/authorization/google?companyId=df31f9f2-b890-4647-80f2-51eae1f2753d`
-    );
-    // openModal("ask-question")
+    // googleAuth();
+    openModal("create-account");
   };
 
   return (

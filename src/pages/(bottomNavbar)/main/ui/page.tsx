@@ -15,12 +15,6 @@ export const MainPage = () => {
   const dispatch = useAppDispatch();
   const { scrollOffsetY } = React.useContext(MainPageContext);
 
-  const animatedHeight = scrollOffsetY.interpolate({
-    inputRange: [0, 200],
-    outputRange: [0, -100],
-    extrapolate: "clamp",
-  });
-
   const animatedStyle = {
     transform: [
       {
@@ -33,9 +27,9 @@ export const MainPage = () => {
     ],
   };
 
-  React.useEffect(() => {
-    dispatch(getPublicThemes());
-  }, []);
+  // React.useEffect(() => {
+  //   dispatch(getPublicThemes());
+  // }, []);
 
   return (
     <>
