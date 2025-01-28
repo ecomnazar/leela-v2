@@ -7,18 +7,42 @@ import { Pressable, Text, View } from "react-native";
 import AppleIcon from "assets/icons/apple.svg";
 import GoogleIcon from "assets/icons/google.svg";
 
-import { GoogleLogin } from "@react-oauth/google";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 
 export const CreateAccountModal = () => {
   const { isOpen, closeModal, type } = useModal();
   const open = isOpen && type === "create-account";
 
-  const responseMessage = (response) => {
-    console.log(response);
-  };
-  const errorMessage = (error) => {
-    console.log(error);
-  };
+  const [user, setUser] = React.useState([]);
+  const [profile, setProfile] = React.useState([]);
+
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => setUser(codeResponse),
+    onError: (error) => console.log("Login Failed:", error),
+  });
+
+  React.useEffect(() => {
+    if (user) {
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${user.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          setProfile(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user]);
+
+  console.log(user);
+  console.log(profile);
 
   return (
     <BottomSheet isOpen={open} onClose={closeModal}>
@@ -32,8 +56,6 @@ export const CreateAccountModal = () => {
         </Text>
 
         <View className="mt-8 gap-y-3">
-          {/* <GoogleLogin onSuccess={responseMessage} onError={errorMessage} /> */}
-
           <Pressable className="bg-[#1F1F1F] border border-[#1F1F1F] h-[46px] rounded-xl flex items-center justify-center">
             <Flex className="gap-x-2">
               <AppleIcon />
@@ -42,7 +64,10 @@ export const CreateAccountModal = () => {
               </Text>
             </Flex>
           </Pressable>
-          <Pressable className="border border-[#1F1F1F] h-[46px] rounded-xl flex items-center justify-center">
+          <Pressable
+            onPress={login}
+            className="border border-[#1F1F1F] h-[46px] rounded-xl flex items-center justify-center"
+          >
             <Flex className="gap-x-2">
               <GoogleIcon />
               <Text className="text-textPrimary font-medium text-[15px]">
