@@ -7,9 +7,18 @@ import { Pressable, Text, View } from "react-native";
 import AppleIcon from "assets/icons/apple.svg";
 import GoogleIcon from "assets/icons/google.svg";
 
+import { GoogleLogin } from "@react-oauth/google";
+
 export const CreateAccountModal = () => {
   const { isOpen, closeModal, type } = useModal();
   const open = isOpen && type === "create-account";
+
+  const responseMessage = (response) => {
+    console.log(response);
+  };
+  const errorMessage = (error) => {
+    console.log(error);
+  };
 
   return (
     <BottomSheet isOpen={open} onClose={closeModal}>
@@ -23,6 +32,8 @@ export const CreateAccountModal = () => {
         </Text>
 
         <View className="mt-8 gap-y-3">
+          {/* <GoogleLogin onSuccess={responseMessage} onError={errorMessage} /> */}
+
           <Pressable className="bg-[#1F1F1F] border border-[#1F1F1F] h-[46px] rounded-xl flex items-center justify-center">
             <Flex className="gap-x-2">
               <AppleIcon />
