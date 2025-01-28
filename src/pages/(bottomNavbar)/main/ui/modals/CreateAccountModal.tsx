@@ -18,31 +18,34 @@ export const CreateAccountModal = () => {
   const [profile, setProfile] = React.useState([]);
 
   const login = useGoogleLogin({
-    onSuccess: (codeResponse) => setUser(codeResponse),
+    flow: "auth-code",
+    redirect_uri: "https://t.me/nonamesnobot/start",
+    onSuccess: (codeResponse) => {
+      console.log(codeResponse);
+
+      // setUser(codeResponse)
+    },
     onError: (error) => console.log("Login Failed:", error),
   });
 
-  React.useEffect(() => {
-    if (user) {
-      axios
-        .get(
-          `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${user.access_token}`,
-          {
-            headers: {
-              Authorization: `Bearer ${user.access_token}`,
-              Accept: "application/json",
-            },
-          }
-        )
-        .then((res) => {
-          setProfile(res.data);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [user]);
-
-  console.log(user);
-  console.log(profile);
+  // React.useEffect(() => {
+  //   if (user) {
+  //     axios
+  //       .get(
+  //         `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${user.access_token}`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${user.access_token}`,
+  //             Accept: "application/json",
+  //           },
+  //         }
+  //       )
+  //       .then((res) => {
+  //         setProfile(res.data);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // }, [user]);
 
   return (
     <BottomSheet isOpen={open} onClose={closeModal}>
