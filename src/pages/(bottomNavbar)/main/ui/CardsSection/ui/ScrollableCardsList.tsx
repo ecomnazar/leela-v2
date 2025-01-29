@@ -2,94 +2,14 @@ import React from "react";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
 import { CustomScrollView } from "@/shared/ui/CustomScrollView";
 import { Animated, View } from "react-native";
-import images from "assets/images";
 import { PostCard } from "@/entities/ui/postCard";
-
-const cards = [
-  {
-    name: "Алена",
-    image: images.stories1,
-  },
-  {
-    name: "Евгений",
-    image: images.stories2,
-  },
-  {
-    name: "Анжелика",
-    image: images.stories3,
-  },
-  {
-    name: "Юрий",
-    image: images.stories4,
-  },
-  {
-    name: "Оксана",
-    image: images.stories5,
-  },
-  {
-    name: "Алена",
-    image: images.stories1,
-  },
-  {
-    name: "Евгений",
-    image: images.stories2,
-  },
-  {
-    name: "Анжелика",
-    image: images.stories3,
-  },
-  {
-    name: "Юрий",
-    image: images.stories4,
-  },
-  {
-    name: "Оксана",
-    image: images.stories5,
-  },
-  {
-    name: "Алена",
-    image: images.stories1,
-  },
-  {
-    name: "Евгений",
-    image: images.stories2,
-  },
-  {
-    name: "Анжелика",
-    image: images.stories3,
-  },
-  {
-    name: "Юрий",
-    image: images.stories4,
-  },
-  {
-    name: "Оксана",
-    image: images.stories5,
-  },
-  {
-    name: "Алена",
-    image: images.stories1,
-  },
-  {
-    name: "Евгений",
-    image: images.stories2,
-  },
-  {
-    name: "Анжелика",
-    image: images.stories3,
-  },
-  {
-    name: "Юрий",
-    image: images.stories4,
-  },
-  {
-    name: "Оксана",
-    image: images.stories5,
-  },
-];
+import { useAppSelector } from "@/shared/hooks/useAppSelector";
 
 export const ScrollableCardsList = () => {
   const { scrollOffsetY } = React.useContext(MainPageContext);
+  const { data } = useAppSelector((state) => state.theme.publicThemes);
+
+  console.log(data);
 
   return (
     <CustomScrollView
@@ -106,14 +26,19 @@ export const ScrollableCardsList = () => {
       )}
       scrollEventThrottle={16}
     >
-      <View className="relative gap-y-2 mt-2">
-        {cards.map((item, index) => {
+      <View className="relative gap-y-2">
+        {data.map((item, index) => {
           return (
             <PostCard
               key={index}
-              image={item.image}
-              name={item.name}
+              image={""}
+              name={""}
               role="Гость"
+              isAnonym={item.isAnonymous}
+              likeCount={item.likesAndDislikes.likes}
+              dislikeCount={item.likesAndDislikes.dislikes}
+              commentCount={item.commentsCount}
+              date={item.createdAt}
             />
           );
         })}

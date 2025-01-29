@@ -9,7 +9,12 @@ import { Animated, View } from "react-native";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
 import { PageHeader } from "@/widgets/pageHeader";
 import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
-import { getPublicThemes } from "@/entities/theme/model/themeThunk";
+import {
+  getPublicThemesApi,
+  getPublicThemeTagsApi,
+} from "@/entities/theme/model/themeThunk";
+import { IGetPublicThemesProps } from "@/entities/theme/model/interfaces";
+import { PUBLIC_THEMES_SIZE } from "@/shared/constants/api";
 
 export const MainPage = () => {
   const dispatch = useAppDispatch();
@@ -28,7 +33,14 @@ export const MainPage = () => {
   };
 
   React.useEffect(() => {
-    dispatch(getPublicThemes());
+    const data: IGetPublicThemesProps = {
+      sort_by: "COMMENTS_ASC",
+    };
+    dispatch(getPublicThemesApi(data));
+  }, []);
+
+  React.useEffect(() => {
+    dispatch(getPublicThemeTagsApi());
   }, []);
 
   return (
