@@ -13,13 +13,10 @@ import { COLORS } from "@/shared/constants/colors";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
 import { useModal } from "@/shared/zustand/useModal";
 import { CustomText } from "@/shared/ui/CustomText";
-import { useGoogleAuth } from "@/shared/hooks/useGoogleAuth";
 
 export const FixedButton = () => {
   const { openModal } = useModal();
   const { scrollOffsetY } = React.useContext(MainPageContext);
-
-  const googleAuth = useGoogleAuth();
 
   const buttonWidth = scrollOffsetY.interpolate({
     inputRange: [0, 1],
@@ -41,7 +38,6 @@ export const FixedButton = () => {
   });
 
   const handleClick = () => {
-    // googleAuth();
     openModal("create-account");
   };
 
