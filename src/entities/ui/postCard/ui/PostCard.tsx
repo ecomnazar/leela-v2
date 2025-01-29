@@ -12,6 +12,7 @@ import { CustomText } from "@/shared/ui/CustomText";
 import { formattedDate } from "@/shared/lib/formattedDate";
 
 interface Props {
+  themeId?: number;
   image: string;
   name: string;
   type?: "post" | "comment";
@@ -26,6 +27,7 @@ interface Props {
 }
 
 export const PostCard: React.FC<Props> = ({
+  themeId,
   image,
   name,
   type = "post",
@@ -162,7 +164,7 @@ export const PostCard: React.FC<Props> = ({
   const renderCommentButton = () => {
     return (
       <Flex className="gap-x-2">
-        <Pressable onPress={() => router.push("/chat/comment/1")}>
+        <Pressable onPress={() => router.push(`/chat/comment/${themeId}`)}>
           <Icon
             type="comment"
             width={21}

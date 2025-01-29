@@ -1,6 +1,6 @@
 import { apiCall } from "@/shared/api/apiCall";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IGetPublicThemesProps, IGetThemeCommentsApiProps } from "./interfaces";
+import { IGetPublicThemesProps } from "./interfaces";
 import { addPaginationParams } from "@/shared/api/addPaginationParams";
 
 export const getPublicThemesApi = createAsyncThunk(
@@ -20,8 +20,7 @@ export const getPublicThemesApi = createAsyncThunk(
 
 export const getThemeCommentsApi = createAsyncThunk(
   "getThemeCommentsApi",
-  async (data: IGetThemeCommentsApiProps, thunkAPI) => {
-    const { themeId } = data;
+  async (themeId: string, thunkAPI) => {
     const url = addPaginationParams(`/public/themes/${themeId}/comments`);
     try {
       return await apiCall("get", url);

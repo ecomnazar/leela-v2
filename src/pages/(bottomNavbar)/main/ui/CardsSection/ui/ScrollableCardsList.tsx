@@ -9,11 +9,10 @@ export const ScrollableCardsList = () => {
   const { scrollOffsetY } = React.useContext(MainPageContext);
   const { data } = useAppSelector((state) => state.theme.publicThemes);
 
-  console.log(data);
-
   return (
     <CustomScrollView
       hasBottomBar
+      scrollEventThrottle={16}
       onScroll={Animated.event(
         [
           {
@@ -24,21 +23,28 @@ export const ScrollableCardsList = () => {
         ],
         { useNativeDriver: false }
       )}
-      scrollEventThrottle={16}
     >
       <View className="relative gap-y-2">
         {data.map((item, index) => {
+          const {
+            id,
+            isAnonymous,
+            createdAt,
+            commentsCount,
+            likesAndDislikes: { dislikes, likes },
+          } = item;
           return (
             <PostCard
               key={index}
               image={""}
               name={""}
               role="Гость"
-              isAnonym={item.isAnonymous}
-              likeCount={item.likesAndDislikes.likes}
-              dislikeCount={item.likesAndDislikes.dislikes}
-              commentCount={item.commentsCount}
-              date={item.createdAt}
+              themeId={id}
+              isAnonym={isAnonymous}
+              likeCount={likes}
+              dislikeCount={dislikes}
+              commentCount={commentsCount}
+              date={createdAt}
             />
           );
         })}

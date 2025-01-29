@@ -25,7 +25,3 @@ export interface IPublicTheme {
 export interface IGetPublicThemesProps {
   sort_by: TThemeSortType;
 }
-
-export interface IGetThemeCommentsApiProps {
-  themeId: number;
-}
