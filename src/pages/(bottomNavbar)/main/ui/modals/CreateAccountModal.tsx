@@ -7,22 +7,9 @@ import { Linking, Pressable, Text, View } from "react-native";
 import AppleIcon from "assets/icons/apple.svg";
 import GoogleIcon from "assets/icons/google.svg";
 
-import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
-import axios from "axios";
-
 export const CreateAccountModal = () => {
   const { isOpen, closeModal, type } = useModal();
   const open = isOpen && type === "create-account";
-
-  const login = useGoogleLogin({
-    flow: "auth-code",
-    redirect_uri: "https://t.me/nonamesnobot/start",
-    ux_mode: "redirect",
-    onSuccess: (codeResponse) => {
-      console.log(codeResponse);
-    },
-    onError: (error) => console.log("Login Failed:", error),
-  });
 
   const handleLogin = () => {
     Linking.openURL(

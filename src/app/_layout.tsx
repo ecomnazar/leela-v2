@@ -14,7 +14,6 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ReduxProvider } from "@/shared/store/provider";
 import { EventProvider } from "react-native-outside-press";
 import { Telegram } from "@twa-dev/types";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 
 // @ts-ignore
 import wixRegular from "assets/fonts/wixMadeforDisplay/WixMadeforDisplay-Regular.ttf";
@@ -57,26 +56,20 @@ const App = () => {
 
 const RootLayoutProvider = () => {
   return (
-    <GoogleOAuthProvider
-      clientId={
-        "1050890406153-7cb24c1nabhn2grvr3gsms4avm72s5ik.apps.googleusercontent.com"
-      }
-    >
-      <ThemeProvider>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <ReduxProvider>
-            <BottomSheetModalProvider>
-              <EventProvider>
-                <PortalProvider>
-                  <StatusBar style="inverted" />
-                  <App />
-                </PortalProvider>
-              </EventProvider>
-            </BottomSheetModalProvider>
-          </ReduxProvider>
-        </GestureHandlerRootView>
-      </ThemeProvider>
-    </GoogleOAuthProvider>
+    <ThemeProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <ReduxProvider>
+          <BottomSheetModalProvider>
+            <EventProvider>
+              <PortalProvider>
+                <StatusBar style="inverted" />
+                <App />
+              </PortalProvider>
+            </EventProvider>
+          </BottomSheetModalProvider>
+        </ReduxProvider>
+      </GestureHandlerRootView>
+    </ThemeProvider>
   );
 };
 
