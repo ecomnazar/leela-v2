@@ -22,6 +22,24 @@ export interface IPublicTheme {
   title: string;
 }
 
+export interface IComment {
+  authorName: string;
+  authorProfileImageUrl: string;
+  authorRole: string;
+  authorId: number;
+  createdAt: string;
+  id: number;
+  isAnonymous: boolean;
+  likesAndDislikes: { likes: number; dislikes: number };
+  text: string;
+}
+
 export interface IGetPublicThemesProps {
   sort_by: TThemeSortType;
+}
+
+export interface IAddThemeCommentApiProps {
+  themeId: number;
+  text: string;
+  isAnonymous: boolean;
 }

@@ -1,6 +1,11 @@
-import { getPublicThemesApi, getThemeByIdApi } from "./themeThunk";
+import {
+  addThemeCommentApi,
+  getPublicThemesApi,
+  getThemeByIdApi,
+  getThemeCommentsApi,
+} from "./themeThunk";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IPublicTheme } from "./interfaces";
+import { IComment, IPublicTheme } from "./interfaces";
 
 export const themeSlice = createSlice({
   name: "theme",
@@ -14,10 +19,47 @@ export const themeSlice = createSlice({
       data: {} as IPublicTheme,
       loading: false,
     },
+    themeComments: {
+      data: [] as IComment[],
+      loading: false,
+    },
+    addThemeCommentLoading: false,
   },
-  reducers: {},
+  reducers: {
+    addComment: (state, action: PayloadAction<IComment>) => {
+      state.themeComments.data = [action.payload, ...state.themeComments.data];
+    },
+  },
   extraReducers: (builder) => {
     builder
+
+      // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+      .addCase(addThemeCommentApi.pending, (state) => {
+        state.addThemeCommentLoading = true;
+      })
+      .addCase(addThemeCommentApi.fulfilled, (state) => {
+        state.addThemeCommentLoading = false;
+      })
+      .addCase(addThemeCommentApi.rejected, (state) => {
+        state.addThemeCommentLoading = false;
+      })
+
+      // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+      .addCase(getThemeCommentsApi.pending, (state) => {
+        state.themeComments.loading = true;
+      })
+      .addCase(
+        getThemeCommentsApi.fulfilled,
+        (state, action: PayloadAction<IComment[]>) => {
+          state.themeComments.loading = false;
+          state.themeComments.data = action.payload;
+        }
+      )
+      .addCase(getThemeCommentsApi.rejected, (state) => {
+        state.themeComments.loading = false;
+      })
 
       // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -53,3 +95,5 @@ export const themeSlice = createSlice({
       });
   },
 });
+
+export const { addComment } = themeSlice.actions;

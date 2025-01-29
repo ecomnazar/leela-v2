@@ -16,6 +16,8 @@ import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
 import { FixedTypeCommentInput } from "./FixedTypeCommentInput";
 import { ThemeCardSkeleton } from "@/entities/ui/themeCardSkeleton";
 import { useAppSelector } from "@/shared/hooks/useAppSelector";
+import { ThemeCard } from "./ThemeCard";
+import { Comments } from "./Comments";
 
 export const ChatCommentPage = () => {
   const { id } = useLocalSearchParams();
@@ -45,43 +47,8 @@ export const ChatCommentPage = () => {
   const renderDataState = () => {
     return (
       <CustomScrollView className="pb-[80px]">
-        <PostCard image={images.stories1} name="Алена" role="Гость" />
-        <View className="mt-4">
-          <Container className="mb-3">
-            <CustomText weight="bold" size={14}>
-              Комментарии 2
-            </CustomText>
-          </Container>
-          <PostCard
-            image={images.stories2}
-            name="Евгений"
-            type="comment"
-            isStoriesActive
-            role="Эксперт"
-          />
-        </View>
-        <HorizontalSlider />
-        <PostCard
-          image={images.stories3}
-          name="Александра"
-          type="comment"
-          isStoriesActive
-          role="Эксперт"
-        />
-        <PostCard
-          image={images.stories3}
-          name="Александра"
-          type="comment"
-          isStoriesActive
-          role="Эксперт"
-        />
-        <PostCard
-          image={images.stories3}
-          name="Александра"
-          type="comment"
-          isStoriesActive
-          role="Эксперт"
-        />
+        <ThemeCard />
+        <Comments />
       </CustomScrollView>
     );
   };
@@ -90,7 +57,7 @@ export const ChatCommentPage = () => {
     <View className="w-screen h-screen bg-backgroundTertiary flex-1">
       <PageHeader title="Comment" />
       {loading ? renderLoadingState() : renderDataState()}
-      <FixedTypeCommentInput />
+      <FixedTypeCommentInput themeId={Number(id)} />
     </View>
   );
 };

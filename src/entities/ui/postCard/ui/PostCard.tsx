@@ -24,6 +24,9 @@ interface Props {
   dislikeCount?: number;
   commentCount?: number;
   date?: string;
+  title?: string;
+  text?: string;
+  tags?: string[];
 }
 
 export const PostCard: React.FC<Props> = ({
@@ -39,6 +42,9 @@ export const PostCard: React.FC<Props> = ({
   dislikeCount,
   commentCount,
   date,
+  title,
+  text,
+  tags,
 }) => {
   const realName = isAnonym ? "Аноним" : name;
 
@@ -90,12 +96,15 @@ export const PostCard: React.FC<Props> = ({
 
   const renderBadges = () => {
     return (
-      type === "post" && (
+      !!(type === "post" && tags?.length) && (
         <Flex className="gap-x-2">
-          <Badge color="#B3A6D3" uppercase>
-            Нутрициология
-          </Badge>
-          <Badge color="#EDD3CC">КРАСОТА</Badge>
+          {tags.map((tag, key) => {
+            return (
+              <Badge key={key} color="#B3A6D3" uppercase>
+                {tag}
+              </Badge>
+            );
+          })}
         </Flex>
       )
     );
@@ -111,7 +120,7 @@ export const PostCard: React.FC<Props> = ({
             color="primarySecondary"
             className="mb-0.5"
           >
-            Гипотериоз и седина
+            {title}
           </CustomText>
         )}
         <CustomText
@@ -120,8 +129,7 @@ export const PostCard: React.FC<Props> = ({
           weight="regular"
           className="mt-[1px]"
         >
-          Здравствуйте, как связана седина и гипотериоз?{"\n"}Сначала я думала,
-          что это просто генетика.
+          {text}
         </CustomText>
       </View>
     );

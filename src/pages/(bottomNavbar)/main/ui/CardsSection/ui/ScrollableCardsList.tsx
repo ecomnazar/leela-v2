@@ -28,6 +28,8 @@ export const ScrollableCardsList = () => {
         {data.map((item, index) => {
           const {
             id,
+            text,
+            title,
             isAnonymous,
             createdAt,
             commentsCount,
@@ -45,6 +47,8 @@ export const ScrollableCardsList = () => {
               dislikeCount={dislikes}
               commentCount={commentsCount}
               date={createdAt}
+              title={title}
+              text={text}
             />
           );
         })}
