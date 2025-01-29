@@ -27,9 +27,9 @@ export const MainPage = () => {
     ],
   };
 
-  // React.useEffect(() => {
-  //   dispatch(getPublicThemes());
-  // }, []);
+  React.useEffect(() => {
+    dispatch(getPublicThemes());
+  }, []);
 
   return (
     <>
