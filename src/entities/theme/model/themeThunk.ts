@@ -30,6 +30,18 @@ export const getThemeCommentsApi = createAsyncThunk(
   }
 );
 
+export const getThemeByIdApi = createAsyncThunk(
+  "getThemeByIdApi",
+  async (themeId: string, thunkAPI) => {
+    const url = addPaginationParams(`/public/themes/${themeId}`);
+    try {
+      return await apiCall("get", url);
+    } catch (error: unknown) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const getPublicThemeTagsApi = createAsyncThunk(
   "getPublicThemeTags",
   async (_, thunkAPI) => {

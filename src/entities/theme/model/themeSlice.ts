@@ -1,6 +1,6 @@
+import { getPublicThemesApi, getThemeByIdApi } from "./themeThunk";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IPublicTheme } from "./interfaces";
-import { getPublicThemesApi } from "./themeThunk";
 
 export const themeSlice = createSlice({
   name: "theme",
@@ -8,6 +8,10 @@ export const themeSlice = createSlice({
     publicThemes: {
       data: [] as IPublicTheme[],
       skeletonLoading: true,
+      loading: false,
+    },
+    themeById: {
+      data: {} as IPublicTheme,
       loading: false,
     },
   },
@@ -30,6 +34,22 @@ export const themeSlice = createSlice({
       )
       .addCase(getPublicThemesApi.rejected, (state) => {
         state.publicThemes.loading = false;
+      })
+
+      // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+      .addCase(getThemeByIdApi.pending, (state) => {
+        state.themeById.loading = true;
+      })
+      .addCase(
+        getThemeByIdApi.fulfilled,
+        (state, action: PayloadAction<IPublicTheme>) => {
+          state.themeById.loading = false;
+          state.themeById.data = action.payload;
+        }
+      )
+      .addCase(getThemeByIdApi.rejected, (state) => {
+        state.themeById.loading = false;
       });
   },
 });
