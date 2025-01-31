@@ -13,12 +13,19 @@ import {
   getPublicThemesApi,
   getPublicThemeTagsApi,
 } from "@/entities/theme/model/themeThunk";
-import { IGetPublicThemesProps } from "@/entities/theme/model/interfaces";
-import { PUBLIC_THEMES_SIZE } from "@/shared/constants/api";
+import {
+  IGetPublicThemesProps,
+  TThemeSortType,
+} from "@/entities/theme/model/interfaces";
+import { useLocalSearchParams } from "expo-router";
 
 export const MainPage = () => {
   const dispatch = useAppDispatch();
   const { scrollOffsetY } = React.useContext(MainPageContext);
+
+  const params = useLocalSearchParams();
+  const [sortBy, setSortBy] = React.useState<TThemeSortType>("COMMENTS_ASC");
+  const [searchQuery, setSearchQuery] = React.useState<string>("");
 
   const animatedStyle = {
     transform: [
@@ -34,14 +41,25 @@ export const MainPage = () => {
 
   React.useEffect(() => {
     const data: IGetPublicThemesProps = {
-      sort_by: "COMMENTS_ASC",
+      sort_by: sortBy,
+      search_query: searchQuery,
     };
     dispatch(getPublicThemesApi(data));
-  }, []);
+  }, [sortBy, searchQuery]);
 
   React.useEffect(() => {
     dispatch(getPublicThemeTagsApi());
   }, []);
+
+  React.useEffect(() => {
+    setSortBy((params.filter as TThemeSortType) || "COMMENTS_ASC");
+  }, [params.filter]);
+
+  React.useEffect(() => {
+    setSearchQuery((params.search_query as string) || "");
+  }, [params.search_query]);
+
+  console.log(params.search_query);
 
   return (
     <>

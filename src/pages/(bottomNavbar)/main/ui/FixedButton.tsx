@@ -13,6 +13,7 @@ import { COLORS } from "@/shared/constants/colors";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
 import { useModal } from "@/shared/zustand/useModal";
 import { CustomText } from "@/shared/ui/CustomText";
+import { router } from "expo-router";
 
 export const FixedButton = () => {
   const { openModal } = useModal();
@@ -38,7 +39,8 @@ export const FixedButton = () => {
   });
 
   const handleClick = () => {
-    openModal("create-account");
+    router.push("/askQuestion");
+    // openModal("create-account");
   };
 
   return (

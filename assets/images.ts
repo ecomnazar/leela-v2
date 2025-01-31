@@ -11,6 +11,8 @@ const stories5 = require("./images/stories/5.png");
 const fullStory = require("./images/stories/fullStory.png");
 const middleStar = require("./images/stars/middleStar.png");
 const bigStar = require("./images/stars/middleStar.png");
+const anonymAvatar = require("./images/anonymAvatar.png");
+const emptyAvatar = require("./images/emptyAvatar.png");
 
 export default {
   groupExample1,
@@ -26,4 +28,6 @@ export default {
   fullStory,
   middleStar,
   bigStar,
+  anonymAvatar,
+  emptyAvatar,
 };

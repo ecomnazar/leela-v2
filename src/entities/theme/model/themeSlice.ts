@@ -14,6 +14,7 @@ export const themeSlice = createSlice({
       data: [] as IPublicTheme[],
       skeletonLoading: true,
       loading: false,
+      total: 0,
     },
     themeById: {
       data: {} as IPublicTheme,
@@ -72,6 +73,7 @@ export const themeSlice = createSlice({
           state.publicThemes.loading = false;
           state.publicThemes.skeletonLoading = false;
           state.publicThemes.data = action.payload;
+          state.publicThemes.total = action.payload.length;
         }
       )
       .addCase(getPublicThemesApi.rejected, (state) => {

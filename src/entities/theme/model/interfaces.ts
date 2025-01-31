@@ -1,4 +1,4 @@
-type TThemeSortType =
+export type TThemeSortType =
   | "COMMENTS_ASC"
   | "LIKES_ASC"
   | "CREATED_AT_ASC"
@@ -36,6 +36,7 @@ export interface IComment {
 
 export interface IGetPublicThemesProps {
   sort_by: TThemeSortType;
+  search_query?: string;
 }
 
 export interface IAddThemeCommentApiProps {

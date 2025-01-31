@@ -33,13 +33,15 @@ export const ScrollableCardsList = () => {
             isAnonymous,
             createdAt,
             commentsCount,
+            authorName,
+            authorProfileImageUrl,
             likesAndDislikes: { dislikes, likes },
           } = item;
           return (
             <PostCard
               key={index}
-              image={""}
-              name={""}
+              image={authorProfileImageUrl}
+              name={authorName}
               role="Гость"
               themeId={id}
               isAnonym={isAnonymous}

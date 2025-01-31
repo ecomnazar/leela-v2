@@ -13,8 +13,8 @@ import { formattedDate } from "@/shared/lib/formattedDate";
 
 interface Props {
   themeId?: number;
-  image: string;
-  name: string;
+  image: string | null;
+  name: string | null;
   type?: "post" | "comment";
   className?: string;
   isStoriesActive?: boolean;
@@ -51,13 +51,12 @@ export const PostCard: React.FC<Props> = ({
   const renderProfile = () => {
     return (
       <Flex className="gap-x-2.5">
-        {image ? (
-          <StoryAvatar image={image} size="small" isActive={isStoriesActive} />
-        ) : (
-          <View className="w-[52px] h-[52px] p-0.5">
-            <View className="rounded-full bg-backgroundTertiary w-full h-full" />
-          </View>
-        )}
+        <StoryAvatar
+          image={image || ""}
+          size="small"
+          isActive={isStoriesActive}
+          isAnonym={isAnonym}
+        />
         <View className="-space-y-0.5">
           <CustomText weight="bold" size={18}>
             {realName}

@@ -7,4 +7,5 @@ export const COLORS = {
   grayPrimary: "#8B9497",
   grayPrimary60: "#8B949760",
   gray200: "#E5E7EB",
+  borderPrimary: "#333647",
 };

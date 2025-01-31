@@ -1,15 +1,17 @@
 import { CustomText } from "@/shared/ui/CustomText";
+import images from "assets/images";
 import clsx from "clsx";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
 interface Props {
   image: string;
   name?: string;
   size?: "small" | "medium";
   isActive: boolean;
+  isAnonym?: boolean;
 }
 
 export const StoryAvatar: React.FC<Props> = ({
@@ -17,14 +19,21 @@ export const StoryAvatar: React.FC<Props> = ({
   name,
   size = "small",
   isActive,
+  isAnonym,
 }) => {
+  const realImage = isAnonym
+    ? images.anonymAvatar
+    : image
+    ? image
+    : images.emptyAvatar;
+
   return (
     <View>
       <View
         className={clsx(
           "relative rounded-full overflow-hidden flex items-center justify-center p-0.5",
           {
-            "w-[52px] h-[52px]": size === "small",
+            "w-[50px] h-[50px]": size === "small",
             "w-[72px] h-[72px]": size === "medium",
           }
         )}
@@ -42,11 +51,14 @@ export const StoryAvatar: React.FC<Props> = ({
           />
         )}
         <View
-          className={clsx("w-full h-full rounded-full p-0.5", {
-            "bg-white": isActive,
+          className={clsx("w-full h-full rounded-full bg-white", {
+            "border border-black/10": !isActive,
           })}
         >
-          <Image source={image} style={{ width: "100%", height: "100%" }} />
+          <Image
+            source={realImage}
+            style={{ width: "100%", height: "100%", borderRadius: 999 }}
+          />
         </View>
       </View>
       {size === "medium" && (

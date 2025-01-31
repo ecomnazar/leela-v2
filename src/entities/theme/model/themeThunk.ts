@@ -6,9 +6,15 @@ import { addPaginationParams } from "@/shared/api/addPaginationParams";
 export const getPublicThemesApi = createAsyncThunk(
   "getPublicThemes",
   async (data: IGetPublicThemesProps, thunkAPI) => {
-    const { sort_by } = data;
+    const { sort_by, search_query } = data;
 
-    const url = addPaginationParams(`/public/themes?sort_by=${sort_by}`);
+    const encodedSearchQuery = search_query
+      ? search_query.replace(/\s+/g, "%20")
+      : "";
+
+    const url = addPaginationParams(
+      `/public/themes?sort_by=${sort_by}&search_query=${encodedSearchQuery}`
+    );
 
     try {
       return await apiCall("get", url);

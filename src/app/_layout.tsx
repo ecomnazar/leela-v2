@@ -1,6 +1,6 @@
 import React from "react";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { router, Stack, useRootNavigationState } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
@@ -50,6 +50,7 @@ const App = () => {
       <Stack.Screen name="chat/comment/[id]" />
       <Stack.Screen name="notifications" />
       <Stack.Screen name="mainFilter" />
+      <Stack.Screen name="askQuestion" />
     </Stack>
   );
 };

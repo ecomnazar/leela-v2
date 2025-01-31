@@ -7,31 +7,50 @@ import { COLORS } from "@/shared/constants/colors";
 import { Dropdown } from "@/shared/ui/Dropdown";
 import OutsidePressHandler from "react-native-outside-press";
 import { CustomText } from "@/shared/ui/CustomText";
-
-const filters = [
-  "сначала новые",
-  "сначала популярные",
-  "с высоким рейтингом",
-] as const;
-type TFilterType = (typeof filters)[number];
+import {
+  THEME_FILTER_OPTIONS,
+  TThemeFilterOptionsType,
+} from "@/shared/constants/filters";
+import { router, useLocalSearchParams } from "expo-router";
+import { useAppSelector } from "@/shared/hooks/useAppSelector";
 
 export const CardsFilter = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeFilter, setActiveFilter] = useState<TFilterType>(filters[0]);
+  const { total } = useAppSelector((state) => state.theme.publicThemes);
+  const params = useLocalSearchParams();
+
+  const hasFilter = params.filter !== undefined;
+
+  const [activeFilter, setActiveFilter] = useState<
+    TThemeFilterOptionsType["label"]
+  >(THEME_FILTER_OPTIONS[0].label);
 
   const handlePress = () => setIsOpen((prev) => !prev);
 
-  const handleFilterSelect = (filter: TFilterType) => {
-    setActiveFilter(filter);
+  const handleFilterSelect = (label: TThemeFilterOptionsType["label"]) => {
+    setActiveFilter(label);
     setIsOpen(false);
+    const value = THEME_FILTER_OPTIONS.find(
+      (item) => item.label === label
+    )?.value;
+    router.setParams({ filter: value });
   };
+
+  React.useEffect(() => {
+    if (hasFilter) {
+      const value = THEME_FILTER_OPTIONS.find(
+        (item) => item.value === params.filter
+      );
+      handleFilterSelect(value?.label as TThemeFilterOptionsType["label"]);
+    }
+  }, []);
 
   return (
     <Container className="mt-3 relative z-10">
       <View className="gap-y-2.5">
         <Flex justify="between">
           <CustomText color="grayPrimary" weight="bold" size={13}>
-            12567 обсуждений
+            {total} обсуждений
           </CustomText>
           <Flex className="gap-x-1.5">
             <ChevronIcon
@@ -54,11 +73,11 @@ export const CardsFilter = () => {
                     {activeFilter}
                   </CustomText>
                 </Pressable>
-                <Dropdown<TFilterType>
+                <Dropdown
                   isOpen={isOpen}
-                  items={[...filters]}
+                  items={THEME_FILTER_OPTIONS.map((item) => item.label)}
                   activeItem={activeFilter}
-                  onSelectItem={(item) => handleFilterSelect(item)}
+                  onSelectItem={(label) => handleFilterSelect(label)}
                 />
               </View>
             </OutsidePressHandler>
