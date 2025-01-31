@@ -44,3 +44,10 @@ export interface IAddThemeCommentApiProps {
   text: string;
   isAnonymous: boolean;
 }
+
+export interface IAddThemeApiProps {
+  title: string;
+  text: string;
+  isAnonymous: boolean;
+  themeTags: string[];
+}

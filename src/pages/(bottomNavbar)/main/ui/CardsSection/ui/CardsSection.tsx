@@ -13,9 +13,9 @@ export const CardsSection = () => {
   return (
     <>
       <CardsFilter />
-      <View className="h-[1.5px] w-full bg-[#D2D4D5] mt-4 mb-2" />
+      <View className="h-[1.5px] w-full bg-[#D2D4D5] mt-4" />
 
-      {skeletonLoading && <ThemeCardSkeleton length={7} />}
+      {skeletonLoading && <ThemeCardSkeleton length={7} className="mt-2" />}
       {!skeletonLoading && <ScrollableCardsList />}
     </>
   );

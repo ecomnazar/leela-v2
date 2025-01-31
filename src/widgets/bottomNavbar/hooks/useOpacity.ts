@@ -5,7 +5,7 @@ export const useOpacity = () => {
   const { scrollOffsetY } = React.useContext(MainPageContext);
 
   const opacity = scrollOffsetY.interpolate({
-    inputRange: [0, 500],
+    inputRange: [0, 200],
     outputRange: [1, 0],
     extrapolate: "clamp",
   });

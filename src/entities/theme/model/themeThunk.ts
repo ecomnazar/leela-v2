@@ -1,6 +1,10 @@
 import { apiCall } from "@/shared/api/apiCall";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IAddThemeCommentApiProps, IGetPublicThemesProps } from "./interfaces";
+import {
+  IAddThemeApiProps,
+  IAddThemeCommentApiProps,
+  IGetPublicThemesProps,
+} from "./interfaces";
 import { addPaginationParams } from "@/shared/api/addPaginationParams";
 
 export const getPublicThemesApi = createAsyncThunk(
@@ -25,6 +29,17 @@ export const addThemeCommentApi = createAsyncThunk(
   async (data: IAddThemeCommentApiProps, thunkAPI) => {
     try {
       return await apiCall("post", `/theme-comments`, { data });
+    } catch (error: unknown) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const addThemeApi = createAsyncThunk(
+  "addThemeApi",
+  async (data: IAddThemeApiProps, thunkAPI) => {
+    try {
+      return await apiCall("post", `/themes`, { data });
     } catch (error: unknown) {
       return thunkAPI.rejectWithValue(error);
     }

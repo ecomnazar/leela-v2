@@ -4,12 +4,16 @@ import TickIcon from "assets/icons/tick.svg";
 
 interface Props {
   checked?: boolean;
+  onChange?: (isChecked: boolean) => void;
 }
 
-export const Checkbox: React.FC<Props> = ({ checked }) => {
+export const Checkbox: React.FC<Props> = ({ checked, onChange }) => {
   const [isChecked, setIsChecked] = React.useState(checked ? checked : false);
 
-  const handlePress = () => setIsChecked((prev) => !prev);
+  const handlePress = () => {
+    setIsChecked((prev) => !prev);
+    onChange && onChange(!isChecked);
+  };
 
   return (
     <Pressable

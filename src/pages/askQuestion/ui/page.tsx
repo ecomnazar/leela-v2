@@ -7,12 +7,39 @@ import { PageHeader } from "@/widgets/pageHeader";
 import { Input } from "@/shared/ui/Input";
 import { View } from "react-native";
 import { Photos } from "./Photos";
-import { Checkbox } from "@/shared/ui/Checkbox";
-import { CustomText } from "@/shared/ui/CustomText";
 import { Button } from "@/shared/ui/Button";
+import { IAddThemeApiProps } from "@/entities/theme/model/interfaces";
+import { AnonymousOption } from "@/entities/ui/anonymousOption";
+import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
+import { addThemeApi } from "@/entities/theme/model/themeThunk";
+import { router } from "expo-router";
+import { Loading } from "@/shared/ui/Loading";
 
 export const AskQuestionPage = () => {
+  const dispatch = useAppDispatch();
+
+  const [addThemeLoading, setAddThemeLoading] = React.useState(false);
+
   const [title, setTitle] = React.useState("");
+  const [text, setText] = React.useState("");
+  const [isAnonymous, setIsAnonymous] = React.useState(false);
+
+  const data: IAddThemeApiProps = {
+    title,
+    text,
+    isAnonymous,
+    themeTags: [],
+  };
+
+  const onCancel = () => router.push("/(bottomNavbar)");
+
+  const onSubmit = async () => {
+    if (!title || !text) return;
+    setAddThemeLoading(true);
+    await dispatch(addThemeApi(data));
+    setAddThemeLoading(false);
+    router.push("/(bottomNavbar)");
+  };
 
   return (
     <View className="w-screen h-screen bg-backgroundTertiary flex-1">
@@ -29,7 +56,7 @@ export const AskQuestionPage = () => {
               <Input
                 label="Ваш вопрос"
                 placeholder="Как оформить подписку?"
-                onChange={(val) => setTitle(val)}
+                onChange={(val) => setText(val)}
                 placeholderTextColor={COLORS.textPrimary}
                 height={160}
                 multiline
@@ -47,20 +74,19 @@ export const AskQuestionPage = () => {
             </View>
             <Photos />
             <View className="border-t border-black/10 py-4">
-              <Flex className="gap-x-2">
-                <Checkbox />
-                <CustomText
-                  size={14}
-                  style={{ transform: [{ translateY: -1 }] }}
-                >
-                  Отправить анонимно
-                </CustomText>
-              </Flex>
+              <AnonymousOption
+                checked={isAnonymous}
+                onChange={(isChecked) => setIsAnonymous(isChecked)}
+              />
             </View>
           </View>
           <View className="space-y-3 mt-auto">
-            <Button>Отправить</Button>
-            <Button variant="outline">Отменить</Button>
+            <Button loading={addThemeLoading} onPress={onSubmit}>
+              Отправить
+            </Button>
+            <Button onPress={onCancel} variant="outline">
+              Отменить
+            </Button>
           </View>
         </View>
       </Container>

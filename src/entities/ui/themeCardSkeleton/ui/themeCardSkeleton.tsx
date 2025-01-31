@@ -1,10 +1,12 @@
 import { Container } from "@/shared/ui/Container";
 import { Flex } from "@/shared/ui/Flex";
+import clsx from "clsx";
 import React from "react";
 import { View } from "react-native";
 
 interface Props {
   length?: number;
+  className?: string;
 }
 
 const Card = () => {
@@ -41,10 +43,10 @@ const Card = () => {
   );
 };
 
-export const ThemeCardSkeleton: React.FC<Props> = ({ length }) => {
+export const ThemeCardSkeleton: React.FC<Props> = ({ length, className }) => {
   if (length) {
     return (
-      <Container className="gap-y-3">
+      <Container className={clsx("gap-y-3", className)}>
         {Array.from({ length: length }).map((_, index) => {
           return <Card key={index} />;
         })}

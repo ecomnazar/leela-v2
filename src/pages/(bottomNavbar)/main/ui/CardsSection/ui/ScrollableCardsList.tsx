@@ -25,7 +25,7 @@ export const ScrollableCardsList = () => {
       )}
     >
       <View className="relative gap-y-2">
-        {data.map((item, index) => {
+        {data?.map((item, index) => {
           const {
             id,
             text,
