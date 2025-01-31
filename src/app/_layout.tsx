@@ -1,6 +1,6 @@
 import React from "react";
 import { useFonts } from "expo-font";
-import { router, Stack, useRootNavigationState } from "expo-router";
+import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
@@ -46,7 +46,6 @@ const App = () => {
     >
       <Stack.Screen name="(bottomNavbar)" />
       <Stack.Screen name="calendar" />
-      {/* <Stack.Screen name="chat" /> */}
       <Stack.Screen name="chat/comment/[id]" />
       <Stack.Screen name="notifications" />
       <Stack.Screen name="mainFilter" />
@@ -96,7 +95,7 @@ export default function RootLayout() {
   }, []);
 
   if (!loaded) {
-    return null;
+    return null; // Ждем пока навигация и шрифты загрузятся
   }
 
   return <RootLayoutProvider />;

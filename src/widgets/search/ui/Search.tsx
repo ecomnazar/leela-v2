@@ -5,7 +5,6 @@ import { Pressable, TextInput, View } from "react-native";
 import SettingIcon from "assets/icons/settings.svg";
 import SearchIcon from "assets/icons/search.svg";
 import { router, useLocalSearchParams } from "expo-router";
-import { useAppSelector } from "@/shared/hooks/useAppSelector";
 import { useDebounce } from "@/shared/hooks/useDebounce";
 import { SEARCH_PARAMS } from "@/shared/constants/searchParams";
 

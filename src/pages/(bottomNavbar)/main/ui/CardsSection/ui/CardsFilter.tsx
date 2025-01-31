@@ -11,10 +11,12 @@ import {
   THEME_FILTER_OPTIONS,
   TThemeFilterOptionsType,
 } from "@/shared/constants/filters";
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useAppSelector } from "@/shared/hooks/useAppSelector";
 
 export const CardsFilter = () => {
+  const router = useRouter();
+
   const [isOpen, setIsOpen] = useState(false);
   const { total } = useAppSelector((state) => state.theme.publicThemes);
   const params = useLocalSearchParams();
@@ -27,9 +29,13 @@ export const CardsFilter = () => {
 
   const handlePress = () => setIsOpen((prev) => !prev);
 
-  const handleFilterSelect = (label: TThemeFilterOptionsType["label"]) => {
+  const filterSetter = (label: TThemeFilterOptionsType["label"]) => {
     setActiveFilter(label);
     setIsOpen(false);
+  };
+
+  const handleFilterSelect = (label: TThemeFilterOptionsType["label"]) => {
+    filterSetter(label);
     const value = THEME_FILTER_OPTIONS.find(
       (item) => item.label === label
     )?.value;
@@ -41,7 +47,7 @@ export const CardsFilter = () => {
       const value = THEME_FILTER_OPTIONS.find(
         (item) => item.value === params.filter
       );
-      handleFilterSelect(value?.label as TThemeFilterOptionsType["label"]);
+      filterSetter(value?.label as TThemeFilterOptionsType["label"]);
     }
   }, []);
 

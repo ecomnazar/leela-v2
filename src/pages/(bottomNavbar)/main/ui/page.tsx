@@ -39,6 +39,8 @@ export const MainPage = () => {
     ],
   };
 
+  // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
   React.useEffect(() => {
     const data: IGetPublicThemesProps = {
       sort_by: sortBy,
@@ -48,10 +50,6 @@ export const MainPage = () => {
   }, [sortBy, searchQuery]);
 
   React.useEffect(() => {
-    dispatch(getPublicThemeTagsApi());
-  }, []);
-
-  React.useEffect(() => {
     setSortBy((params.filter as TThemeSortType) || "COMMENTS_ASC");
   }, [params.filter]);
 
@@ -59,7 +57,9 @@ export const MainPage = () => {
     setSearchQuery((params.search_query as string) || "");
   }, [params.search_query]);
 
-  console.log(params.search_query);
+  React.useEffect(() => {
+    dispatch(getPublicThemeTagsApi());
+  }, []);
 
   return (
     <>
