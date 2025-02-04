@@ -4,8 +4,7 @@ import { Stories } from "./Stories";
 import { Search } from "@/widgets/search";
 import { FixedButton } from "./FixedButton";
 import { AskQuestionModal } from "./modals/AskQuestionModal";
-import { CreateAccountModal } from "./modals/CreateAccountModal";
-import { Animated, Platform, View } from "react-native";
+import { Animated, View } from "react-native";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
 import { PageHeader } from "@/widgets/pageHeader";
 import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
@@ -19,10 +18,7 @@ import {
 } from "@/entities/theme/model/interfaces";
 import { useLocalSearchParams } from "expo-router";
 import { useAuth } from "@/entities/auth/hooks/useAuth";
-import { STORAGE } from "@/shared/constants/storage";
-import { CustomAsyncStorage } from "@/shared/lib/customAsyncStorage";
-import { isWindow } from "@/shared/lib/isWindow";
-import { getAccessToken } from "@/shared/lib/getAccessToken";
+import { getUsersApi } from "@/entities/user/model/userThunk";
 
 export const MainPage = () => {
   const dispatch = useAppDispatch();
@@ -68,7 +64,7 @@ export const MainPage = () => {
 
   useAuth();
 
-  console.log(getAccessToken());
+  dispatch(getUsersApi());
 
   return (
     <>
@@ -90,7 +86,6 @@ export const MainPage = () => {
       <FixedButton />
       {/* modals */}
       <AskQuestionModal />
-      <CreateAccountModal />
     </>
   );
 };

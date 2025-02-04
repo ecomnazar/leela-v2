@@ -26,6 +26,7 @@ import wixSemiBold from "assets/fonts/wixMadeforDisplay/WixMadeforDisplay-SemiBo
 import wixBold from "assets/fonts/wixMadeforDisplay/WixMadeforDisplay-Bold.ttf";
 // @ts-ignore
 import wixExtraBold from "assets/fonts/wixMadeforDisplay/WixMadeforDisplay-ExtraBold.ttf";
+import { AuthModal } from "@/features/auth/ui/AuthModal";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -35,6 +36,14 @@ declare global {
     Telegram: Telegram;
   }
 }
+
+const Modals = () => {
+  return (
+    <>
+      <AuthModal />
+    </>
+  );
+};
 
 const App = () => {
   return (
@@ -65,6 +74,7 @@ const RootLayoutProvider = () => {
               <PortalProvider>
                 <StatusBar style="inverted" />
                 <Toaster position="top-center" reverseOrder={false} />
+                <Modals />
                 <App />
               </PortalProvider>
             </EventProvider>

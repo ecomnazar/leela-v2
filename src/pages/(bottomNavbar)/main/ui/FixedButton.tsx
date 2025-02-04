@@ -14,6 +14,7 @@ import { MainPageContext } from "@/shared/providers/mainPageProvider";
 import { useModal } from "@/shared/zustand/useModal";
 import { CustomText } from "@/shared/ui/CustomText";
 import { router } from "expo-router";
+import { isAuthenticated } from "@/shared/lib/isAuthenticated";
 
 export const FixedButton = () => {
   const { openModal } = useModal();
@@ -39,7 +40,10 @@ export const FixedButton = () => {
   });
 
   const handleClick = () => {
-    // router.push("/askQuestion");
+    if (isAuthenticated()) {
+      router.push("/askQuestion");
+      return;
+    }
     openModal("create-account");
   };
 

@@ -10,7 +10,7 @@ import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
 import { getOAuthUrlApi } from "@/entities/auth/model/authThunk";
 import { isFulfilled } from "@reduxjs/toolkit";
 
-export const CreateAccountModal = () => {
+export const AuthModal = () => {
   const dispatch = useAppDispatch();
   const { isOpen, closeModal, type } = useModal();
   const open = isOpen && type === "create-account";
