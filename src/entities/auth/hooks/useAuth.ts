@@ -13,7 +13,7 @@ export const useAuth = () => {
 
   React.useEffect(() => {
     console.log(
-      `Init data: ${JSON.stringify(window.Telegram.WebApp.initData)}`
+      `Init data: ${JSON.stringify(window?.Telegram?.WebApp?.initData)}`
     );
     // const authorize = async () => {
     //   const code = params.code as string;
