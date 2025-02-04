@@ -2,8 +2,6 @@ import React from "react";
 import { CardsSection } from "./CardsSection";
 import { Stories } from "./Stories";
 import { Search } from "@/widgets/search";
-import { FixedButton } from "./FixedButton";
-import { AskQuestionModal } from "./modals/AskQuestionModal";
 import { Animated, View } from "react-native";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
 import { PageHeader } from "@/widgets/pageHeader";
@@ -18,7 +16,7 @@ import {
 } from "@/entities/theme/model/interfaces";
 import { useLocalSearchParams } from "expo-router";
 import { useAuth } from "@/entities/auth/hooks/useAuth";
-import { getUsersApi } from "@/entities/user/model/userThunk";
+import { FixedButton } from "./FixedButton";
 
 export const MainPage = () => {
   const dispatch = useAppDispatch();
@@ -64,8 +62,6 @@ export const MainPage = () => {
 
   useAuth();
 
-  dispatch(getUsersApi());
-
   return (
     <>
       <PageHeader enableEnergyShowcase enableBalanceShowcase disableBorder />
@@ -84,8 +80,6 @@ export const MainPage = () => {
         </Animated.View>
       </View>
       <FixedButton />
-      {/* modals */}
-      <AskQuestionModal />
     </>
   );
 };

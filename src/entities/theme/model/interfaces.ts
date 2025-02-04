@@ -20,6 +20,8 @@ export interface IPublicTheme {
   tags: string[];
   text: string;
   title: string;
+  attachments: string[];
+  reactions: 0 | 1 | -1;
 }
 
 export interface IComment {
@@ -50,6 +52,7 @@ export interface IAddThemeApiProps {
   text: string;
   isAnonymous: boolean;
   themeTags: string[];
+  attachments: string[];
 }
 
 export interface IThemeReactionApiProps {

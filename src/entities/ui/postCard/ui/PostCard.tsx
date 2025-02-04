@@ -28,6 +28,8 @@ interface Props {
   title?: string;
   text?: string;
   tags?: string[];
+  staplerCount?: number;
+  reactions?: 0 | 1 | -1;
 }
 
 export const PostCard: React.FC<Props> = ({
@@ -46,6 +48,8 @@ export const PostCard: React.FC<Props> = ({
   title,
   text,
   tags,
+  staplerCount,
+  reactions = 0,
 }) => {
   const realName = isAnonym ? "Аноним" : name;
 
@@ -138,9 +142,16 @@ export const PostCard: React.FC<Props> = ({
   const renderStaplerButton = () => {
     return (
       <Flex className="gap-x-1.5">
-        <Icon type="stapler" width={21} height={21} fill={COLORS.textPrimary} />
+        <Pressable onPress={() => router.push(`/chat/comment/${themeId}`)}>
+          <Icon
+            type="stapler"
+            width={21}
+            height={21}
+            fill={COLORS.textPrimary}
+          />
+        </Pressable>
         <CustomText weight="semibold" size={14}>
-          1
+          {staplerCount}
         </CustomText>
       </Flex>
     );
@@ -180,9 +191,8 @@ export const PostCard: React.FC<Props> = ({
                 id={themeId}
                 likeCount={likeCount}
                 dislikeCount={dislikeCount}
-                isLiked={false}
-                isDisliked={false}
                 type={type}
+                reactions={reactions}
               />
               {type === "post" && (
                 <Flex className="gap-x-4">

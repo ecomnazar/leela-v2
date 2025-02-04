@@ -29,6 +29,7 @@ export const AskQuestionPage = () => {
     text,
     isAnonymous,
     themeTags: [],
+    attachments: [],
   };
 
   const onCancel = () => router.push("/(bottomNavbar)");

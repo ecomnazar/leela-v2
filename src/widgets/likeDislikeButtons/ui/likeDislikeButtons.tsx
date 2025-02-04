@@ -4,32 +4,40 @@ import { CustomText } from "@/shared/ui/CustomText";
 import { Flex } from "@/shared/ui/Flex";
 import { Icon } from "@/shared/ui/Icon";
 import { Pressable } from "react-native";
+import { useCheckAuthorization } from "@/features/auth/hooks/useCheckAuthorization";
 
 interface Props {
   id: number;
   likeCount: number | undefined;
   dislikeCount: number | undefined;
-  isLiked: boolean;
-  isDisliked: boolean;
   type: "post" | "comment";
+  reactions: 1 | 0 | -1;
 }
 
 export const LikeDislikeButtons: React.FC<Props> = ({
   id,
   likeCount,
   dislikeCount,
-  isLiked,
-  isDisliked,
   type = "post",
+  reactions,
 }) => {
+  const checkAuthorization = useCheckAuthorization();
   const reaction = useThemeReaction();
 
+  const isLiked = reactions === 1;
+  const isDisliked = reactions === -1;
+
   const handleLike = () => {
+    if (!checkAuthorization()) return;
+
     if (type === "post") {
       reaction({ id, isDisliked, isLiked, reactionType: "like" });
     }
   };
+
   const handleDislike = () => {
+    if (!checkAuthorization()) return;
+
     if (type === "post") {
       reaction({ id, isDisliked, isLiked, reactionType: "dislike" });
     }

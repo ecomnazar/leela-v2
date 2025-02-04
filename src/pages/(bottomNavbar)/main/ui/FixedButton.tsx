@@ -1,23 +1,16 @@
 import React from "react";
 import { Flex } from "@/shared/ui/Flex";
 import { Icon } from "@/shared/ui/Icon";
-import {
-  Animated,
-  Linking,
-  Platform,
-  Pressable,
-  Text,
-  View,
-} from "react-native";
+import { Animated, Platform, Pressable, View } from "react-native";
 import { COLORS } from "@/shared/constants/colors";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
-import { useModal } from "@/shared/zustand/useModal";
 import { CustomText } from "@/shared/ui/CustomText";
 import { router } from "expo-router";
-import { isAuthenticated } from "@/shared/lib/isAuthenticated";
+import { useCheckAuthorization } from "@/features/auth/hooks/useCheckAuthorization";
 
 export const FixedButton = () => {
-  const { openModal } = useModal();
+  const checkAuthorization = useCheckAuthorization();
+
   const { scrollOffsetY } = React.useContext(MainPageContext);
 
   const buttonWidth = scrollOffsetY.interpolate({
@@ -39,17 +32,14 @@ export const FixedButton = () => {
     extrapolate: "clamp",
   });
 
-  const handleClick = () => {
-    if (isAuthenticated()) {
-      router.push("/askQuestion");
-      return;
-    }
-    openModal("create-account");
+  const handlePress = () => {
+    if (!checkAuthorization()) return;
+    router.push("/askQuestion");
   };
 
   return (
     <Pressable
-      onPress={handleClick}
+      onPress={handlePress}
       className="absolute right-0 z-10 pr-4 items-end"
       style={{
         bottom: Platform.select({
