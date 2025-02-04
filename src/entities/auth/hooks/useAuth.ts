@@ -17,6 +17,7 @@ export const useAuth = () => {
       window?.Telegram?.WebApp?.initDataUnsafe
     )}`
   );
+  console.log(`Init data unsafe: ${JSON.stringify(window?.Telegram?.WebApp)}`);
 
   React.useEffect(() => {
     // const authorize = async () => {
