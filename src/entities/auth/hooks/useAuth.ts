@@ -11,14 +11,14 @@ export const useAuth = () => {
   const router = useRouter();
 
   console.log(window);
-  console.log(JSON.stringify(window.Telegram));
-  console.log(JSON.stringify(window.Telegram.WebApp));
-  console.log(JSON.stringify(window.Telegram.WebApp.initDataUnsafe));
+  console.log(JSON.stringify(window?.Telegram));
+  console.log(JSON.stringify(window?.Telegram?.WebApp));
+  console.log(JSON.stringify(window?.Telegram?.WebApp?.initDataUnsafe));
   console.log(
-    JSON.stringify(window.Telegram.WebApp.initDataUnsafe.start_param)
+    JSON.stringify(window?.Telegram?.WebApp?.initDataUnsafe?.start_param)
   );
 
-  console.log(params.code);
+  console.log(params?.code);
 
   React.useEffect(() => {
     const authorize = async () => {
