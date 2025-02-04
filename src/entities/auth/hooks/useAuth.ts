@@ -11,9 +11,10 @@ export const useAuth = () => {
 
   const code = window?.Telegram?.WebApp?.initDataUnsafe?.start_param;
 
-  console.log(`Init data: ${JSON.stringify(window.Telegram.WebApp.initData)}`);
-
   React.useEffect(() => {
+    console.log(
+      `Init data: ${JSON.stringify(window.Telegram.WebApp.initData)}`
+    );
     // const authorize = async () => {
     //   const code = params.code as string;
     //   if (!code) return;
@@ -30,7 +31,7 @@ export const useAuth = () => {
     //   router.push("/");
     // };
     // authorize();
-  }, []);
+  }, [window?.Telegram]);
 
   return null;
 };
