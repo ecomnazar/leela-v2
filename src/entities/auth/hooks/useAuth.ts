@@ -10,15 +10,9 @@ export const useAuth = () => {
   const params = useLocalSearchParams();
   const router = useRouter();
 
-  console.log(window);
-  console.log(JSON.stringify(window?.Telegram));
-  console.log(JSON.stringify(window?.Telegram?.WebApp));
-  console.log(JSON.stringify(window?.Telegram?.WebApp?.initDataUnsafe));
   console.log(
     JSON.stringify(window?.Telegram?.WebApp?.initDataUnsafe?.start_param)
   );
-
-  console.log(params?.code);
 
   React.useEffect(() => {
     const authorize = async () => {
