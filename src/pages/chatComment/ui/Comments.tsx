@@ -6,16 +6,14 @@ import { useAppSelector } from "@/shared/hooks/useAppSelector";
 import { PostCard } from "@/entities/ui/postCard";
 
 export const Comments = () => {
-  const { data } = useAppSelector((state) => state.theme.themeComments);
-
-  const totalComments = data?.length || 0;
+  const { data, total } = useAppSelector((state) => state.theme.themeComments);
 
   return (
     <View className="mt-4">
       <View>
         <Container className="mb-3">
           <CustomText weight="bold" size={14}>
-            Комментарии {totalComments}
+            Комментарии {total}
           </CustomText>
         </Container>
         {data.map((item) => {
@@ -30,11 +28,12 @@ export const Comments = () => {
           } = item;
           return (
             <PostCard
+              themeId={item.authorId}
               key={id}
               image={authorProfileImageUrl}
               name={authorName}
               type="comment"
-              isStoriesActive
+              isStoriesActive={false}
               role={authorRole}
               likeCount={likes}
               dislikeCount={dislikes}

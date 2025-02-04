@@ -36,6 +36,7 @@ export const ScrollableCardsList = () => {
             authorName,
             authorProfileImageUrl,
             attachments,
+            reaction,
             likesAndDislikes: { dislikes, likes },
           } = item;
           return (
@@ -53,6 +54,7 @@ export const ScrollableCardsList = () => {
               title={title}
               text={text}
               staplerCount={attachments?.length}
+              reaction={reaction}
             />
           );
         })}

@@ -21,7 +21,7 @@ export interface IPublicTheme {
   text: string;
   title: string;
   attachments: string[];
-  reactions: 0 | 1 | -1;
+  reaction: 0 | 1 | -1;
 }
 
 export interface IComment {

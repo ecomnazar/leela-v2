@@ -8,8 +8,12 @@ import {
 } from "@/entities/theme/model/interfaces";
 import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
 import { addThemeCommentApi } from "@/entities/theme/model/themeThunk";
-import { addComment } from "@/entities/theme/model/themeSlice";
+import {
+  addComment,
+  increateThemeCommentCount,
+} from "@/entities/theme/model/themeSlice";
 import { useAppSelector } from "@/shared/hooks/useAppSelector";
+import { isFulfilled } from "@reduxjs/toolkit";
 
 interface Props {
   themeId: number;
@@ -36,10 +40,11 @@ export const FixedTypeCommentInput: React.FC<Props> = ({ themeId }) => {
   const onSubmit = async () => {
     if (!text || addThemeCommentLoading) return;
     const response = await dispatch(addThemeCommentApi(data));
-    if (response.meta.requestStatus === "fulfilled") {
+    if (isFulfilled(response)) {
       setText("");
       const comment: IComment = response.payload;
       dispatch(addComment(comment));
+      dispatch(increateThemeCommentCount());
     }
   };
 
@@ -62,8 +67,8 @@ export const FixedTypeCommentInput: React.FC<Props> = ({ themeId }) => {
           placeholderTextColor={COLORS.grayPrimary60}
           placeholder="Сообщение"
         />
-        <View className="absolute top-1/2 right-5 -translate-y-1/2">
-          <Pressable onPress={onSubmit}>
+        <View className="absolute top-1/2 right-1 -translate-y-1/2">
+          <Pressable className="p-4" onPress={onSubmit}>
             <PlayIcon width={14} height={14} />
           </Pressable>
         </View>

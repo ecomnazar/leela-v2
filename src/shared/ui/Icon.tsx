@@ -74,7 +74,7 @@ export const Icon: React.FC<Props> = ({
           className={className}
           width={width}
           height={height}
-          fill={fill ? fill : "#000"}
+          fill={fill ? fill : "#616470"}
         />
       )}
       {type === "dislike" && (
@@ -83,7 +83,7 @@ export const Icon: React.FC<Props> = ({
           className={clsx("", className)}
           width={width}
           height={height}
-          fill={fill ? fill : "#000"}
+          fill={fill ? fill : "#616470"}
         />
       )}
       {type === "stapler" && (

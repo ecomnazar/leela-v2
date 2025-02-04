@@ -1,6 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IAuthorizationApiProps } from "./interfaces";
 import { apiCall } from "@/shared/api/apiCall";
+import { getRefreshToken } from "@/shared/lib/getAccessToken";
+import axios from "axios";
+import { instance } from "@/shared/api/instance";
 
 const PREFIX = "/auth";
 
@@ -29,3 +32,13 @@ export const authorizationApi = createAsyncThunk(
     }
   }
 );
+
+export const refreshTokenApi = async () => {
+  const refreshToken = getRefreshToken();
+
+  const response = await apiCall("post", PREFIX + "/refresh", {
+    data: { refreshToken },
+  });
+
+  return response.data;
+};

@@ -11,7 +11,7 @@ interface Props {
   likeCount: number | undefined;
   dislikeCount: number | undefined;
   type: "post" | "comment";
-  reactions: 1 | 0 | -1;
+  reaction: 1 | 0 | -1;
 }
 
 export const LikeDislikeButtons: React.FC<Props> = ({
@@ -19,19 +19,23 @@ export const LikeDislikeButtons: React.FC<Props> = ({
   likeCount,
   dislikeCount,
   type = "post",
-  reactions,
+  reaction,
 }) => {
   const checkAuthorization = useCheckAuthorization();
-  const reaction = useThemeReaction();
+  const setReaction = useThemeReaction();
 
-  const isLiked = reactions === 1;
-  const isDisliked = reactions === -1;
+  const isLiked = reaction === 1;
+  const isDisliked = reaction === -1;
+
+  console.log(isLiked);
+  console.log(isDisliked);
+  console.log(reaction);
 
   const handleLike = () => {
     if (!checkAuthorization()) return;
 
     if (type === "post") {
-      reaction({ id, isDisliked, isLiked, reactionType: "like" });
+      setReaction({ id, isDisliked, isLiked, reactionType: "like" });
     }
   };
 
@@ -39,7 +43,7 @@ export const LikeDislikeButtons: React.FC<Props> = ({
     if (!checkAuthorization()) return;
 
     if (type === "post") {
-      reaction({ id, isDisliked, isLiked, reactionType: "dislike" });
+      setReaction({ id, isDisliked, isLiked, reactionType: "dislike" });
     }
   };
 
@@ -47,7 +51,12 @@ export const LikeDislikeButtons: React.FC<Props> = ({
     <Flex className="gap-x-2.5">
       <Flex className="gap-x-2">
         <Pressable onPress={handleLike}>
-          <Icon type="like" width={25} height={25} />
+          <Icon
+            type="like"
+            width={25}
+            height={25}
+            fill={isLiked ? "red" : "#616470"}
+          />
         </Pressable>
         <CustomText weight="semibold" size={14}>
           {likeCount || 0}
@@ -55,7 +64,12 @@ export const LikeDislikeButtons: React.FC<Props> = ({
       </Flex>
       <Flex className="gap-x-2">
         <Pressable onPress={handleDislike} className="translate-y-[3px]">
-          <Icon type="dislike" width={25} height={25} />
+          <Icon
+            type="dislike"
+            width={25}
+            height={25}
+            fill={isDisliked ? "red" : "#616470"}
+          />
         </Pressable>
         <CustomText weight="semibold" size={14}>
           {dislikeCount || 0}

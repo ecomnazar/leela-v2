@@ -1,5 +1,6 @@
 import axios from "axios";
-import { getAccessToken } from "../lib/getAccessToken";
+import { getAccessToken, removeAccessToken } from "../lib/getAccessToken";
+import { refreshTokenApi } from "@/entities/auth/model/authThunk";
 
 export const instance = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_URL, // Base URL for all requests
@@ -12,14 +13,32 @@ export const instance = axios.create({
 instance.interceptors.request.use(
   async (config) => {
     const token = getAccessToken();
-
     if (token) {
       config.headers["x-auth-token"] = `Bearer ${token}`;
     }
-
     return config;
   },
   (error) => {
     return Promise.reject(error);
+  }
+);
+
+instance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    if (error.response.status === 401) {
+      removeAccessToken();
+      try {
+        const newToken = await refreshTokenApi();
+        error.config.headers[
+          "x-auth-token"
+        ] = `Bearer ${newToken?.accessToken}`;
+        return instance(error.config);
+      } catch (error) {
+        // window.location.href = "/createProfile";
+      }
+    }
   }
 );

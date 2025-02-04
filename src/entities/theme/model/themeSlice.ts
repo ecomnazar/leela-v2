@@ -23,12 +23,16 @@ export const themeSlice = createSlice({
     themeComments: {
       data: [] as IComment[],
       loading: false,
+      total: 0,
     },
     addThemeCommentLoading: false,
   },
   reducers: {
     addComment: (state, action: PayloadAction<IComment>) => {
       state.themeComments.data = [action.payload, ...state.themeComments.data];
+    },
+    increateThemeCommentCount: (state) => {
+      state.themeById.data.commentsCount += 1;
     },
   },
   extraReducers: (builder) => {
@@ -53,9 +57,13 @@ export const themeSlice = createSlice({
       })
       .addCase(
         getThemeCommentsApi.fulfilled,
-        (state, action: PayloadAction<IComment[]>) => {
+        (
+          state,
+          action: PayloadAction<{ themeComments: IComment[]; total: number }>
+        ) => {
           state.themeComments.loading = false;
-          state.themeComments.data = action.payload;
+          state.themeComments.data = action.payload.themeComments;
+          state.themeComments.total = action.payload.total;
         }
       )
       .addCase(getThemeCommentsApi.rejected, (state) => {
@@ -101,4 +109,4 @@ export const themeSlice = createSlice({
   },
 });
 
-export const { addComment } = themeSlice.actions;
+export const { addComment, increateThemeCommentCount } = themeSlice.actions;

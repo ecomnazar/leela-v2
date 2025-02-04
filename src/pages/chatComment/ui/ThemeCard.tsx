@@ -16,13 +16,15 @@ export const ThemeCard = () => {
     isAnonymous,
     createdAt,
     commentsCount,
+    authorName,
+    authorProfileImageUrl,
     likesAndDislikes: { dislikes, likes },
   } = data;
 
   return (
     <PostCard
-      image={""}
-      name={""}
+      image={authorProfileImageUrl}
+      name={authorName}
       role="Гость"
       themeId={id}
       isAnonym={isAnonymous}
