@@ -15,6 +15,7 @@ import { ReduxProvider } from "@/shared/store/provider";
 import { EventProvider } from "react-native-outside-press";
 import { Telegram } from "@twa-dev/types";
 import { Toaster } from "react-hot-toast";
+import Head from "expo-router/head";
 
 // @ts-ignore
 import wixRegular from "assets/fonts/wixMadeforDisplay/WixMadeforDisplay-Regular.ttf";
@@ -72,6 +73,9 @@ const RootLayoutProvider = () => {
           <BottomSheetModalProvider>
             <EventProvider>
               <PortalProvider>
+                <Head>
+                  <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
+                </Head>
                 <StatusBar style="inverted" />
                 <Toaster position="top-center" reverseOrder={false} />
                 <Modals />
