@@ -2,7 +2,7 @@ import React from "react";
 import { CardsSection } from "./CardsSection";
 import { Stories } from "./Stories";
 import { Search } from "@/widgets/search";
-import { Animated, View } from "react-native";
+import { Animated, Text, View } from "react-native";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
 import { PageHeader } from "@/widgets/pageHeader";
 import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
@@ -14,7 +14,7 @@ import {
   IGetPublicThemesProps,
   TThemeSortType,
 } from "@/entities/theme/model/interfaces";
-import { useLocalSearchParams } from "expo-router";
+import { Redirect, router, useLocalSearchParams } from "expo-router";
 import { useAuth } from "@/entities/auth/hooks/useAuth";
 import { FixedButton } from "./FixedButton";
 
@@ -61,6 +61,10 @@ export const MainPage = () => {
   }, []);
 
   useAuth();
+
+  // it means that webpage opened in browser, not in miniapp
+  const code = params?.code as string;
+  if (code) return <Redirect href={`/redirect?code=${code}`} />;
 
   return (
     <>

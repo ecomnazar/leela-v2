@@ -61,6 +61,7 @@ const App = () => {
       <Stack.Screen name="notifications" />
       <Stack.Screen name="mainFilter" />
       <Stack.Screen name="askQuestion" />
+      <Stack.Screen name="redirect" />
     </Stack>
   );
 };
