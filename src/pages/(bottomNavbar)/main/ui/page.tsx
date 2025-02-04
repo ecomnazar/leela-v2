@@ -5,7 +5,7 @@ import { Search } from "@/widgets/search";
 import { FixedButton } from "./FixedButton";
 import { AskQuestionModal } from "./modals/AskQuestionModal";
 import { CreateAccountModal } from "./modals/CreateAccountModal";
-import { Animated, View } from "react-native";
+import { Animated, Platform, View } from "react-native";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
 import { PageHeader } from "@/widgets/pageHeader";
 import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
@@ -18,6 +18,11 @@ import {
   TThemeSortType,
 } from "@/entities/theme/model/interfaces";
 import { useLocalSearchParams } from "expo-router";
+import { useAuth } from "@/entities/auth/hooks/useAuth";
+import { STORAGE } from "@/shared/constants/storage";
+import { CustomAsyncStorage } from "@/shared/lib/customAsyncStorage";
+import { isWindow } from "@/shared/lib/isWindow";
+import { getAccessToken } from "@/shared/lib/getAccessToken";
 
 export const MainPage = () => {
   const dispatch = useAppDispatch();
@@ -60,6 +65,10 @@ export const MainPage = () => {
   React.useEffect(() => {
     dispatch(getPublicThemeTagsApi());
   }, []);
+
+  useAuth();
+
+  console.log(getAccessToken());
 
   return (
     <>

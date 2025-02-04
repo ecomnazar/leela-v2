@@ -10,9 +10,10 @@ import { StoryAvatar } from "../../storyAvatar";
 import clsx from "clsx";
 import { CustomText } from "@/shared/ui/CustomText";
 import { formattedDate } from "@/shared/lib/formattedDate";
+import { LikeDislikeButtons } from "@/widgets/likeDislikeButtons";
 
 interface Props {
-  themeId?: number;
+  themeId: number;
   image: string | null;
   name: string | null;
   type?: "post" | "comment";
@@ -134,29 +135,6 @@ export const PostCard: React.FC<Props> = ({
     );
   };
 
-  const renderLikeAndDislikeButton = () => {
-    return (
-      <Flex className="gap-x-2.5">
-        <Flex className="gap-x-2">
-          <Pressable>
-            <Icon type="like" width={25} height={25} />
-          </Pressable>
-          <CustomText weight="semibold" size={14}>
-            {likeCount || 0}
-          </CustomText>
-        </Flex>
-        <Flex className="gap-x-2">
-          <Pressable className="translate-y-[3px]">
-            <Icon type="dislike" width={25} height={25} />
-          </Pressable>
-          <CustomText weight="semibold" size={14}>
-            {dislikeCount || 0}
-          </CustomText>
-        </Flex>
-      </Flex>
-    );
-  };
-
   const renderStaplerButton = () => {
     return (
       <Flex className="gap-x-1.5">
@@ -198,7 +176,14 @@ export const PostCard: React.FC<Props> = ({
           {renderContent()}
           <View className="mt-4">
             <Flex justify="between" className="mb-4">
-              {renderLikeAndDislikeButton()}
+              <LikeDislikeButtons
+                id={themeId}
+                likeCount={likeCount}
+                dislikeCount={dislikeCount}
+                isLiked={false}
+                isDisliked={false}
+                type={type}
+              />
               {type === "post" && (
                 <Flex className="gap-x-4">
                   {renderStaplerButton()}

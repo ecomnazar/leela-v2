@@ -69,11 +69,14 @@ export const themeSlice = createSlice({
       })
       .addCase(
         getPublicThemesApi.fulfilled,
-        (state, action: PayloadAction<IPublicTheme[]>) => {
+        (
+          state,
+          action: PayloadAction<{ total: number; themes: IPublicTheme[] }>
+        ) => {
           state.publicThemes.loading = false;
           state.publicThemes.skeletonLoading = false;
-          state.publicThemes.data = action.payload;
-          state.publicThemes.total = action.payload.length;
+          state.publicThemes.data = action.payload.themes;
+          state.publicThemes.total = action.payload.total;
         }
       )
       .addCase(getPublicThemesApi.rejected, (state) => {

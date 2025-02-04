@@ -51,3 +51,8 @@ export interface IAddThemeApiProps {
   isAnonymous: boolean;
   themeTags: string[];
 }
+
+export interface IThemeReactionApiProps {
+  themeId: number;
+  isLike: boolean;
+}

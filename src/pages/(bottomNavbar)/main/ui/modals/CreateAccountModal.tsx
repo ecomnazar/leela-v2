@@ -6,15 +6,22 @@ import { useModal } from "@/shared/zustand/useModal";
 import { Linking, Pressable, Text, View } from "react-native";
 import AppleIcon from "assets/icons/apple.svg";
 import GoogleIcon from "assets/icons/google.svg";
+import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
+import { getOAuthUrlApi } from "@/entities/auth/model/authThunk";
+import { isFulfilled } from "@reduxjs/toolkit";
 
 export const CreateAccountModal = () => {
+  const dispatch = useAppDispatch();
   const { isOpen, closeModal, type } = useModal();
   const open = isOpen && type === "create-account";
 
-  const handleLogin = () => {
-    Linking.openURL(
-      "https://accounts.google.com/o/oauth2/v2/auth?client_id=1050890406153-7cb24c1nabhn2grvr3gsms4avm72s5ik.apps.googleusercontent.com&redirect_uri=https://t.me/nonamesnobot/start&response_type=code&scope=email"
-    );
+  const handleLogin = async () => {
+    const response = await dispatch(getOAuthUrlApi());
+
+    if (isFulfilled(response)) {
+      const OAuthUrl = response.payload.url;
+      Linking.openURL(OAuthUrl);
+    }
   };
 
   return (

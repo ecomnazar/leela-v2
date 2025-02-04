@@ -14,6 +14,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ReduxProvider } from "@/shared/store/provider";
 import { EventProvider } from "react-native-outside-press";
 import { Telegram } from "@twa-dev/types";
+import { Toaster } from "react-hot-toast";
 
 // @ts-ignore
 import wixRegular from "assets/fonts/wixMadeforDisplay/WixMadeforDisplay-Regular.ttf";
@@ -63,6 +64,7 @@ const RootLayoutProvider = () => {
             <EventProvider>
               <PortalProvider>
                 <StatusBar style="inverted" />
+                <Toaster position="top-center" reverseOrder={false} />
                 <App />
               </PortalProvider>
             </EventProvider>

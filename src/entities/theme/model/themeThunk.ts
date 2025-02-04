@@ -4,6 +4,7 @@ import {
   IAddThemeApiProps,
   IAddThemeCommentApiProps,
   IGetPublicThemesProps,
+  IThemeReactionApiProps,
 } from "./interfaces";
 import { addPaginationParams } from "@/shared/api/addPaginationParams";
 
@@ -75,6 +76,28 @@ export const getPublicThemeTagsApi = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       return await apiCall("get", `/public/tags/themes`);
+    } catch (error: unknown) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const leaveThemeReactionApi = createAsyncThunk(
+  "leaveThemeReactionApi",
+  async (data: IThemeReactionApiProps, thunkAPI) => {
+    try {
+      return await apiCall("post", `/themes/reaction`, { data });
+    } catch (error: unknown) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const removeThemeReactionApi = createAsyncThunk(
+  "removeThemeReactionApi",
+  async (data: IThemeReactionApiProps, thunkAPI) => {
+    try {
+      return await apiCall("delete", `/themes/reaction`, { data });
     } catch (error: unknown) {
       return thunkAPI.rejectWithValue(error);
     }

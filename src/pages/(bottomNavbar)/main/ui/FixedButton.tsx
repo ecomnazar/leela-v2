@@ -39,8 +39,8 @@ export const FixedButton = () => {
   });
 
   const handleClick = () => {
-    router.push("/askQuestion");
-    // openModal("create-account");
+    // router.push("/askQuestion");
+    openModal("create-account");
   };
 
   return (
