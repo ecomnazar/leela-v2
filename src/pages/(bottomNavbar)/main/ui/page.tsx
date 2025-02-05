@@ -6,17 +6,15 @@ import { Animated, Text, View } from "react-native";
 import { MainPageContext } from "@/shared/providers/mainPageProvider";
 import { PageHeader } from "@/widgets/pageHeader";
 import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
-import {
-  getPublicThemesApi,
-  getPublicThemeTagsApi,
-} from "@/entities/theme/model/themeThunk";
+import { getPublicThemesApi } from "@/entities/theme/model/themeThunk";
 import {
   IGetPublicThemesProps,
   TThemeSortType,
 } from "@/entities/theme/model/interfaces";
-import { Redirect, router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { useAuth } from "@/entities/auth/hooks/useAuth";
 import { FixedButton } from "./FixedButton";
+import { refreshTokenApi } from "@/entities/auth/model/authThunk";
 
 export const MainPage = () => {
   const dispatch = useAppDispatch();

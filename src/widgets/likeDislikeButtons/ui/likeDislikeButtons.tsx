@@ -12,6 +12,7 @@ interface Props {
   dislikeCount: number | undefined;
   type: "post" | "comment";
   reaction: 1 | 0 | -1;
+  single?: boolean;
 }
 
 export const LikeDislikeButtons: React.FC<Props> = ({
@@ -20,6 +21,7 @@ export const LikeDislikeButtons: React.FC<Props> = ({
   dislikeCount,
   type = "post",
   reaction,
+  single,
 }) => {
   const checkAuthorization = useCheckAuthorization();
   const setReaction = useThemeReaction();
@@ -31,7 +33,13 @@ export const LikeDislikeButtons: React.FC<Props> = ({
     if (!checkAuthorization()) return;
 
     if (type === "post") {
-      setReaction({ id, isDisliked, isLiked, reactionType: "like" });
+      setReaction({
+        id,
+        isDisliked,
+        isLiked,
+        reactionType: "like",
+        single,
+      });
     }
   };
 
@@ -39,7 +47,13 @@ export const LikeDislikeButtons: React.FC<Props> = ({
     if (!checkAuthorization()) return;
 
     if (type === "post") {
-      setReaction({ id, isDisliked, isLiked, reactionType: "dislike" });
+      setReaction({
+        id,
+        isDisliked,
+        isLiked,
+        reactionType: "dislike",
+        single,
+      });
     }
   };
 

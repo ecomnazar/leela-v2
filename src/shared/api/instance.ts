@@ -1,6 +1,8 @@
 import axios from "axios";
 import { getAccessToken, removeAccessToken } from "../lib/getAccessToken";
 import { refreshTokenApi } from "@/entities/auth/model/authThunk";
+import { CustomAsyncStorage } from "../lib/customAsyncStorage";
+import { STORAGE } from "../constants/storage";
 
 export const instance = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_URL, // Base URL for all requests
@@ -13,6 +15,8 @@ export const instance = axios.create({
 instance.interceptors.request.use(
   async (config) => {
     const token = getAccessToken();
+    console.log(token);
+
     if (token) {
       config.headers["x-auth-token"] = `Bearer ${token}`;
     }
@@ -31,10 +35,12 @@ instance.interceptors.response.use(
     if (error.response.status === 401) {
       removeAccessToken();
       try {
-        const newToken = await refreshTokenApi();
-        error.config.headers[
-          "x-auth-token"
-        ] = `Bearer ${newToken?.accessToken}`;
+        const { accessToken, refreshToken } = await refreshTokenApi();
+
+        CustomAsyncStorage.setItem(STORAGE.ACCESS_TOKEN, accessToken);
+        CustomAsyncStorage.setItem(STORAGE.REFRESH_TOKEN, refreshToken);
+
+        error.config.headers["x-auth-token"] = `Bearer ${accessToken}`;
         return instance(error.config);
       } catch (error) {
         // window.location.href = "/createProfile";

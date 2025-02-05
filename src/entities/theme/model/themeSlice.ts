@@ -6,6 +6,7 @@ import {
 } from "./themeThunk";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IComment, IPublicTheme } from "./interfaces";
+import { TReactionType } from "@/shared/interfaces";
 
 export const themeSlice = createSlice({
   name: "theme",
@@ -33,6 +34,69 @@ export const themeSlice = createSlice({
     },
     increateThemeCommentCount: (state) => {
       state.themeById.data.commentsCount += 1;
+    },
+    removeThemeReactionReducer: (
+      state,
+      action: PayloadAction<{
+        reactionType: TReactionType;
+        themeId: number;
+        single?: boolean;
+      }>
+    ) => {
+      const { single, reactionType, themeId } = action.payload;
+
+      const theme = state.publicThemes.data.find(
+        (theme) => theme.id === themeId
+      );
+
+      // from list
+      if (theme) {
+        if (reactionType === "like") {
+          theme.likesAndDislikes.likes -= 1;
+        } else {
+          theme.likesAndDislikes.dislikes -= 1;
+        }
+        theme.reaction = 0;
+      }
+      // from single
+      if (single) {
+        if (reactionType === "like") {
+          state.themeById.data.likesAndDislikes.likes -= 1;
+        } else {
+          state.themeById.data.likesAndDislikes.dislikes -= 1;
+        }
+        state.themeById.data.reaction = 0;
+      }
+    },
+    addReactionReducer: (
+      state,
+      action: PayloadAction<{
+        reactionType: TReactionType;
+        themeId: number;
+        single?: boolean;
+      }>
+    ) => {
+      const { single, reactionType, themeId } = action.payload;
+
+      const theme = state.publicThemes.data.find(
+        (theme) => theme.id === themeId
+      );
+      if (theme) {
+        if (reactionType === "like") {
+          theme.likesAndDislikes.likes += 1;
+        } else {
+          theme.likesAndDislikes.dislikes += 1;
+        }
+        theme.reaction = reactionType === "like" ? 1 : -1;
+      }
+      if (single) {
+        if (reactionType === "like") {
+          state.themeById.data.likesAndDislikes.likes += 1;
+        } else {
+          state.themeById.data.likesAndDislikes.dislikes += 1;
+        }
+        state.themeById.data.reaction = reactionType === "like" ? 1 : -1;
+      }
     },
   },
   extraReducers: (builder) => {
@@ -109,4 +173,9 @@ export const themeSlice = createSlice({
   },
 });
 
-export const { addComment, increateThemeCommentCount } = themeSlice.actions;
+export const {
+  addComment,
+  increateThemeCommentCount,
+  removeThemeReactionReducer,
+  addReactionReducer,
+} = themeSlice.actions;

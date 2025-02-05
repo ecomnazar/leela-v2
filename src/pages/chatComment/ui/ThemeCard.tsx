@@ -12,12 +12,14 @@ export const ThemeCard = () => {
     id,
     title,
     text,
-    tags,
     isAnonymous,
     createdAt,
     commentsCount,
     authorName,
     authorProfileImageUrl,
+    authorRole,
+    attachments,
+    reaction,
     likesAndDislikes: { dislikes, likes },
   } = data;
 
@@ -25,7 +27,7 @@ export const ThemeCard = () => {
     <PostCard
       image={authorProfileImageUrl}
       name={authorName}
-      role="Гость"
+      role={authorRole ?? "Гость"}
       themeId={id}
       isAnonym={isAnonymous}
       likeCount={likes}
@@ -34,7 +36,9 @@ export const ThemeCard = () => {
       date={createdAt}
       title={title}
       text={text}
-      tags={tags}
+      staplerCount={attachments?.length}
+      reaction={reaction}
+      single
     />
   );
 };

@@ -30,6 +30,7 @@ interface Props {
   tags?: string[];
   staplerCount?: number;
   reaction?: 0 | 1 | -1;
+  single?: boolean;
 }
 
 export const PostCard: React.FC<Props> = ({
@@ -50,6 +51,7 @@ export const PostCard: React.FC<Props> = ({
   tags,
   staplerCount,
   reaction = 0,
+  single,
 }) => {
   const realName = isAnonym ? "Аноним" : name;
 
@@ -193,6 +195,7 @@ export const PostCard: React.FC<Props> = ({
                 dislikeCount={dislikeCount}
                 type={type}
                 reaction={reaction}
+                single={single}
               />
               {type === "post" && (
                 <Flex className="gap-x-4">

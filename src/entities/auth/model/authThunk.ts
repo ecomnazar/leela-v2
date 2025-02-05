@@ -39,5 +39,5 @@ export const refreshTokenApi = async () => {
     data: { refreshToken },
   });
 
-  return response.data;
+  return response;
 };

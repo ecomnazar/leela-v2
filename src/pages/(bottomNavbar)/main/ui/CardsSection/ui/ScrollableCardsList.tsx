@@ -37,6 +37,7 @@ export const ScrollableCardsList = () => {
             authorProfileImageUrl,
             attachments,
             reaction,
+            authorRole,
             likesAndDislikes: { dislikes, likes },
           } = item;
           return (
@@ -44,7 +45,7 @@ export const ScrollableCardsList = () => {
               key={index}
               image={authorProfileImageUrl}
               name={authorName}
-              role="Гость"
+              role={authorRole ?? "Гость"}
               themeId={id}
               isAnonym={isAnonymous}
               likeCount={likes}
