@@ -19,12 +19,10 @@ export const useThemeReaction = () => {
   const reaction = async ({ id, isLiked, isDisliked, reactionType }: Props) => {
     if (reactionType === "like") {
       if (isLiked) {
-        dispatch(removeThemeReactionApi({ themeId: id, isLike: true }));
+        dispatch(removeThemeReactionApi(id));
       } else {
         if (isDisliked) {
-          await dispatch(
-            removeThemeReactionApi({ themeId: id, isLike: false })
-          );
+          await dispatch(removeThemeReactionApi(id));
         }
         dispatch(leaveThemeReactionApi({ themeId: id, isLike: true }));
       }
@@ -32,10 +30,10 @@ export const useThemeReaction = () => {
 
     if (reactionType === "dislike") {
       if (isDisliked) {
-        dispatch(removeThemeReactionApi({ themeId: id, isLike: false }));
+        dispatch(removeThemeReactionApi(id));
       } else {
         if (isLiked) {
-          await dispatch(removeThemeReactionApi({ themeId: id, isLike: true }));
+          await dispatch(removeThemeReactionApi(id));
         }
         dispatch(leaveThemeReactionApi({ themeId: id, isLike: false }));
       }

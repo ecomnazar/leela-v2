@@ -57,14 +57,14 @@ export const MainPage = () => {
   }, [params.search_query]);
 
   React.useEffect(() => {
-    dispatch(getPublicThemeTagsApi());
+    // dispatch(getPublicThemeTagsApi());
   }, []);
 
   useAuth();
 
   // it means that webpage opened in browser, not in miniapp
-  const code = params?.code as string;
-  if (code) return <Redirect href={`/redirect?code=${code}`} />;
+  // const code = params?.code as string;
+  // if (code) return <Redirect href={`/redirect?code=${code}`} />;
 
   return (
     <>

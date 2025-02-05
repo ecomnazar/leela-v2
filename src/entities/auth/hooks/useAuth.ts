@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 export const useAuth = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const params = useLocalSearchParams();
 
   const code = window?.Telegram?.WebApp?.initDataUnsafe?.start_param;
 
@@ -17,22 +18,22 @@ export const useAuth = () => {
         window?.Telegram?.WebApp?.initDataUnsafe?.start_param
       )}`
     );
-    // const authorize = async () => {
-    //   const code = params.code as string;
-    //   if (!code) return;
-    //   const data: IAuthorizationApiProps = {
-    //     code,
-    //     provider: "GOOGLE",
-    //     redirectUri: process.env.EXPO_PUBLIC_GOOGLE_REDIRECT_URL!,
-    //   };
-    //   await toast.promise(dispatch(authorizationApi(data)), {
-    //     loading: "Authorizing",
-    //     error: "Authorization error",
-    //     success: "Authorization success",
-    //   });
-    //   router.push("/");
-    // };
-    // authorize();
+    const authorize = async () => {
+      const code = params.code as string;
+      if (!code) return;
+      const data: IAuthorizationApiProps = {
+        code,
+        provider: "GOOGLE",
+        redirectUri: process.env.EXPO_PUBLIC_GOOGLE_REDIRECT_URL!,
+      };
+      await toast.promise(dispatch(authorizationApi(data)), {
+        loading: "Authorizing",
+        error: "Authorization error",
+        success: "Authorization success",
+      });
+      router.push("/");
+    };
+    authorize();
   }, [window?.Telegram]);
 
   return null;

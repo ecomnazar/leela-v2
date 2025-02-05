@@ -95,9 +95,9 @@ export const leaveThemeReactionApi = createAsyncThunk(
 
 export const removeThemeReactionApi = createAsyncThunk(
   "removeThemeReactionApi",
-  async (data: IThemeReactionApiProps, thunkAPI) => {
+  async (themeId: number, thunkAPI) => {
     try {
-      return await apiCall("delete", `/themes/reaction`, { data });
+      return await apiCall("delete", `/themes/${themeId}/reaction`);
     } catch (error: unknown) {
       return thunkAPI.rejectWithValue(error);
     }

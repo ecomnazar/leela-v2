@@ -27,10 +27,6 @@ export const LikeDislikeButtons: React.FC<Props> = ({
   const isLiked = reaction === 1;
   const isDisliked = reaction === -1;
 
-  console.log(isLiked);
-  console.log(isDisliked);
-  console.log(reaction);
-
   const handleLike = () => {
     if (!checkAuthorization()) return;
 
@@ -52,10 +48,10 @@ export const LikeDislikeButtons: React.FC<Props> = ({
       <Flex className="gap-x-2">
         <Pressable onPress={handleLike}>
           <Icon
-            type="like"
+            type={isLiked ? "likeFilled" : "like"}
             width={25}
             height={25}
-            fill={isLiked ? "red" : "#616470"}
+            fill={"#616470"}
           />
         </Pressable>
         <CustomText weight="semibold" size={14}>
@@ -65,10 +61,10 @@ export const LikeDislikeButtons: React.FC<Props> = ({
       <Flex className="gap-x-2">
         <Pressable onPress={handleDislike} className="translate-y-[3px]">
           <Icon
-            type="dislike"
+            type={isDisliked ? "dislikeFilled" : "dislike"}
             width={25}
             height={25}
-            fill={isDisliked ? "red" : "#616470"}
+            fill={"#616470"}
           />
         </Pressable>
         <CustomText weight="semibold" size={14}>

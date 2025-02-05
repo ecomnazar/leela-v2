@@ -2,6 +2,7 @@ import React from "react";
 import HeartIcon from "assets/icons/heart.svg";
 import TripleDots from "assets/icons/verticalTripleDots.svg";
 import LikeIcon from "assets/icons/like.svg";
+import LikeFilledIcon from "assets/icons/likeFilled.svg";
 import StaplerIcon from "assets/icons/stapler.svg";
 import CommentIcon from "assets/icons/comment.svg";
 import PlusIcon from "assets/icons/plus.svg";
@@ -23,7 +24,9 @@ interface Props {
     | "heart"
     | "verticalTripleDots"
     | "like"
+    | "likeFilled"
     | "dislike"
+    | "dislikeFilled"
     | "stapler"
     | "comment"
     | "plus"
@@ -79,6 +82,23 @@ export const Icon: React.FC<Props> = ({
       )}
       {type === "dislike" && (
         <LikeIcon
+          style={{ transform: [{ rotate: "180deg" }] }}
+          className={clsx("", className)}
+          width={width}
+          height={height}
+          fill={fill ? fill : "#616470"}
+        />
+      )}
+      {type === "likeFilled" && (
+        <LikeFilledIcon
+          className={className}
+          width={width}
+          height={height}
+          fill={fill ? fill : "#616470"}
+        />
+      )}
+      {type === "dislikeFilled" && (
+        <LikeFilledIcon
           style={{ transform: [{ rotate: "180deg" }] }}
           className={clsx("", className)}
           width={width}
