@@ -10,6 +10,7 @@ const PREFIX = "/auth";
 export const getOAuthUrlApi = createAsyncThunk(
   "getOAuthUrlApi",
   async (_, thunkAPI) => {
+    console.log(process.env.EXPO_PUBLIC_GOOGLE_REDIRECT_URL);
     try {
       return await apiCall(
         "get",
