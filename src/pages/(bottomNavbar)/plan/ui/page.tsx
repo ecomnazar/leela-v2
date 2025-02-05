@@ -20,10 +20,6 @@ export const PlanPage = () => {
       ? ["transparent", "transparent", "#8992A0", "#AEB6C4"]
       : ["transparent", "#DEE4EE", "#8992A0", "#AEB6C4"];
 
-  React.useEffect(() => {
-    console.log(window.Telegram.WebApp.initDataUnsafe.start_param);
-  }, []);
-
   return (
     <Screen customGradientColors={gradient}>
       <Animated.View style={{}}>

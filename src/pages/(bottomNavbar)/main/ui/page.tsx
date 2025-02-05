@@ -11,7 +11,7 @@ import {
   IGetPublicThemesProps,
   TThemeSortType,
 } from "@/entities/theme/model/interfaces";
-import { useLocalSearchParams } from "expo-router";
+import { Redirect, useLocalSearchParams } from "expo-router";
 import { useAuth } from "@/entities/auth/hooks/useAuth";
 import { FixedButton } from "./FixedButton";
 import { refreshTokenApi } from "@/entities/auth/model/authThunk";
@@ -36,58 +36,52 @@ export const MainPage = () => {
     ],
   };
 
-  return (
-    <View>
-      <Text>Hello</Text>
-    </View>
-  );
-
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-  // React.useEffect(() => {
-  //   const data: IGetPublicThemesProps = {
-  //     sort_by: sortBy,
-  //     search_query: searchQuery,
-  //   };
-  //   dispatch(getPublicThemesApi(data));
-  // }, [sortBy, searchQuery]);
+  React.useEffect(() => {
+    const data: IGetPublicThemesProps = {
+      sort_by: sortBy,
+      search_query: searchQuery,
+    };
+    dispatch(getPublicThemesApi(data));
+  }, [sortBy, searchQuery]);
 
-  // React.useEffect(() => {
-  //   setSortBy((params.filter as TThemeSortType) || "COMMENTS_ASC");
-  // }, [params.filter]);
+  React.useEffect(() => {
+    setSortBy((params.filter as TThemeSortType) || "COMMENTS_ASC");
+  }, [params.filter]);
 
-  // React.useEffect(() => {
-  //   setSearchQuery((params.search_query as string) || "");
-  // }, [params.search_query]);
+  React.useEffect(() => {
+    setSearchQuery((params.search_query as string) || "");
+  }, [params.search_query]);
 
-  // React.useEffect(() => {
-  //   // dispatch(getPublicThemeTagsApi());
-  // }, []);
+  React.useEffect(() => {
+    // dispatch(getPublicThemeTagsApi());
+  }, []);
 
-  // useAuth();
+  useAuth();
 
-  // // it means that webpage opened in browser, not in miniapp
-  // // const code = params?.code as string;
-  // // if (code) return <Redirect href={`/redirect?code=${code}`} />;
+  // it means that webpage opened in browser, not in miniapp
+  const code = params?.code as string;
+  if (code) return <Redirect href={`/redirect?code=${code}`} />;
 
-  // return (
-  //   <>
-  //     <PageHeader enableEnergyShowcase enableBalanceShowcase disableBorder />
-  //     <View style={{ flex: 1, marginTop: 10 }}>
-  //       <Stories />
-  //       <Animated.View
-  //         style={[
-  //           { flex: 1, backgroundColor: "#F2F2F2", marginTop: -200 },
-  //           animatedStyle,
-  //         ]}
-  //         shouldRasterizeIOS={true}
-  //         renderToHardwareTextureAndroid={true}
-  //       >
-  //         <Search />
-  //         <CardsSection />
-  //       </Animated.View>
-  //     </View>
-  //     <FixedButton />
-  //   </>
-  // );
+  return (
+    <>
+      <PageHeader enableEnergyShowcase enableBalanceShowcase disableBorder />
+      <View style={{ flex: 1, marginTop: 10 }}>
+        <Stories />
+        <Animated.View
+          style={[
+            { flex: 1, backgroundColor: "#F2F2F2", marginTop: -200 },
+            animatedStyle,
+          ]}
+          shouldRasterizeIOS={true}
+          renderToHardwareTextureAndroid={true}
+        >
+          <Search />
+          <CardsSection />
+        </Animated.View>
+      </View>
+      <FixedButton />
+    </>
+  );
 };
