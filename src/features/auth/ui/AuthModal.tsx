@@ -19,8 +19,10 @@ export const AuthModal = () => {
     const response = await dispatch(getOAuthUrlApi());
 
     if (isFulfilled(response)) {
-      const OAuthUrl = response.payload.url;
-      Linking.openURL(OAuthUrl);
+      console.log(window.Telegram.WebApp.initDataUnsafe.start_param);
+
+      // const OAuthUrl = response.payload.url;
+      // Linking.openURL(OAuthUrl);
     }
   };
 
