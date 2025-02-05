@@ -24,7 +24,7 @@ export const AuthModal = () => {
       // console.log(JSON.stringify(window.Telegram.WebApp));
       const OAuthUrl = response.payload.url;
       Linking.openURL(OAuthUrl);
-      window.location.href = OAuthUrl;
+      window.open(OAuthUrl, "_blank");
     }
   };
 
