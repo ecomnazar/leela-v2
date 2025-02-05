@@ -19,10 +19,8 @@ export const AuthModal = () => {
     const response = await dispatch(getOAuthUrlApi());
 
     if (isFulfilled(response)) {
-      console.log("here");
-
-      // const OAuthUrl = response.payload.url;
-      // Linking.openURL(OAuthUrl);
+      const OAuthUrl = response.payload.url;
+      Linking.openURL(OAuthUrl);
     }
   };
 
