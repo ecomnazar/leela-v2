@@ -4,6 +4,8 @@ import { IAuthorizationApiProps } from "../model/interfaces";
 import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
 import { authorizationApi } from "../model/authThunk";
 import toast from "react-hot-toast";
+import { CustomAsyncStorage } from "@/shared/lib/customAsyncStorage";
+import { STORAGE } from "@/shared/constants/storage";
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
@@ -12,7 +14,9 @@ export const useAuth = () => {
 
   React.useEffect(() => {
     const code = window?.Telegram?.WebApp?.initDataUnsafe?.start_param;
+    const token = CustomAsyncStorage.getItem(STORAGE.ACCESS_TOKEN);
 
+    if (token) return;
     if (code) {
       const replacedCode = code.includes("VVV")
         ? code.replace("VVV", "/")
