@@ -11,6 +11,7 @@ export const RedirectPage = () => {
 
   const handlePress = () => {
     const code = params.code as string;
+    //
     const miniAppUrl = process.env.EXPO_PUBLIC_TELEGRAM_MINIAPP_URL!;
 
     const replacedCode = code.includes("/") ? code.replace("/", "VVV") : code;
