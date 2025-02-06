@@ -18,14 +18,10 @@ export const useAuth = () => {
 
     if (token) return;
     if (code) {
-      const replacedCode = code.includes("VVV")
-        ? code.replace("VVV", "/")
-        : code;
-      console.log(
-        `Init data: ${JSON.stringify(
-          window?.Telegram?.WebApp?.initDataUnsafe?.start_param
-        )}`
-      );
+      const replacedCode = code.includes("VVV") ? code.replace("VVV", "/") : "";
+
+      if (!replacedCode) return;
+
       const authorize = async () => {
         if (!replacedCode) return;
         const data: IAuthorizationApiProps = {
