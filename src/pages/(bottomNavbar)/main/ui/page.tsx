@@ -14,7 +14,12 @@ import { useRedirect } from "../hooks/useRedirect";
 export const MainPage = () => {
   useFilter();
   useAuth();
-  useRedirect();
+  // useRedirect();
+
+  // browser
+  const params = useLocalSearchParams();
+  const code = params?.code as string;
+  if (code) return <Redirect href={`/redirect?code=${code}`} />;
 
   return (
     <>
