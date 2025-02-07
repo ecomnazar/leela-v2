@@ -34,6 +34,13 @@ export const themeSlice = createSlice({
     },
     increateThemeCommentCount: (state) => {
       state.themeById.data.commentsCount += 1;
+      const themeId = state.themeById.data.id;
+      const theme = state.publicThemes.data.find(
+        (theme) => theme.id === themeId
+      );
+      if (theme) {
+        theme.commentsCount += 1;
+      }
     },
     removeThemeReactionReducer: (
       state,
