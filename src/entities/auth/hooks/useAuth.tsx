@@ -1,6 +1,6 @@
 import React from "react";
 import toast from "react-hot-toast";
-import { Redirect, useLocalSearchParams, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { IAuthorizationApiProps } from "../model/interfaces";
 import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
 import { authorizationApi } from "../model/authThunk";
@@ -10,11 +10,6 @@ import { STORAGE } from "@/shared/constants/storage";
 export const useAuth = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-
-  // browser
-  const params = useLocalSearchParams();
-  const code = params?.code as string;
-  if (code) return <Redirect href={`/redirect?code=${code}`} />;
 
   // miniapp
   React.useEffect(() => {

@@ -8,10 +8,13 @@ import { useAuth } from "@/entities/auth/hooks/useAuth";
 import { FixedButton } from "./FixedButton";
 import { useFilter } from "../hooks/useFilter";
 import { AnimatedContainer } from "./AnimatedContainer";
+import { Redirect, useLocalSearchParams } from "expo-router";
+import { useRedirect } from "../hooks/useRedirect";
 
 export const MainPage = () => {
   useFilter();
   useAuth();
+  useRedirect();
 
   return (
     <>
