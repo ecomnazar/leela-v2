@@ -8,11 +8,15 @@ import { useOpacity } from "../hooks/useOpacity";
 import { CustomText } from "@/shared/ui/CustomText";
 
 export const BottomNavbar = ({ state, descriptors, navigation }: any) => {
-  const opacity = useOpacity();
+  const { opacity, pointerEvents } = useOpacity();
 
   return (
-    <Animated.View style={{ opacity }}>
-      <View className="absolute bg-white bottom-0 flex-row justify-between items-center rounded-t-[20px] w-full border border-grayPrimary/40">
+    <Animated.View style={{ opacity }} pointerEvents={pointerEvents}>
+      <View
+        className={clsx(
+          "z-[-1] absolute bg-white bottom-0 flex-row justify-between items-center rounded-t-[20px] w-full border border-grayPrimary/40"
+        )}
+      >
         {(state.routes as any[]).map((route, index) => {
           const { options } = descriptors[route.key];
           const isFocused = state.index === index;

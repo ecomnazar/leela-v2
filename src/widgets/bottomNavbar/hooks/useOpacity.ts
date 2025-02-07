@@ -3,12 +3,25 @@ import React from "react";
 
 export const useOpacity = () => {
   const { scrollOffsetY } = React.useContext(MainPageContext);
+  const [pointerEvents, setPointerEvents] = React.useState<"none" | "auto">(
+    "auto"
+  );
 
   const opacity = scrollOffsetY.interpolate({
-    inputRange: [0, 200],
+    inputRange: [0, 1],
     outputRange: [1, 0],
     extrapolate: "clamp",
   });
 
-  return opacity;
+  React.useEffect(() => {
+    const listener = opacity.addListener(({ value }) => {
+      setPointerEvents(value === 0 ? "none" : "auto");
+    });
+
+    return () => {
+      opacity.removeListener(listener);
+    };
+  }, [opacity]);
+
+  return { opacity, pointerEvents };
 };

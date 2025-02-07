@@ -3,7 +3,7 @@ import { useThemeReaction } from "@/entities/theme/hooks/useThemeReaction";
 import { CustomText } from "@/shared/ui/CustomText";
 import { Flex } from "@/shared/ui/Flex";
 import { Icon } from "@/shared/ui/Icon";
-import { Pressable } from "react-native";
+import { Pressable, View } from "react-native";
 import { useCheckAuthorization } from "@/features/auth/hooks/useCheckAuthorization";
 
 interface Props {
@@ -58,8 +58,8 @@ export const LikeDislikeButtons: React.FC<Props> = ({
   };
 
   return (
-    <Flex className="gap-x-2.5">
-      <Flex className="gap-x-2">
+    <Flex className="">
+      <Flex className="">
         <Pressable onPress={handleLike}>
           <Icon
             type={isLiked ? "likeFilled" : "like"}
@@ -68,11 +68,13 @@ export const LikeDislikeButtons: React.FC<Props> = ({
             fill={"#616470"}
           />
         </Pressable>
-        <CustomText weight="semibold" size={14}>
-          {likeCount || 0}
-        </CustomText>
+        <View className="w-[25px] flex items-center justify-center">
+          <CustomText weight="semibold" size={14}>
+            {likeCount || 0}
+          </CustomText>
+        </View>
       </Flex>
-      <Flex className="gap-x-2">
+      <Flex className="">
         <Pressable onPress={handleDislike} className="translate-y-[3px]">
           <Icon
             type={isDisliked ? "dislikeFilled" : "dislike"}
@@ -81,9 +83,11 @@ export const LikeDislikeButtons: React.FC<Props> = ({
             fill={"#616470"}
           />
         </Pressable>
-        <CustomText weight="semibold" size={14}>
-          {dislikeCount || 0}
-        </CustomText>
+        <View className="w-[25px] flex items-center justify-center">
+          <CustomText weight="semibold" size={14}>
+            {dislikeCount || 0}
+          </CustomText>
+        </View>
       </Flex>
     </Flex>
   );
