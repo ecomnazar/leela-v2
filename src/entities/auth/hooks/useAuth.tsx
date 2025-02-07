@@ -11,6 +11,11 @@ export const useAuth = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
+  // browser
+  const params = useLocalSearchParams();
+  const code = params?.code as string;
+  if (code) return <Redirect href={`/redirect?code=${code}`} />;
+
   // miniapp
   React.useEffect(() => {
     const startParams = window?.Telegram?.WebApp?.initDataUnsafe?.start_param;
@@ -39,11 +44,6 @@ export const useAuth = () => {
       authorize();
     }
   }, [window?.Telegram]);
-
-  // browser
-  const params = useLocalSearchParams();
-  const code = params?.code as string;
-  if (code) return <Redirect href={`/redirect?code=${code}`} />;
 
   return null;
 };
