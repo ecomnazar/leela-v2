@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
 
 interface Props {
   image: string;
@@ -12,6 +12,7 @@ interface Props {
   size?: "small" | "medium";
   isActive: boolean;
   isAnonym?: boolean;
+  onPress?: VoidFunction;
 }
 
 export const StoryAvatar: React.FC<Props> = ({
@@ -20,6 +21,7 @@ export const StoryAvatar: React.FC<Props> = ({
   size = "small",
   isActive,
   isAnonym,
+  onPress,
 }) => {
   const realImage = isAnonym
     ? images.anonymAvatar
@@ -29,7 +31,8 @@ export const StoryAvatar: React.FC<Props> = ({
 
   return (
     <View>
-      <View
+      <Pressable
+        onPress={onPress}
         className={clsx(
           "relative rounded-full overflow-hidden flex items-center justify-center p-0.5",
           {
@@ -60,7 +63,7 @@ export const StoryAvatar: React.FC<Props> = ({
             style={{ width: "100%", height: "100%", borderRadius: 999 }}
           />
         </View>
-      </View>
+      </Pressable>
       {size === "medium" && (
         <CustomText size={11} weight="regular" className="text-center mt-1">
           {name}

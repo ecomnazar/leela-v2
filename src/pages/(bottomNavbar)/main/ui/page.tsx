@@ -9,8 +9,11 @@ import { FixedButton } from "./FixedButton";
 import { useFilter } from "../hooks/useFilter";
 import { AnimatedContainer } from "./AnimatedContainer";
 import { Redirect, useLocalSearchParams } from "expo-router";
+import { getStoriesApi } from "@/entities/story/model/storyThunk";
+import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
 
 export const MainPage = () => {
+  const dispatch = useAppDispatch();
   useFilter();
   useAuth();
 
@@ -18,6 +21,10 @@ export const MainPage = () => {
   const params = useLocalSearchParams();
   const code = params?.code as string;
   if (code) return <Redirect href={`/redirect?code=${code}`} />;
+
+  React.useEffect(() => {
+    dispatch(getStoriesApi());
+  }, []);
 
   return (
     <>
