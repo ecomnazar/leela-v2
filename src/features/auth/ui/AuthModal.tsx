@@ -3,7 +3,7 @@ import { BottomSheet } from "@/shared/ui/BottomSheet";
 import { Container } from "@/shared/ui/Container";
 import { Flex } from "@/shared/ui/Flex";
 import { useModal } from "@/shared/zustand/useModal";
-import { Linking, Pressable, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import AppleIcon from "assets/icons/apple.svg";
 import GoogleIcon from "assets/icons/google.svg";
 import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
@@ -20,6 +20,10 @@ export const AuthModal = () => {
 
     if (isFulfilled(response)) {
       const OAuthUrl = response.payload.url;
+      if (__DEV__) {
+        window.open(OAuthUrl, "_blank");
+        return;
+      }
       window.Telegram.WebApp.openLink(OAuthUrl);
     }
   };

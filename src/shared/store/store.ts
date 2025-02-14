@@ -1,4 +1,5 @@
 import { authSlice } from "@/entities/auth/model/authSlice";
+import { mediaFileSlice } from "@/entities/mediaFile/model/mediaFileSlice";
 import { storySlice } from "@/entities/story/model/storySlice";
 import { themeSlice } from "@/entities/theme/model/themeSlice";
 import { userSlice } from "@/entities/user/model/userSlice";
@@ -10,6 +11,7 @@ export const store = configureStore({
     theme: themeSlice.reducer,
     auth: authSlice.reducer,
     story: storySlice.reducer,
+    mediaFile: mediaFileSlice.reducer,
   }),
 });
 

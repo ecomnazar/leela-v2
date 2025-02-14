@@ -1,65 +1,63 @@
 import React from "react";
-import images from "assets/images";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, View } from "react-native";
 
 import { Flex } from "@/shared/ui/Flex";
 import { StoryAvatar } from "@/entities/ui/storyAvatar";
+import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
+import { getPublicStoriesApi } from "@/entities/story/model/storyThunk";
+import { useAppSelector } from "@/shared/hooks/useAppSelector";
+import { StoryAvatarSkeleton } from "@/entities/ui/storyAvatar/ui/StoryAvatarSkeleton";
+import {
+  setSelectedAuthorIndex,
+  toggleStoryModal,
+} from "@/entities/story/model/storySlice";
+import { StoryModal } from "@/entities/story/ui/StoryModal";
 
 export const Stories = () => {
-  const stories = [
-    {
-      viewed: false,
-      name: "Алена",
-      image: images.stories1,
-    },
-    {
-      viewed: true,
-      name: "Евгений",
-      image: images.stories2,
-    },
-    {
-      viewed: false,
-      name: "Анжелика",
-      image: images.stories3,
-    },
-    {
-      viewed: false,
-      name: "Юрий",
-      image: images.stories4,
-    },
-    {
-      viewed: true,
-      name: "Оксана",
-      image: images.stories5,
-    },
-  ];
+  const dispatch = useAppDispatch();
+  const { data: publicStories, loading } = useAppSelector(
+    (state) => state.story.publicStories
+  );
 
-  const handlePress = () => {
-    console.log("press");
+  const openStoryModal = (index: number) => {
+    dispatch(setSelectedAuthorIndex(index));
+    dispatch(toggleStoryModal("open"));
   };
 
+  React.useEffect(() => {
+    dispatch(getPublicStoriesApi());
+  }, []);
+
   return (
-    <View style={{ height: 92 }}>
-      <ScrollView
-        contentContainerStyle={{ paddingHorizontal: 16 }}
-        showsHorizontalScrollIndicator={false}
-        horizontal
-      >
-        <Flex className="gap-x-3">
-          {stories.map((story) => {
-            return (
-              <StoryAvatar
-                key={story.name}
-                onPress={handlePress}
-                image={story.image}
-                name={story.name}
-                size="medium"
-                isActive={true}
-              />
-            );
-          })}
-        </Flex>
-      </ScrollView>
-    </View>
+    <>
+      <View style={{ height: 92 }}>
+        <ScrollView
+          contentContainerStyle={{ paddingHorizontal: 16 }}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+        >
+          <Flex className="gap-x-3" align="start">
+            {loading &&
+              Array.from({ length: 7 }).map((_, index) => (
+                <StoryAvatarSkeleton key={index} />
+              ))}
+            {!loading &&
+              publicStories?.unseenExperts?.map((story, index) => {
+                return (
+                  <StoryAvatar
+                    key={story.name}
+                    onPress={() => openStoryModal(index)}
+                    image={story.previewMediaUrl}
+                    name={story.name}
+                    size="medium"
+                    isActive={true}
+                  />
+                );
+              })}
+          </Flex>
+        </ScrollView>
+      </View>
+      <StoryModal />
+    </>
   );
 };

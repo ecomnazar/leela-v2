@@ -2,18 +2,17 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IAuthorizationApiProps } from "./interfaces";
 import { apiCall } from "@/shared/api/apiCall";
 import { getRefreshToken } from "@/shared/lib/getAccessToken";
+import { REDIRECT_URI } from "../constants";
 
 const PREFIX = "/auth";
 
 export const getOAuthUrlApi = createAsyncThunk(
   "getOAuthUrlApi",
   async (_, thunkAPI) => {
-    console.log(process.env.EXPO_PUBLIC_GOOGLE_REDIRECT_URL);
     try {
       return await apiCall(
         "get",
-        PREFIX +
-          `/google-auth-url?redirect_uri=${process.env.EXPO_PUBLIC_GOOGLE_REDIRECT_URL}`
+        PREFIX + `/google-auth-url?redirect_uri=${REDIRECT_URI}`
       );
     } catch (error: unknown) {
       return thunkAPI.rejectWithValue(error);

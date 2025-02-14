@@ -21,6 +21,8 @@ interface Props {
   style?: ViewStyle;
   animated?: boolean;
   scrollOffsetY?: Animated.Value;
+  onPressBackButton?: VoidFunction;
+  textColor?: "white";
 }
 
 export const PageHeader: React.FC<Props> = ({
@@ -32,6 +34,8 @@ export const PageHeader: React.FC<Props> = ({
   style,
   animated,
   scrollOffsetY,
+  onPressBackButton,
+  textColor,
 }) => {
   const disableBackButton = enableEnergyShowcase;
 
@@ -54,7 +58,11 @@ export const PageHeader: React.FC<Props> = ({
         }}
       >
         {title && (
-          <CustomText size={17} weight="bold">
+          <CustomText
+            size={17}
+            weight="bold"
+            color={textColor ? textColor : "primary"}
+          >
             {title}
           </CustomText>
         )}
@@ -116,7 +124,7 @@ export const PageHeader: React.FC<Props> = ({
           <Flex justify="between" align="center" className="h-full">
             {enableEnergyShowcase && <EnergyShowcase />}
 
-            {!disableBackButton && <BackButton />}
+            {!disableBackButton && <BackButton onPress={onPressBackButton} />}
             {enableBalanceShowcase && (
               <Flex className="gap-x-2">
                 <Pressable onPress={() => router.push("/notifications")}>

@@ -28,6 +28,8 @@ import wixBold from "assets/fonts/wixMadeforDisplay/WixMadeforDisplay-Bold.ttf";
 // @ts-ignore
 import wixExtraBold from "assets/fonts/wixMadeforDisplay/WixMadeforDisplay-ExtraBold.ttf";
 import { AuthModal } from "@/features/auth/ui/AuthModal";
+import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
+import { getMeApi } from "@/entities/user/model/userThunk";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

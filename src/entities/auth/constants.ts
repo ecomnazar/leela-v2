@@ -1,0 +1,3 @@
+export const REDIRECT_URI = __DEV__
+  ? process.env.EXPO_PUBLIC_TEST_ENV_GOOGLE_REDIRECT_URL!
+  : process.env.EXPO_PUBLIC_GOOGLE_REDIRECT_URL!;

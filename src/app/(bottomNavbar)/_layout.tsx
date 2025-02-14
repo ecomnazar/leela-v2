@@ -2,8 +2,16 @@ import React from "react";
 import { Tabs } from "expo-router";
 import { BottomNavbar } from "@/widgets/bottomNavbar/ui/BottomNavbar";
 import { MainPageProvider } from "@/shared/providers/mainPageProvider";
+import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
+import { getMeApi } from "@/entities/user/model/userThunk";
 
 const BottomNavbarLayout = () => {
+  const dispatch = useAppDispatch();
+
+  React.useEffect(() => {
+    dispatch(getMeApi());
+  }, []);
+
   return (
     <MainPageProvider>
       <Tabs
