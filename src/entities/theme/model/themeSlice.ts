@@ -152,21 +152,25 @@ export const themeSlice = createSlice({
           state,
           action: PayloadAction<{ total: number; themes: IPublicTheme[] }>
         ) => {
+          const titles = ["Углеводы", "Инсулина и метаболизм", "Питание"];
+
           state.publicThemes.loading = false;
           state.publicThemes.skeletonLoading = false;
           // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     FIX     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
           // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     FIX     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
           // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     FIX     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
           // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     FIX     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-          state.publicThemes.data = action.payload.themes.map((item) => {
-            return {
-              ...item,
-              authorRole:
-                item.authorRole === "master" || item.authorRole === "admin"
-                  ? "пользователь"
-                  : "пользователь",
-            };
-          });
+          state.publicThemes.data = action.payload.themes
+            .map((item) => {
+              return {
+                ...item,
+                authorRole:
+                  item.authorRole === "master" || item.authorRole === "admin"
+                    ? "пользователь"
+                    : "пользователь",
+              };
+            })
+            .filter((i) => !titles.includes(i.title));
           // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     FIX     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
           // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     FIX     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
           // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     FIX     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --

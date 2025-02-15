@@ -27,7 +27,8 @@ export const RecommendPostCard: React.FC<Props> = ({
       style={style}
       className="bg-[#FEFBF6] rounded-[16px] border border-grayPrimary/40 p-5 pb-4"
     >
-      <Flex justify="between" className="mb-3">
+      {/* <Flex justify="between" className="mb-3"> */}
+      <Flex justify="between">
         <Flex className="gap-x-3">
           <Image
             source={profileImageUrl}

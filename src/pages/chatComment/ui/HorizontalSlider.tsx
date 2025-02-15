@@ -71,6 +71,7 @@ export const HorizontalSlider = () => {
             scrollEventThrottle={16}
             snapToInterval={ITEM_WIDTH + ITEM_MARGIN * 2}
             decelerationRate="fast"
+            pagingEnabled
             contentContainerStyle={{ paddingHorizontal: ITEM_MARGIN }}
           />
         </View>
