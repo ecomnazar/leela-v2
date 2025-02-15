@@ -24,8 +24,7 @@ const DATA = [
   },
   {
     id: "2",
-    title:
-      "Приготовление вкусных и полезных блюд с минимальным количеством калорий.",
+    title: "Приготовление полезных блюд с минимальным количеством калорий.",
     color: "#1E90FF",
     profileImageUrl: images.stories1,
     name: "Алена",
@@ -77,13 +76,13 @@ export const HorizontalSlider = () => {
         </View>
       </View>
       <Container>
-        <Flex className="gap-x-1 justify-center border-b border-grayPrimary/40 py-8">
+        <Flex className="gap-x-1 justify-center border-b border-grayPrimary/40 py-5">
           {DATA.map((_, index) => {
             const active = currentIndex === index;
             return (
               <View
                 key={index}
-                className={clsx("w-2 h-2 rounded-full", {
+                className={clsx("w-[6px] h-[6px] rounded-full", {
                   "bg-primary": active,
                   "bg-[#D9D9D9]": !active,
                 })}

@@ -22,14 +22,11 @@ export const StoryModal = () => {
       transparent={true}
     >
       <View style={{ height: SCREEN_HEIGHT }} className="bg-black h-24">
-        <View style={{ position: "absolute", top: 0, right: 0, zIndex: 99 }}>
-          <Pressable
-            onPress={closeStoryModal}
-            className="py-4 px-6 bg-white/10"
-          >
-            <Text className="text-white">Close</Text>
+        {/* <View style={{ position: "absolute", top: 0, right: 0, zIndex: 99 }}>
+          <Pressable onPress={closeStoryModal} className="py-4 px-6">
+            <Text className="text-white">X</Text>
           </Pressable>
-        </View>
+        </View> */}
         <StoryCubeCarousel />
       </View>
     </Modal>

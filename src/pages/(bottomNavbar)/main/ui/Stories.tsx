@@ -87,6 +87,9 @@ export const Stories = () => {
           </Flex>
         </ScrollView>
       </View>
+
+      {/* MODALS */}
+
       <StoryModal />
     </>
   );

@@ -25,6 +25,13 @@
     },
     "plugins": [
       [
+        "expo-video",
+        {
+          "supportsBackgroundPlayback": true,
+          "supportsPictureInPicture": true
+        }
+      ],
+      [
         "expo-media-library",
         {
           "photosPermission": "Allow $(noname) to access your photos.",

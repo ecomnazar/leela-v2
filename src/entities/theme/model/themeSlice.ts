@@ -4,7 +4,7 @@ import {
   getThemeByIdApi,
   getThemeCommentsApi,
 } from "./themeThunk";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
 import { IComment, IPublicTheme } from "./interfaces";
 import { TReactionType } from "@/shared/interfaces";
 
@@ -134,6 +134,9 @@ export const themeSlice = createSlice({
         ) => {
           state.themeComments.loading = false;
           state.themeComments.data = action.payload.themeComments.reverse();
+          // @ts-ignore
+          state.themeComments.data.splice(2, 0, { skip: true });
+
           state.themeComments.total = action.payload.total;
         }
       )

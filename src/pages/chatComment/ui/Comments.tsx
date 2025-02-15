@@ -18,6 +18,12 @@ export const Comments = () => {
           </CustomText>
         </Container>
         {data.map((item) => {
+          const { skip } = item;
+
+          if (skip) {
+            return <HorizontalSlider />;
+          }
+
           const {
             id,
             authorName,
@@ -28,6 +34,7 @@ export const Comments = () => {
             isAnonymous,
             likesAndDislikes: { dislikes, likes },
           } = item;
+
           return (
             <PostCard
               isAnonym={isAnonymous}
@@ -53,7 +60,7 @@ export const Comments = () => {
             role="Эксперт"
           /> */}
       </View>
-      <HorizontalSlider />
+
       {/* <PostCard
           image={images.stories3}
           name="Александра"

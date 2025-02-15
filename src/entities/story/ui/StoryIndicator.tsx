@@ -4,10 +4,11 @@ import Animated, {
   SharedValue,
   useAnimatedStyle,
 } from "react-native-reanimated";
-import { useStory } from "./useStory";
 
 interface Props {
   progress: SharedValue<number>;
+  storiesLength: number;
+  activeStoryIndex: number;
 }
 
 const AnimatedProgressIndicator = ({
@@ -37,13 +38,17 @@ const AnimatedProgressIndicator = ({
   );
 };
 
-export const StoryIndicator: React.FC<Props> = ({ progress }) => {
-  const { avatars, currentAvatarIndex, currentStoryIndex } = useStory();
-  const stories = avatars[currentAvatarIndex].stories;
+export const StoryIndicator: React.FC<Props> = ({
+  progress,
+  storiesLength,
+  activeStoryIndex,
+}) => {
+  // const { avatars, currentAvatarIndex, currentStoryIndex } = useStory();
+  // const stories = avatars[currentAvatarIndex].stories;
 
   return (
     <View style={styles.indicatorContainer}>
-      {stories.map((story, i) => {
+      {Array.from({ length: storiesLength }).map((story, i) => {
         return (
           <View
             key={i}
@@ -54,7 +59,7 @@ export const StoryIndicator: React.FC<Props> = ({ progress }) => {
           >
             <AnimatedProgressIndicator
               i={i}
-              currentStoryIndex={currentStoryIndex}
+              currentStoryIndex={activeStoryIndex}
               progress={progress}
             />
           </View>

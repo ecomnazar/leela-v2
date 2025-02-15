@@ -4,71 +4,24 @@ import React, { useEffect, useRef } from "react";
 import {
   Dimensions,
   GestureResponderEvent,
+  PanResponder,
   Pressable,
   Text,
   View,
 } from "react-native";
-// import { StoryIndicator } from "./StoryIndicator";
 import { Easing, useSharedValue, withTiming } from "react-native-reanimated";
 import { getPublicStoriesByAuthorIdApi } from "../model/storyThunk";
 import { useAppSelector } from "@/shared/hooks/useAppSelector";
 import { setSelectedAuthorIndex, toggleStoryModal } from "../model/storySlice";
-// import { IAvatar, useStory } from "./useStory";
+import { StoryIndicator } from "./StoryIndicator";
+import { PanGestureHandler, State } from "react-native-gesture-handler";
+import { useVideoPlayer, VideoView } from "expo-video";
+
+import { useEvent } from "expo";
 
 const { width } = Dimensions.get("window");
-const STORY_DURATION = 5000;
-
-// interface Props {
-//   item: IAvatar;
-// }
-const avatars = [
-  {
-    id: 1,
-    name: "Jane",
-    avatarImage:
-      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=3399&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8fA%3D%3D",
-    stories: [
-      {
-        id: 1,
-        type: "image",
-        url: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=3399&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8fA%3D%3D",
-        viewed: false,
-      },
-      {
-        id: 2,
-        type: "image",
-        url: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fHw%3D",
-        viewed: false,
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Merry",
-    avatarImage:
-      "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&auto=format&fit=crop&q=60",
-    stories: [
-      {
-        id: 7,
-        type: "image",
-        url: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fHw%3D",
-        viewed: false,
-      },
-      {
-        id: 8,
-        type: "image",
-        url: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=3399&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8fA%3D%3D",
-        viewed: false,
-      },
-      {
-        id: 9,
-        type: "image",
-        url: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&auto=format&fit=crop&q=60",
-        viewed: false,
-      },
-    ],
-  },
-];
+const STORY_DURATION = 15000;
+const SWIPE_THRESHOLD = 50;
 
 interface Props {
   authorName: string;
@@ -91,7 +44,6 @@ export const SingleStory: React.FC<Props> = ({
   );
 
   const stories = authorStories[authorId]?.stories || [];
-  const firstStory = authorStories[authorId]?.stories[0].mediaUrl;
   const lastReadStoryId = authorStories[authorId]?.lastReadStoryId;
 
   const lastReadStoryIndex =
@@ -133,6 +85,7 @@ export const SingleStory: React.FC<Props> = ({
   };
 
   const goToNextStory = () => {
+    // if story and authors end
     if (
       selectedAuthorIndex === unseenExperts?.length - 1 &&
       lastStoryIndex === stories.length - 1
@@ -140,13 +93,15 @@ export const SingleStory: React.FC<Props> = ({
       dispatch(toggleStoryModal("close"));
       return;
     }
+
+    // if story end but authour not
     if (
       selectedAuthorIndex < unseenExperts?.length - 1 &&
       lastStoryIndex === stories.length - 1
     ) {
       setLastStoryIndex(lastReadStoryIndex || 0);
       dispatch(setSelectedAuthorIndex(selectedAuthorIndex + 1));
-      scrollToIndex(1);
+      scrollToIndex(selectedAuthorIndex + 1);
 
       return;
     }
@@ -163,34 +118,91 @@ export const SingleStory: React.FC<Props> = ({
     timeoutRef.current = setTimeout(goToNextStory, STORY_DURATION);
   };
 
-  // useEffect(() => {
-  //   if (item.id !== avatars[currentAvatarIndex].id) return;
-  //   startTimer();
-  //   return () =>
-  //     clearTimeout(timeoutRef.current ? timeoutRef.current : undefined);
-  // }, [currentStoryIndex, currentAvatarIndex]);
+  useEffect(() => {
+    startTimer();
+    // if (item.id !== avatars[currentAvatarIndex].id) return;
+    // startTimer();
+    return () =>
+      clearTimeout(timeoutRef.current ? timeoutRef.current : undefined);
+  }, [lastStoryIndex, selectedAuthorIndex]);
 
   React.useEffect(() => {
     if (authorStories[authorId]) return;
     dispatch(getPublicStoriesByAuthorIdApi({ authorId }));
   }, []);
 
+  const onHandlerStateChange = (event) => {
+    if (event.nativeEvent.state === State.END) {
+      const { translationY } = event.nativeEvent;
+      if (translationY > SWIPE_THRESHOLD) {
+        // Если свайп вниз больше порогового значения, закрываем модальное окно
+        dispatch(toggleStoryModal("close"));
+      }
+    }
+  };
+
+  const videoSource =
+    "https://videos.pexels.com/video-files/3986219/3986219-sd_360_640_30fps.mp4";
+
+  const player = useVideoPlayer(videoSource, (player) => {
+    player.loop = true;
+    player.play();
+  });
+
+  const { isPlaying } = useEvent(player, "playingChange", {
+    isPlaying: player.playing,
+  });
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      player.play();
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
-      <View style={{ position: "absolute", top: 10, paddingHorizontal: 20 }}>
-        <Text style={{ color: "white" }}>{authorName}</Text>
-      </View>
-      <Pressable
-        style={{ width: "100%", height: "100%" }}
-        onPress={(e) => handlePress(e)}
-      >
-        <Image
-          source={stories[lastStoryIndex]?.mediaUrl}
-          style={{ width: "100%", height: "100%" }}
-          contentFit="contain"
-        />
-      </Pressable>
-      {/* <StoryIndicator progress={progress} /> */}
+      <PanGestureHandler onHandlerStateChange={onHandlerStateChange}>
+        <View style={{ width: "100%", height: "100%" }}>
+          {/* <View
+            style={{ position: "absolute", bottom: 10, paddingHorizontal: 20 }}
+          >
+            <Text style={{ color: "white" }}>{authorName}</Text>
+          </View> */}
+          <Pressable
+            style={{ width: "100%", height: "100%" }}
+            onPress={(e) => handlePress(e)}
+          >
+            {/* <Image
+              source={stories[lastStoryIndex]?.mediaUrl}
+              style={{ width: "100%", height: "100%" }}
+              contentFit="contain"
+            /> */}
+
+            {/* <VideoView  */}
+            {/* /> */}
+
+            <View className="scale-[1.2]">
+              <VideoView
+                style={{
+                  width: "100%",
+                  height: "110%",
+                }}
+                player={player}
+                allowsFullscreen
+                allowsPictureInPicture
+                nativeControls={false}
+              />
+            </View>
+          </Pressable>
+          <StoryIndicator
+            progress={progress}
+            storiesLength={stories.length}
+            activeStoryIndex={lastStoryIndex}
+          />
+        </View>
+      </PanGestureHandler>
     </>
   );
 };

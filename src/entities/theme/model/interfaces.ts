@@ -34,6 +34,8 @@ export interface IComment {
   isAnonymous: boolean;
   likesAndDislikes: { likes: number; dislikes: number };
   text: string;
+
+  skip?: boolean; // means that show another component when mapping
 }
 
 export interface IGetPublicThemesProps {
