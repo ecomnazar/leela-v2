@@ -14,7 +14,7 @@ export const BottomNavbar = ({ state, descriptors, navigation }: any) => {
     <Animated.View style={{ opacity }} pointerEvents={pointerEvents}>
       <View
         className={clsx(
-          "z-[-1] absolute bg-white bottom-0 flex-row justify-between items-center rounded-t-[20px] w-full border border-grayPrimary/40"
+          "absolute bg-white bottom-0 flex-row justify-between items-center rounded-t-[20px] w-full border border-grayPrimary/40"
         )}
       >
         {(state.routes as any[]).map((route, index) => {
