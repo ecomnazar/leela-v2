@@ -8,7 +8,7 @@ export const useOpacity = () => {
   );
 
   const opacity = scrollOffsetY.interpolate({
-    inputRange: [0, 50],
+    inputRange: [0, 200],
     outputRange: [1, 0],
     extrapolate: "clamp",
   });

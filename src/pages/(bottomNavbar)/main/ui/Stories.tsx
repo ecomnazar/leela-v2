@@ -71,6 +71,8 @@ export const Stories = () => {
             )}
             {!loading &&
               publicStories?.unseenExperts?.map((story, index) => {
+                const isMyStory = story.authorId === user?.id;
+                if (isMyStory) return;
                 return (
                   <StoryAvatar
                     key={story.name}
