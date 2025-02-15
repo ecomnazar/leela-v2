@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 
 import { Flex } from "@/shared/ui/Flex";
 import { StoryAvatar } from "@/entities/ui/storyAvatar";
@@ -12,12 +12,23 @@ import {
   toggleStoryModal,
 } from "@/entities/story/model/storySlice";
 import { StoryModal } from "@/entities/story/ui/StoryModal";
+import { useRole } from "@/entities/user/hooks/useRole";
+import { Icon } from "@/shared/ui/Icon";
 
 export const Stories = () => {
   const dispatch = useAppDispatch();
-  const { data: publicStories, loading } = useAppSelector(
+
+  const { data: publicStories, loading: publicStoriesLoading } = useAppSelector(
     (state) => state.story.publicStories
   );
+
+  const { data: user, loading: userLoading } = useAppSelector(
+    (state) => state.user.user
+  );
+
+  const { role } = useRole();
+
+  const loading = publicStoriesLoading || userLoading;
 
   const openStoryModal = (index: number) => {
     dispatch(setSelectedAuthorIndex(index));
@@ -41,6 +52,23 @@ export const Stories = () => {
               Array.from({ length: 7 }).map((_, index) => (
                 <StoryAvatarSkeleton key={index} />
               ))}
+            {!loading && role === "master" && (
+              <View className="relative">
+                <StoryAvatar
+                  onPress={() => {}}
+                  image={user?.defaultPictureUrl}
+                  name={user?.firstName}
+                  size="medium"
+                  isActive
+                />
+                <Pressable
+                  onPress={() => {}}
+                  className="absolute bottom-5 right-1 w-[18px] h-[18px] bg-primary rounded-md flxe items-center justify-center border border-white"
+                >
+                  <Icon type="plus" fill="#FFF" width={9} height={9} />
+                </Pressable>
+              </View>
+            )}
             {!loading &&
               publicStories?.unseenExperts?.map((story, index) => {
                 return (

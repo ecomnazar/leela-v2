@@ -5,10 +5,7 @@ import { StarWithChart } from "./StarWithChart";
 import { TasksList } from "./TasksList";
 import { Animated, Platform, View } from "react-native";
 import { PageHeader } from "@/widgets/pageHeader";
-import { Gallery } from "@/widgets/gallery";
 import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
-import { getPublicStoriesByAuthorIdApi } from "@/entities/story/model/storyThunk";
-import { AuthorStories } from "./AuthorStories";
 
 export const PlanPage = () => {
   const dispatch = useAppDispatch();
@@ -27,38 +24,38 @@ export const PlanPage = () => {
 
   // return <AuthorStories authorId={21} />;
 
-  return <Gallery />;
+  // return <Gallery />;
 
-  // return (
-  //   <Screen customGradientColors={gradient}>
-  //     <Animated.View style={{}}>
-  //       <PageHeader
-  //         enableEnergyShowcase
-  //         enableBalanceShowcase
-  //         title="ПЛАН"
-  //         disableBorder
-  //         scrollOffsetY={scrollOffsetY}
-  //         animated
-  //       />
-  //     </Animated.View>
-  //     <StarWithChart opacity={animatedStarOpacity} />
-  //     <CustomScrollView
-  //       onScroll={Animated.event(
-  //         [
-  //           {
-  //             nativeEvent: {
-  //               contentOffset: { y: scrollOffsetY },
-  //             },
-  //           },
-  //         ],
-  //         { useNativeDriver: false }
-  //       )}
-  //       scrollEventThrottle={16}
-  //       paddingTop={Platform.OS === "ios" ? 380 : 380}
-  //       hasBottomBar
-  //     >
-  //       <TasksList />
-  //     </CustomScrollView>
-  //   </Screen>
-  // );
+  return (
+    <Screen customGradientColors={gradient}>
+      <Animated.View style={{}}>
+        <PageHeader
+          enableEnergyShowcase
+          enableBalanceShowcase
+          title="ПЛАН"
+          disableBorder
+          scrollOffsetY={scrollOffsetY}
+          animated
+        />
+      </Animated.View>
+      <StarWithChart opacity={animatedStarOpacity} />
+      <CustomScrollView
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: { y: scrollOffsetY },
+              },
+            },
+          ],
+          { useNativeDriver: false }
+        )}
+        scrollEventThrottle={16}
+        paddingTop={Platform.OS === "ios" ? 380 : 380}
+        hasBottomBar
+      >
+        <TasksList />
+      </CustomScrollView>
+    </Screen>
+  );
 };
