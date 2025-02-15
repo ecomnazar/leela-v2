@@ -8,7 +8,7 @@ export const EnergyShowcase = () => {
     <Flex className="gap-x-0.5">
       <BatteryIcon />
       <CustomText size={13} weight="bold">
-        50%
+        0%
       </CustomText>
     </Flex>
   );
