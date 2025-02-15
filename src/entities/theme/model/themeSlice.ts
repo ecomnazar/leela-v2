@@ -133,7 +133,7 @@ export const themeSlice = createSlice({
           action: PayloadAction<{ themeComments: IComment[]; total: number }>
         ) => {
           state.themeComments.loading = false;
-          state.themeComments.data = action.payload.themeComments;
+          state.themeComments.data = action.payload.themeComments.reverse();
           state.themeComments.total = action.payload.total;
         }
       )
@@ -154,7 +154,24 @@ export const themeSlice = createSlice({
         ) => {
           state.publicThemes.loading = false;
           state.publicThemes.skeletonLoading = false;
-          state.publicThemes.data = action.payload.themes;
+          // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     FIX     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+          // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     FIX     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+          // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     FIX     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+          // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     FIX     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+          state.publicThemes.data = action.payload.themes.map((item) => {
+            return {
+              ...item,
+              authorRole:
+                item.authorRole === "master" || item.authorRole === "admin"
+                  ? "пользователь"
+                  : "пользователь",
+            };
+          });
+          // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     FIX     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+          // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     FIX     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+          // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     FIX     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+          // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     FIX     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
           state.publicThemes.total = action.payload.total;
         }
       )

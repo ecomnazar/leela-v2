@@ -13,8 +13,12 @@ export const getPublicThemesApi = createAsyncThunk(
   async (data: IGetPublicThemesProps, thunkAPI) => {
     const { sort_by, search_query } = data;
 
+    const formattedSearchQuery = search_query
+      ? search_query.replace(/ /g, "%2B").replace(/%/g, "%25")
+      : search_query;
+
     const url = addPaginationParams(
-      `/public/themes?sort_by=${sort_by}&search_query=${search_query}`
+      `/public/themes?sort_by=${sort_by}&search_query=${formattedSearchQuery}`
     );
 
     try {

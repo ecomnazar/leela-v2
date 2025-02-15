@@ -4,6 +4,7 @@ import { Container } from "@/shared/ui/Container";
 import { CustomText } from "@/shared/ui/CustomText";
 import { useAppSelector } from "@/shared/hooks/useAppSelector";
 import { PostCard } from "@/entities/ui/postCard";
+import { HorizontalSlider } from "./HorizontalSlider";
 
 export const Comments = () => {
   const { data, total } = useAppSelector((state) => state.theme.themeComments);
@@ -24,10 +25,12 @@ export const Comments = () => {
             authorRole,
             text,
             createdAt,
+            isAnonymous,
             likesAndDislikes: { dislikes, likes },
           } = item;
           return (
             <PostCard
+              isAnonym={isAnonymous}
               themeId={item.authorId}
               key={id}
               image={authorProfileImageUrl}
@@ -50,7 +53,7 @@ export const Comments = () => {
             role="Эксперт"
           /> */}
       </View>
-      {/* <HorizontalSlider /> */}
+      <HorizontalSlider />
       {/* <PostCard
           image={images.stories3}
           name="Александра"

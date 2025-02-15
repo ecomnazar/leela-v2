@@ -1,10 +1,5 @@
 import React from "react";
-import { PostCard } from "@/entities/ui/postCard";
-import { Container } from "@/shared/ui/Container";
-import images from "assets/images";
 import { View } from "react-native";
-import HorizontalSlider from "./HorizontalSlider";
-import { CustomText } from "@/shared/ui/CustomText";
 import { PageHeader } from "@/widgets/pageHeader";
 import { CustomScrollView } from "@/shared/ui/CustomScrollView";
 import { useLocalSearchParams } from "expo-router";

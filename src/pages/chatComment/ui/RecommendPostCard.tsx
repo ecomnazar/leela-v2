@@ -11,9 +11,17 @@ import { CustomText } from "@/shared/ui/CustomText";
 
 interface Props {
   style: ViewStyle;
+  profileImageUrl: string;
+  name: string;
+  title: string;
 }
 
-export const RecommendPostCard: React.FC<Props> = ({ style }) => {
+export const RecommendPostCard: React.FC<Props> = ({
+  style,
+  profileImageUrl,
+  name,
+  title,
+}) => {
   return (
     <View
       style={style}
@@ -22,13 +30,13 @@ export const RecommendPostCard: React.FC<Props> = ({ style }) => {
       <Flex justify="between" className="mb-3">
         <Flex className="gap-x-3">
           <Image
-            source={images.stories5}
+            source={profileImageUrl}
             className="rounded-full"
             style={{ width: 46, height: 46 }}
           />
           <View className="-space-y-0.5">
             <Text className="text-textPrimary text-lg font-semibold">
-              Алена
+              {name}
             </Text>
             <Text className="text-grayPrimary text-[12px]">Эксперт</Text>
           </View>
@@ -42,16 +50,21 @@ export const RecommendPostCard: React.FC<Props> = ({ style }) => {
           Открыть
         </CustomText>
       </Flex>
-      <Flex>
+      {/* <Flex>
         <Badge color="#96BFAD" className="w-fit">
           ПРАКТИКА - ДЕНЕЖНАЯ ТЕНЬ
         </Badge>
-      </Flex>
+      </Flex> */}
       <CustomText weight="medium" size={13} className="mt-3">
-        Деньги воспроизводят ваши привычные доминирующие эмоции. Денежная... еще
+        {title}
       </CustomText>
 
-      <View className="bg-[#ABA2A0] h-[130px] rounded-2xl mt-3"></View>
+      <View className="bg-[#ABA2A0] h-[130px] rounded-2xl mt-3 overflow-hidden">
+        <Image
+          source={images.cardBgExample1}
+          style={{ width: "100%", height: "100%", objectFit: "fill" }}
+        />
+      </View>
       <Flex justify="between" className="mt-3">
         <Flex className="gap-x-2.5">
           <Flex className="gap-x-2">
