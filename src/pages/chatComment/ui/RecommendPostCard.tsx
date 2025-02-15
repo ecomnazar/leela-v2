@@ -60,11 +60,14 @@ export const RecommendPostCard: React.FC<Props> = ({
         {title}
       </CustomText>
 
-      <View className="bg-[#ABA2A0] h-[130px] rounded-2xl mt-3 overflow-hidden">
+      <View className="relative bg-[#ABA2A0] h-[130px] rounded-2xl mt-3 overflow-hidden">
         <Image
           source={images.cardBgExample1}
           style={{ width: "100%", height: "100%", objectFit: "fill" }}
         />
+        <View className="absolute top-0 left-0 right-0 bottom-0 w-full h-full flex items-center justify-center">
+          <Image source={images.playVideoIcon} className="w-[70px] h-[70px]" />
+        </View>
       </View>
       <Flex justify="between" className="mt-3">
         <Flex className="gap-x-2.5">

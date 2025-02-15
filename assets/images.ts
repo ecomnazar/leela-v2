@@ -13,6 +13,7 @@ const middleStar = require("./images/stars/middleStar.png");
 const bigStar = require("./images/stars/middleStar.png");
 const anonymAvatar = require("./images/anonymAvatar.png");
 const emptyAvatar = require("./images/emptyAvatar.png");
+const playVideoIcon = require("./icons/playVideoIcon.png");
 
 export default {
   groupExample1,
@@ -30,4 +31,5 @@ export default {
   bigStar,
   anonymAvatar,
   emptyAvatar,
+  playVideoIcon,
 };
