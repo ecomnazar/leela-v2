@@ -37,7 +37,7 @@ export const Comments = () => {
               name={authorName}
               type="comment"
               isStoriesActive={false}
-              role={authorRole}
+              role={authorName !== "Елена" ? "пользователь" : "Эксперт"}
               likeCount={likes}
               dislikeCount={dislikes}
               text={text}

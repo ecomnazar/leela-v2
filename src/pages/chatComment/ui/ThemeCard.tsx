@@ -27,7 +27,7 @@ export const ThemeCard = () => {
     <PostCard
       image={authorProfileImageUrl}
       name={authorName}
-      role={authorRole ?? "Гость"}
+      role={"пользователь" ?? "Гость"}
       themeId={id}
       isAnonym={isAnonymous}
       likeCount={likes}
