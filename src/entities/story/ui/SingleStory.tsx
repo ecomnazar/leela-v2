@@ -4,9 +4,7 @@ import React, { useEffect, useRef } from "react";
 import {
   Dimensions,
   GestureResponderEvent,
-  PanResponder,
   Pressable,
-  Text,
   View,
 } from "react-native";
 import { Easing, useSharedValue, withTiming } from "react-native-reanimated";
@@ -15,20 +13,14 @@ import { useAppSelector } from "@/shared/hooks/useAppSelector";
 import { setSelectedAuthorIndex, toggleStoryModal } from "../model/storySlice";
 import { StoryIndicator } from "./StoryIndicator";
 import { PanGestureHandler, State } from "react-native-gesture-handler";
-import { useVideoPlayer, VideoView } from "expo-video";
 import { Video } from "expo-av";
 
-import { useEvent } from "expo";
 import images from "assets/images";
 import { Flex } from "@/shared/ui/Flex";
 import { CustomText } from "@/shared/ui/CustomText";
 import videos from "assets/videos";
 import { Button } from "@/shared/ui/Button";
-import {
-  SCREEN_HEIGHT,
-  SCREEN_WIDTH,
-  WINDOW_HEIGHT,
-} from "@gorhom/bottom-sheet";
+import { SCREEN_HEIGHT } from "@gorhom/bottom-sheet";
 
 const { width } = Dimensions.get("window");
 const STORY_DURATION = 4500;
@@ -119,14 +111,15 @@ export const SingleStory: React.FC<Props> = ({
     setLastStoryIndex((prev) => prev + 1);
   };
 
-  const startTimer = () => {
+  const startTimer = (durationProp?: number) => {
+    const duration = durationProp ? durationProp : STORY_DURATION;
     progress.value = 0;
     progress.value = withTiming(1, {
-      duration: STORY_DURATION,
+      duration: duration,
       easing: Easing.linear,
     });
 
-    timeoutRef.current = setTimeout(goToNextStory, STORY_DURATION);
+    timeoutRef.current = setTimeout(goToNextStory, duration);
   };
 
   useEffect(() => {
@@ -152,50 +145,19 @@ export const SingleStory: React.FC<Props> = ({
     }
   };
 
-  const videoSource = videos.avocado;
-
-  const player = useVideoPlayer(videoSource, (player) => {
-    player.loop = true;
-    player.play();
-    player.allowsExternalPlayback = false;
-    // startTimer();
-  });
-
-  const { isPlaying } = useEvent(player, "playingChange", {
-    isPlaying: player.playing,
-  });
-
-  React.useEffect(() => {
-    // const timer = setTimeout(() => {
-    player.play();
-    // }, 500);
-
-    // return () => clearTimeout(timer);
-  }, []);
-
-  React.useEffect(() => {
-    if (isPlaying) {
-      startTimer();
-    }
-  }, [isPlaying]);
-
+  const videoSource = videos.second;
   const videoRef = useRef(null);
+  const [isVideoPlaying, setIsVideoPlaying] = React.useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       if (videoRef.current) {
         videoRef.current.playAsync();
-        startTimer();
       }
     }, 1000);
 
-    const timer2 = setTimeout(() => {
-      startTimer();
-    }, 1500);
-
     return () => {
       clearTimeout(timer);
-      clearTimeout(timer2);
     };
   }, []);
 
@@ -209,15 +171,22 @@ export const SingleStory: React.FC<Props> = ({
           >
             {authorId === 1 && (
               <View
-                className="flex justify-end items-end"
+                className="scale-y-150 scale-x-125"
                 style={{ height: SCREEN_HEIGHT }}
               >
                 <Video
                   ref={videoRef}
                   source={videoSource}
                   style={{ width: "100%", height: "100%" }}
-                  // shouldPlay
-                  isLooping
+                  // isLooping
+                  onPlaybackStatusUpdate={(status) => {
+                    if (status.isPlaying) {
+                      if (!isVideoPlaying) {
+                        startTimer(status.durationMillis);
+                        setIsVideoPlaying(true);
+                      }
+                    }
+                  }}
                   useNativeControls={false} // disable native controls to prevent forcing fullscreen
                 />
               </View>
