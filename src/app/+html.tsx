@@ -14,7 +14,6 @@ export default function Root({ children }: { children: React.ReactNode }) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no"
         />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
         <link rel="manifest" href="/manifest.json" />
         <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
