@@ -209,6 +209,7 @@ export const SingleStory: React.FC<Props> = ({
                   allowsPictureInPicture={false}
                   hasTVPreferredFocus={false}
                   isTVSelectable={false}
+                  showsTimecodes={false}
                 />
               </View>
             )}
