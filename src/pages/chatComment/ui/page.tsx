@@ -49,7 +49,7 @@ export const ChatCommentPage = () => {
   };
 
   return (
-    <View className="w-screen h-screen bg-backgroundTertiary flex-1">
+    <View className="w-screen h-screen bg-[#F2F2F2] flex-1">
       <PageHeader title="Comment" />
       {loading ? renderLoadingState() : renderDataState()}
       <FixedTypeCommentInput themeId={Number(id)} />

@@ -56,11 +56,11 @@ export const RecommendPostCard: React.FC<Props> = ({
           ПРАКТИКА - ДЕНЕЖНАЯ ТЕНЬ
         </Badge>
       </Flex> */}
-      <CustomText weight="medium" size={13} className="mt-3">
+      <CustomText numberOfLines={2} weight="medium" size={13} className="mt-3">
         {title}
       </CustomText>
 
-      <View className="relative bg-[#ABA2A0] h-[130px] rounded-2xl mt-3 overflow-hidden">
+      <View className="relative bg-[#ABA2A0] h-[130px] rounded-2xl mt-3 overflow-hidden mt-auto">
         <Image
           source={images.cardBgExample1}
           style={{ width: "100%", height: "100%", objectFit: "fill" }}

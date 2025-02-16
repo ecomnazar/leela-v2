@@ -17,14 +17,14 @@ const { width } = Dimensions.get("window");
 const DATA = [
   {
     id: "1",
-    title: "Практические занятия по питанию для похудения",
+    title: "Приготовление полезных блюд с минимальным количеством калорий.",
     color: "#FF6347",
     profileImageUrl: images.fullStory,
     name: "Елена",
   },
   {
     id: "2",
-    title: "Приготовление полезных блюд с минимальным количеством калорий.",
+    title: "Практические занятия по питанию для похудения",
     color: "#1E90FF",
     profileImageUrl: images.stories1,
     name: "Алена",
@@ -34,7 +34,7 @@ const DATA = [
 ];
 
 const ITEM_WIDTH = width * 0.85; // 85% ширины экрана
-const ITEM_MARGIN = width * 0.02; // 2% отступа с каждой стороны
+const ITEM_MARGIN = width * 0.04; // 2% отступа с каждой стороны
 
 export const HorizontalSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -46,9 +46,18 @@ export const HorizontalSlider = () => {
   };
 
   const renderItem = (item) => {
+    const first = item.id == 1;
+    console.log(first);
+
     return (
       <RecommendPostCard
-        style={{ width: ITEM_WIDTH, marginHorizontal: ITEM_MARGIN }}
+        style={{
+          width: ITEM_WIDTH,
+          marginHorizontal: ITEM_MARGIN,
+          marginLeft: first ? 25 : 0,
+          flex: 1,
+          height: 308,
+        }}
         profileImageUrl={item.profileImageUrl}
         name={item.name}
         title={item.title}
@@ -59,7 +68,7 @@ export const HorizontalSlider = () => {
   return (
     <View>
       <View className="bg-[#EDF1F6] py-4 border border-grayPrimary/40">
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, display: "flex" }}>
           <FlatList
             data={DATA}
             renderItem={({ item }) => renderItem(item)}

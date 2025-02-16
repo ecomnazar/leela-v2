@@ -48,7 +48,7 @@ export const FixedTypeCommentInput: React.FC<Props> = ({ themeId }) => {
   };
 
   return (
-    <View className="absolute bottom-0 w-full h-[80px] border border-grayPrimary/40 rounded-t-xl px-6 flex items-center justify-center bg-white">
+    <View className="absolute bottom-0 w-full h-[80px] border border-grayPrimary/40 rounded-t-xl px-6 flex items-center justify-center bg-[#F2F2F2]">
       <TypeAndSubmitInput
         placeholder="Сообщение"
         value={text}

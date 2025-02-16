@@ -150,17 +150,17 @@ export const SingleStory: React.FC<Props> = ({
   const videoRef = useRef(null);
   const [isVideoPlaying, setIsVideoPlaying] = React.useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (videoRef.current) {
-        videoRef.current.playAsync();
-      }
-    }, 1000);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     if (videoRef.current) {
+  //       videoRef.current.playAsync();
+  //     }
+  //   }, 1000);
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, []);
 
   return (
     <>
@@ -178,6 +178,7 @@ export const SingleStory: React.FC<Props> = ({
                   style={{ width: "100%", height: "100%" }}
                   // isLooping
                   resizeMode={"cover"}
+                  shouldPlay
                   onPlaybackStatusUpdate={(status) => {
                     if (status.isPlaying) {
                       if (!isVideoPlaying) {

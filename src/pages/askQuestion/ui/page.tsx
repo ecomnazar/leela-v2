@@ -43,7 +43,7 @@ export const AskQuestionPage = () => {
   };
 
   return (
-    <View className="w-screen h-screen bg-backgroundTertiary flex-1">
+    <View className="w-screen h-screen bg-[#F2F2F2] flex-1">
       <PageHeader title="Новое обсуждение" disableBorder />
       <Container className="mt-4 flex-1 flex-col pb-4">
         <View className="flex-1">
@@ -85,7 +85,11 @@ export const AskQuestionPage = () => {
             <Button loading={addThemeLoading} onPress={onSubmit}>
               Отправить
             </Button>
-            <Button onPress={onCancel} variant="outline">
+            <Button
+              onPress={onCancel}
+              variant="outline"
+              className="!bg-[#F2F2F2]"
+            >
               Отменить
             </Button>
           </View>

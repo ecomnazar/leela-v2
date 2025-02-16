@@ -24,7 +24,7 @@ export const StoryAvatar: React.FC<Props> = ({
   onPress,
 }) => {
   const realImage = isAnonym
-    ? images.anonymAvatar
+    ? images.emptyAvatar
     : image
     ? image
     : images.emptyAvatar;
