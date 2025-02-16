@@ -16,6 +16,7 @@ import { setSelectedAuthorIndex, toggleStoryModal } from "../model/storySlice";
 import { StoryIndicator } from "./StoryIndicator";
 import { PanGestureHandler, State } from "react-native-gesture-handler";
 import { useVideoPlayer, VideoView } from "expo-video";
+import Video, { VideoRef } from "react-native-video";
 
 import { useEvent } from "expo";
 import images from "assets/images";
@@ -173,6 +174,8 @@ export const SingleStory: React.FC<Props> = ({
     }
   }, [isPlaying]);
 
+  const videoRef = useRef(null);
+
   return (
     <>
       <PanGestureHandler onHandlerStateChange={onHandlerStateChange}>
@@ -197,7 +200,17 @@ export const SingleStory: React.FC<Props> = ({
 
             {authorId === 1 && (
               <View className="scale-[1.2]">
-                <VideoView
+                <Video
+                  // Can be a URL or a local file.
+                  source={videoSource}
+                  muted={true}
+                  repeat={true}
+                  resizeMode={"cover"}
+                  rate={1.0}
+                  ignoreSilentSwitch={"obey"}
+                  style={{ width: "100%", height: "100%" }}
+                />
+                {/* <VideoView
                   style={{
                     width: "100%",
                     height: "110%",
@@ -211,7 +224,7 @@ export const SingleStory: React.FC<Props> = ({
                   hasTVPreferredFocus={false}
                   isTVSelectable={false}
                   showsTimecodes={false}
-                />
+                /> */}
               </View>
             )}
           </Pressable>
