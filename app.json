@@ -19,7 +19,7 @@
       "package": "com.ecomnazar.leela"
     },
     "statusBar": {
-      "backgroundColor": "#ffffff",
+      "backgroundColor": "#F2F2F2",
       "translucent": false
     },
     "web": {
