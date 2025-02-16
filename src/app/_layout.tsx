@@ -79,7 +79,7 @@ const RootLayoutProvider = () => {
                 <Head>
                   <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
                 </Head>
-                <StatusBar style="inverted" />
+                <StatusBar style="light" />
                 <Toaster position="top-center" reverseOrder={false} />
                 <Modals />
                 <App />

@@ -170,15 +170,13 @@ export const SingleStory: React.FC<Props> = ({
             onPress={(e) => handlePress(e)}
           >
             {authorId === 1 && (
-              <View
-                className="scale-y-150 scale-x-125"
-                style={{ height: SCREEN_HEIGHT }}
-              >
+              <View className="scale-150" style={{ height: SCREEN_HEIGHT }}>
                 <Video
                   ref={videoRef}
                   source={videoSource}
-                  style={{ width: "100%", height: "100%" }}
+                  style={{ width: "110%", height: "100%" }}
                   // isLooping
+                  resizeMode={"cover"}
                   onPlaybackStatusUpdate={(status) => {
                     if (status.isPlaying) {
                       if (!isVideoPlaying) {
