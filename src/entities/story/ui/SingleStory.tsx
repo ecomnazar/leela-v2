@@ -151,6 +151,7 @@ export const SingleStory: React.FC<Props> = ({
   const player = useVideoPlayer(videoSource, (player) => {
     player.loop = true;
     player.play();
+    player.allowsExternalPlayback = false;
     // startTimer();
   });
 
