@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import React from "react";
-import { Pressable, PressableProps } from "react-native";
+import { Pressable, PressableProps, TextStyle } from "react-native";
 import { CustomText } from "./CustomText";
 import { Loading } from "./Loading";
 
@@ -9,6 +9,7 @@ interface Props extends PressableProps {
   children: React.ReactNode;
   variant?: "primary" | "outline";
   loading?: boolean;
+  textStyle?: TextStyle;
 }
 
 export const Button: React.FC<Props> = ({
@@ -16,6 +17,7 @@ export const Button: React.FC<Props> = ({
   children,
   variant = "primary",
   loading,
+  textStyle,
   ...props
 }) => {
   return (
@@ -36,6 +38,7 @@ export const Button: React.FC<Props> = ({
           color={variant === "outline" ? "primary" : "white"}
           size={18.5}
           weight="bold"
+          style={textStyle}
         >
           {children}
         </CustomText>

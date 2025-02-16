@@ -18,9 +18,14 @@ import { PanGestureHandler, State } from "react-native-gesture-handler";
 import { useVideoPlayer, VideoView } from "expo-video";
 
 import { useEvent } from "expo";
+import images from "assets/images";
+import { Flex } from "@/shared/ui/Flex";
+import { CustomText } from "@/shared/ui/CustomText";
+import videos from "assets/videos";
+import { Button } from "@/shared/ui/Button";
 
 const { width } = Dimensions.get("window");
-const STORY_DURATION = 15000;
+const STORY_DURATION = 4500;
 const SWIPE_THRESHOLD = 50;
 
 interface Props {
@@ -119,7 +124,7 @@ export const SingleStory: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    startTimer();
+    // startTimer();
     // if (item.id !== avatars[currentAvatarIndex].id) return;
     // startTimer();
     return () =>
@@ -141,12 +146,12 @@ export const SingleStory: React.FC<Props> = ({
     }
   };
 
-  const videoSource =
-    "https://videos.pexels.com/video-files/3986219/3986219-sd_360_640_30fps.mp4";
+  const videoSource = videos.avocado;
 
   const player = useVideoPlayer(videoSource, (player) => {
     player.loop = true;
     player.play();
+    // startTimer();
   });
 
   const { isPlaying } = useEvent(player, "playingChange", {
@@ -154,12 +159,18 @@ export const SingleStory: React.FC<Props> = ({
   });
 
   React.useEffect(() => {
-    const timer = setTimeout(() => {
-      player.play();
-    }, 500);
+    // const timer = setTimeout(() => {
+    player.play();
+    // }, 500);
 
-    return () => clearTimeout(timer);
+    // return () => clearTimeout(timer);
   }, []);
+
+  React.useEffect(() => {
+    if (isPlaying) {
+      startTimer();
+    }
+  }, [isPlaying]);
 
   return (
     <>
@@ -183,24 +194,65 @@ export const SingleStory: React.FC<Props> = ({
             {/* <VideoView  */}
             {/* /> */}
 
-            <View className="scale-[1.2]">
-              <VideoView
-                style={{
-                  width: "100%",
-                  height: "110%",
-                }}
-                player={player}
-                allowsFullscreen
-                allowsPictureInPicture
-                nativeControls={false}
-              />
-            </View>
+            {authorId === 1 && (
+              <View className="scale-[1.2]">
+                <VideoView
+                  style={{
+                    width: "100%",
+                    height: "110%",
+                  }}
+                  player={player}
+                  // allowsFullscreen
+                  // allowsPictureInPicture
+                  nativeControls={false}
+                />
+              </View>
+            )}
           </Pressable>
           <StoryIndicator
             progress={progress}
             storiesLength={stories.length}
             activeStoryIndex={lastStoryIndex}
           />
+          <View className="absolute bottom-8 left-0 px-4">
+            <Flex className="gap-x-2 mb-2">
+              <Image
+                source={images.stories5}
+                style={{
+                  width: 36,
+                  height: 36,
+                  objectFit: "contain",
+                  borderRadius: 999,
+                }}
+              />
+              <View>
+                <CustomText weight="bold" size={13} color="white">
+                  Анастасия
+                </CustomText>
+                <CustomText weight="regular" size={13} color="white">
+                  Эксперт
+                </CustomText>
+              </View>
+            </Flex>
+            <CustomText
+              weight="regular"
+              size={13}
+              color="white"
+              className="mb-3"
+              numberOfLines={2}
+            >
+              Авокадо богат клетчаткой, витаминами (Е, С, группы B) и калием,
+              способствует здоровому пищеварению, энергии и нормализации
+              давления.
+            </CustomText>
+            <Button
+              variant="outline"
+              className="bg-white/10 border-white"
+              textStyle={{ color: "#FFF" }}
+            >
+              Открыть профиль
+            </Button>
+          </View>
         </View>
       </PanGestureHandler>
     </>

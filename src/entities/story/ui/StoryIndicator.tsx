@@ -72,7 +72,7 @@ export const StoryIndicator: React.FC<Props> = ({
 const styles = StyleSheet.create({
   indicatorContainer: {
     position: "absolute",
-    top: 40,
+    top: 25,
     flexDirection: "row",
     justifyContent: "center",
     width: "90%",
