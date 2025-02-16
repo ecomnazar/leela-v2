@@ -21,6 +21,7 @@ import { CustomText } from "@/shared/ui/CustomText";
 import videos from "assets/videos";
 import { Button } from "@/shared/ui/Button";
 import { SCREEN_HEIGHT } from "@gorhom/bottom-sheet";
+import { LinearGradient } from "expo-linear-gradient";
 
 const { width } = Dimensions.get("window");
 const STORY_DURATION = 4500;
@@ -170,11 +171,11 @@ export const SingleStory: React.FC<Props> = ({
             onPress={(e) => handlePress(e)}
           >
             {authorId === 1 && (
-              <View className="scale-150" style={{ height: SCREEN_HEIGHT }}>
+              <View className="scale-[1.57]" style={{ height: SCREEN_HEIGHT }}>
                 <Video
                   ref={videoRef}
                   source={videoSource}
-                  style={{ width: "110%", height: "100%" }}
+                  style={{ width: "100%", height: "100%" }}
                   // isLooping
                   resizeMode={"cover"}
                   onPlaybackStatusUpdate={(status) => {
@@ -195,7 +196,23 @@ export const SingleStory: React.FC<Props> = ({
             storiesLength={stories.length}
             activeStoryIndex={lastStoryIndex}
           />
-          <View className="absolute bottom-8 left-0 px-4">
+          <View className="absolute bottom-0 left-0 px-4 pb-8 pt-16 h-[250px]">
+            <LinearGradient
+              colors={[
+                "rgba(0,0,0,0)",
+                "rgba(0,0,0,0.3)",
+                "rgba(0,0,0,0.5)",
+                "rgba(0,0,0,0.5)",
+                "rgba(0,0,0,0.7)",
+              ]}
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                bottom: 0,
+                left: 0,
+              }}
+            />
             <Flex className="gap-x-2 mb-2">
               <Image
                 source={images.stories5}
