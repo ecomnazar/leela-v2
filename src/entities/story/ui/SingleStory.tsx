@@ -206,6 +206,9 @@ export const SingleStory: React.FC<Props> = ({
                   // allowsPictureInPicture
                   nativeControls={false}
                   allowsFullscreen={false}
+                  allowsPictureInPicture={false}
+                  hasTVPreferredFocus={false}
+                  isTVSelectable={false}
                 />
               </View>
             )}
