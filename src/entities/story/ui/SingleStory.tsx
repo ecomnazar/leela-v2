@@ -205,6 +205,7 @@ export const SingleStory: React.FC<Props> = ({
                   // allowsFullscreen
                   // allowsPictureInPicture
                   nativeControls={false}
+                  allowsFullscreen={false}
                 />
               </View>
             )}
