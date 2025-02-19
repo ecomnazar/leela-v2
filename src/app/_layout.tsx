@@ -49,6 +49,12 @@ const Modals = () => {
 };
 
 const App = () => {
+  const dispatch = useAppDispatch();
+
+  React.useEffect(() => {
+    dispatch(getMeApi());
+  }, []);
+
   return (
     <Stack
       screenOptions={{

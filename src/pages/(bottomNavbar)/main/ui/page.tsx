@@ -9,6 +9,7 @@ import { FixedButton } from "./FixedButton";
 import { useFilter } from "../hooks/useFilter";
 import { AnimatedContainer } from "./AnimatedContainer";
 import { Redirect, useLocalSearchParams } from "expo-router";
+import { CreateStoryModal } from "@/features/profile/modals/CreateStoryModal";
 
 export const MainPage = () => {
   useFilter();
@@ -30,6 +31,8 @@ export const MainPage = () => {
         </AnimatedContainer>
       </View>
       <FixedButton />
+
+      <CreateStoryModal />
     </>
   );
 };

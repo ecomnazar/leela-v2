@@ -14,6 +14,7 @@ import {
 import { StoryModal } from "@/entities/story/ui/StoryModal";
 import { useRole } from "@/entities/user/hooks/useRole";
 import { Icon } from "@/shared/ui/Icon";
+import { MasterStory } from "@/features/profile/ui/MasterStory";
 
 export const Stories = () => {
   const dispatch = useAppDispatch();
@@ -25,8 +26,6 @@ export const Stories = () => {
   const { data: user, loading: userLoading } = useAppSelector(
     (state) => state.user.user
   );
-
-  const { role } = useRole();
 
   const loading = publicStoriesLoading || userLoading;
 
@@ -48,27 +47,13 @@ export const Stories = () => {
           horizontal
         >
           <Flex className="gap-x-3" align="start">
+            <MasterStory />
+
             {loading &&
               Array.from({ length: 7 }).map((_, index) => (
                 <StoryAvatarSkeleton key={index} />
               ))}
-            {!loading && role === "master" && (
-              <View className="relative">
-                <StoryAvatar
-                  onPress={() => {}}
-                  image={user?.defaultPictureUrl}
-                  name={user?.firstName}
-                  size="medium"
-                  isActive
-                />
-                <Pressable
-                  onPress={() => {}}
-                  className="absolute bottom-5 right-1 w-[18px] h-[18px] bg-primary rounded-md flxe items-center justify-center border border-white"
-                >
-                  <Icon type="plus" fill="#FFF" width={9} height={9} />
-                </Pressable>
-              </View>
-            )}
+
             {!loading &&
               publicStories?.unseenExperts?.map((story, index) => {
                 const isMyStory = story.authorId === user?.id;

@@ -1,9 +1,9 @@
+import React from "react";
 import { CustomText } from "@/shared/ui/CustomText";
 import images from "assets/images";
 import clsx from "clsx";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
-import React from "react";
 import { Pressable, View } from "react-native";
 
 interface Props {

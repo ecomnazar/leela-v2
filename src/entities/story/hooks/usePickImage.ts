@@ -1,23 +1,30 @@
+import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
 import * as ImagePicker from "expo-image-picker";
 import React from "react";
+import { openCreateStoryModal } from "../model/storySlice";
+import { TCreateStoryAssetType } from "../model/interfaces";
+import { getColors } from "react-native-image-colors";
 
 export const usePickImage = () => {
-  const [image, setImage] = React.useState<string | null>(null);
-  const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const dispatch = useAppDispatch();
 
-  const pickImage = async () => {
+  const pickImage = async (type: "story") => {
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ["images"],
+      mediaTypes: ["images", "videos"],
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
-      setIsModalVisible(true);
+      const uri = result.assets[0].uri;
+      const type = result.assets[0].type as TCreateStoryAssetType;
+
+      dispatch(openCreateStoryModal({ assetType: type, assetUri: uri }));
     }
+
+    return null;
   };
 
-  return pickImage;
+  return { pickImage };
 };

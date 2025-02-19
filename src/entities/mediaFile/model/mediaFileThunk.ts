@@ -7,7 +7,7 @@ export const uploadStoryImageApi = createAsyncThunk(
   "uploadStoryImageApi",
   async (data: FormData, thunkAPI) => {
     try {
-      return await apiCall("post", PREFIX + "/uploadStoryImage", {
+      return await apiCall("post", PREFIX + "/upload/stories/image", {
         data,
         headers: { "Content-Type": "multipart/form-data" },
       });

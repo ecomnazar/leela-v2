@@ -34,6 +34,21 @@ export interface IAuthorStories {
   stories: IStoryMedia[];
 }
 
+export interface IMyStory {
+  authorId: number;
+  createdAt: string;
+  description: string;
+  mediaUrl: string;
+  id: number;
+}
+
+export interface IGetMyStoriesApiResponse {
+  lastReadStoryId: number;
+  stories: IMyStory[];
+}
+
+export type TCreateStoryAssetType = "video" | "image";
+
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 // interface AuthorStoriesItemState {

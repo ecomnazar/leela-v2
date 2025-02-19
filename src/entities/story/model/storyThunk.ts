@@ -18,6 +18,17 @@ export const getPublicStoriesApi = createAsyncThunk(
   }
 );
 
+export const getMyStoriesApi = createAsyncThunk(
+  "getMyStoriesApi",
+  async (_, thunkAPI) => {
+    try {
+      return await apiCall("get", PREFIX + "/me");
+    } catch (error: unknown) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const getPublicStoriesByAuthorIdApi = createAsyncThunk(
   "getPublicStoriesByAuthorIdApi",
   async (data: IGetPublicStoriesByAuthorIdApiProps, thunkAPI) => {
