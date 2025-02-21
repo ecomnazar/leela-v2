@@ -66,7 +66,8 @@ export const StoryAvatar: React.FC<Props> = ({
       </Pressable>
       {size === "medium" && (
         <CustomText size={11} weight="regular" className="text-center mt-1">
-          {name}
+          {name?.slice(0, 12)}
+          {(name || "")?.length > 12 && "..."}
         </CustomText>
       )}
     </View>

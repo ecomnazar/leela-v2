@@ -16,6 +16,8 @@ export const useMyStories = () => {
 
   const stories = role === "master" ? data : [];
   const lastRead = role === "master" ? lastReadStoryId : 0;
+
+  const hasStories = stories.length > 0;
   const hasUnseenStories =
     stories.length > 0 && stories[stories.length - 1]?.id !== lastRead;
 
@@ -25,5 +27,5 @@ export const useMyStories = () => {
     }
   }, [role]);
 
-  return { stories, lastReadStoryId: lastRead, hasUnseenStories };
+  return { stories, lastReadStoryId: lastRead, hasUnseenStories, hasStories };
 };

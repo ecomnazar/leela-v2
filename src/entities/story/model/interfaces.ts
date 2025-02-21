@@ -1,14 +1,7 @@
-import { EntityState } from "@reduxjs/toolkit";
-
 export interface ICreateStoryApiProps {
   mediaUrl: string;
+  mediaType: "IMAGE" | "VIDEO";
   description: string;
-}
-
-export interface IStoryAuthor {
-  authorId: number;
-  name: string;
-  previewMediaUrl: string;
 }
 
 export interface IPublicStories {
@@ -47,7 +40,18 @@ export interface IGetMyStoriesApiResponse {
   stories: IMyStory[];
 }
 
-export type TCreateStoryAssetType = "video" | "image";
+export type TCreateStoryAssetType = "VIDEO" | "IMAGE";
+
+export interface IStoryAuthor {
+  authorId: number;
+  name: string;
+  previewMediaUrl: string;
+}
+
+export interface IOpenStoryModalProps extends IStoryAuthor {
+  me?: boolean;
+  currentStoryIndex: number;
+}
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 

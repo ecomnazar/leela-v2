@@ -44,6 +44,7 @@ export const CreateStoryModal = () => {
       const data: ICreateStoryApiProps = {
         description: text,
         mediaUrl,
+        mediaType: assetType,
       };
 
       const response = await dispatch(createStoryApi(data));

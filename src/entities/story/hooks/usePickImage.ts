@@ -1,9 +1,7 @@
 import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
 import * as ImagePicker from "expo-image-picker";
-import React from "react";
 import { openCreateStoryModal } from "../model/storySlice";
 import { TCreateStoryAssetType } from "../model/interfaces";
-import { getColors } from "react-native-image-colors";
 
 export const usePickImage = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +16,8 @@ export const usePickImage = () => {
 
     if (!result.canceled) {
       const uri = result.assets[0].uri;
-      const type = result.assets[0].type as TCreateStoryAssetType;
+      const type =
+        result.assets[0].type?.toUpperCase() as TCreateStoryAssetType;
 
       dispatch(openCreateStoryModal({ assetType: type, assetUri: uri }));
     }

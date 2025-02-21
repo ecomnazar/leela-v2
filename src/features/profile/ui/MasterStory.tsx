@@ -7,11 +7,17 @@ import { Icon } from "@/shared/ui/Icon";
 import { Pressable, View } from "react-native";
 import { useMyStories } from "@/entities/story/hooks/useMyStories";
 import { usePickImage } from "@/entities/story/hooks/usePickImage";
+import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
+import { openStoryModal } from "@/entities/story/model/storySlice";
+import { IOpenStoryModalProps } from "@/entities/story/model/interfaces";
 
 export const MasterStory = () => {
   const { role } = useRole();
   const { pickImage } = usePickImage();
-  const { stories, lastReadStoryId, hasUnseenStories } = useMyStories();
+  const { stories, lastReadStoryId, hasUnseenStories, hasStories } =
+    useMyStories();
+
+  const dispatch = useAppDispatch();
 
   const { data: user, loading: userLoading } = useAppSelector(
     (state) => state.user.user
@@ -21,10 +27,24 @@ export const MasterStory = () => {
 
   const addStory = async () => pickImage("story");
 
+  const openStory = () => {
+    if (!hasStories || !user) return;
+
+    const data: IOpenStoryModalProps = {
+      me: true,
+      authorId: user.id,
+      name: user.firstName,
+      previewMediaUrl: user.defaultPictureUrl,
+      currentStoryIndex: 0,
+    };
+
+    dispatch(openStoryModal(data));
+  };
+
   return (
     <View className="relative">
       <StoryAvatar
-        onPress={() => {}}
+        onPress={openStory}
         image={user?.defaultPictureUrl}
         name={user?.firstName}
         size="medium"

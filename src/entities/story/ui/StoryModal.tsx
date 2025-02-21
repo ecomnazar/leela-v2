@@ -3,21 +3,22 @@ import React from "react";
 import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
 import { useAppSelector } from "@/shared/hooks/useAppSelector";
 import { SCREEN_HEIGHT } from "@gorhom/bottom-sheet";
-import { Modal, View } from "react-native";
-import { toggleStoryModal } from "../model/storySlice";
+import { closeStoryModal } from "../model/storySlice";
 import { StoryCubeCarousel } from "./StoryCubeCarousel";
+
+import { Modal, View } from "react-native";
 
 export const StoryModal = () => {
   const dispatch = useAppDispatch();
-  const isStoryModalOpen = useAppSelector((state) => state.story.isModalOpen);
+  const { modal } = useAppSelector((state) => state.story.storyModal);
 
-  const closeStoryModal = () => dispatch(toggleStoryModal("close"));
+  const close = () => dispatch(closeStoryModal());
 
   return (
     <Modal
       style={{ zIndex: 20 }}
-      visible={isStoryModalOpen}
-      onRequestClose={closeStoryModal}
+      visible={modal}
+      onRequestClose={close}
       animationType="slide"
       transparent={true}
     >

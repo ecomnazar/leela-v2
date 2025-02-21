@@ -6,8 +6,9 @@ const PREFIX = "/media";
 export const uploadStoryImageApi = createAsyncThunk(
   "uploadStoryImageApi",
   async (data: FormData, thunkAPI) => {
+    const query = `?imageProcessingType=ORIGINAL`;
     try {
-      return await apiCall("post", PREFIX + "/upload/stories/image", {
+      return await apiCall("post", PREFIX + `/upload/stories/image${query}`, {
         data,
         headers: { "Content-Type": "multipart/form-data" },
       });

@@ -8,12 +8,10 @@ import {
   View,
 } from "react-native";
 import { Easing, useSharedValue, withTiming } from "react-native-reanimated";
-import { getPublicStoriesByAuthorIdApi } from "../model/storyThunk";
 import { useAppSelector } from "@/shared/hooks/useAppSelector";
-import { setSelectedAuthorIndex, toggleStoryModal } from "../model/storySlice";
+
 import { StoryIndicator } from "./StoryIndicator";
 import { PanGestureHandler, State } from "react-native-gesture-handler";
-import { Video } from "expo-av";
 
 import images from "assets/images";
 import { Flex } from "@/shared/ui/Flex";
@@ -22,6 +20,12 @@ import videos from "assets/videos";
 import { Button } from "@/shared/ui/Button";
 import { SCREEN_HEIGHT } from "@gorhom/bottom-sheet";
 import { LinearGradient } from "expo-linear-gradient";
+import {
+  closeStoryModal,
+  setSelectedAuthorIndex,
+  toggleStoryModal,
+} from "@/entities/story/model/storySlice";
+import { getPublicStoriesByAuthorIdApi } from "@/entities/story/model/storyThunk";
 
 const { width } = Dimensions.get("window");
 const STORY_DURATION = 4500;
@@ -33,7 +37,7 @@ interface Props {
   scrollToIndex: (index: number) => void;
 }
 
-export const SingleStory: React.FC<Props> = ({
+export const OLDSingleStory: React.FC<Props> = ({
   authorName,
   authorId,
   scrollToIndex,
@@ -141,14 +145,14 @@ export const SingleStory: React.FC<Props> = ({
       const { translationY } = event.nativeEvent;
       if (translationY > SWIPE_THRESHOLD) {
         // Если свайп вниз больше порогового значения, закрываем модальное окно
-        dispatch(toggleStoryModal("close"));
+        dispatch(closeStoryModal());
       }
     }
   };
 
-  const videoSource = videos.second;
-  const videoRef = useRef(null);
-  const [isVideoPlaying, setIsVideoPlaying] = React.useState(false);
+  // const videoSource = videos.second;
+  // const videoRef = useRef(null);
+  // const [isVideoPlaying, setIsVideoPlaying] = React.useState(false);
 
   // useEffect(() => {
   //   const timer = setTimeout(() => {
@@ -170,7 +174,7 @@ export const SingleStory: React.FC<Props> = ({
             style={{ width: "100%", height: "100%" }}
             onPress={(e) => handlePress(e)}
           >
-            {authorId === 1 && (
+            {/* {authorId === 1 && (
               <View className="scale-[1.57]" style={{ height: SCREEN_HEIGHT }}>
                 <Video
                   ref={videoRef}
@@ -190,7 +194,7 @@ export const SingleStory: React.FC<Props> = ({
                   useNativeControls={false} // disable native controls to prevent forcing fullscreen
                 />
               </View>
-            )}
+            )} */}
           </Pressable>
           <StoryIndicator
             progress={progress}

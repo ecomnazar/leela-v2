@@ -1,32 +1,40 @@
-import { useRef } from "react";
-import { Animated, Dimensions, StyleSheet } from "react-native";
-import { getCubePosition } from "../lib/getCubePosition";
-import { SingleStory } from "./SingleStory";
-import { useAppSelector } from "@/shared/hooks/useAppSelector";
+import React, { useRef } from "react";
 
-const { width, height } = Dimensions.get("window");
+import { useAppSelector } from "@/shared/hooks/useAppSelector";
+import { WINDOW_WIDTH } from "@gorhom/bottom-sheet";
+import { Animated } from "react-native";
+import { getCubePosition } from "../lib/getCubePosition";
+import { StoryCubeCarouseItem } from "./StoryCubeCarouseItem";
+import { IStoryAuthor } from "../model/interfaces";
 
 export const StoryCubeCarousel = () => {
+  const { currentStoryIndex } = useAppSelector(
+    (state) => state.story.storyModal
+  );
+
+  const { all: allStories } = useAppSelector(
+    (state) => state.story.publicStories
+  );
+
   const flatListRef = useRef<Animated.FlatList<any>>(null);
-
-  const { unseenExperts } = useAppSelector(
-    (state) => state.story.publicStories.data
-  );
-  const selectedAuthorIndex = useAppSelector(
-    (state) => state.story.selectedAuthorIndex
-  );
-
   const scrollX = useRef(new Animated.Value(0)).current;
 
-  const scrollToIndex = (index: number) => {
-    flatListRef.current?.scrollToIndex({ index, animated: true });
+  const scrollToIndex = () => {
+    flatListRef.current?.scrollToIndex({
+      index: currentStoryIndex,
+      animated: false,
+    });
   };
+
+  React.useEffect(() => {
+    scrollToIndex();
+  }, [currentStoryIndex]);
 
   return (
     <Animated.FlatList
       ref={flatListRef}
-      data={unseenExperts}
-      keyExtractor={(item) => item.authorId.toString()}
+      data={allStories}
+      keyExtractor={(item: IStoryAuthor) => item.authorId.toString()}
       horizontal
       pagingEnabled
       showsHorizontalScrollIndicator={false}
@@ -34,51 +42,27 @@ export const StoryCubeCarousel = () => {
         [{ nativeEvent: { contentOffset: { x: scrollX } } }],
         { useNativeDriver: true }
       )}
-      initialScrollIndex={selectedAuthorIndex}
+      initialScrollIndex={currentStoryIndex}
       scrollEventThrottle={16}
       getItemLayout={(data, index) => ({
-        length: width, // ширина каждого элемента
-        offset: width * index,
+        length: WINDOW_WIDTH,
+        offset: WINDOW_WIDTH * index,
         index,
       })}
-      renderItem={({ item, index }) => {
+      renderItem={({ item: story, index }) => {
         const { rotateY, translateX } = getCubePosition({
           index,
           scrollX,
         });
 
         return (
-          <Animated.View
-            style={[
-              styles.itemContainer,
-              {
-                transform: [{ perspective: 1000 }, { translateX }, { rotateY }],
-              },
-            ]}
-          >
-            <SingleStory
-              authorName={item.name}
-              authorId={item.authorId}
-              scrollToIndex={scrollToIndex}
-            />
-          </Animated.View>
+          <StoryCubeCarouseItem
+            rotateY={rotateY}
+            translateX={translateX}
+            story={story}
+          />
         );
       }}
     />
   );
 };
-
-const styles = StyleSheet.create({
-  itemContainer: {
-    width,
-    height,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#000",
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: "bold",
-    color: "#fff",
-  },
-});
