@@ -9,17 +9,15 @@ interface Props {
   rotateY: Animated.AnimatedInterpolation<string | number>;
   translateX: Animated.AnimatedInterpolation<string | number>;
   story: IStoryAuthor;
+  localCurrentStoryIndex: number;
 }
 
 export const StoryCubeCarouseItem: React.FC<Props> = ({
   rotateY,
   translateX,
   story,
+  localCurrentStoryIndex,
 }) => {
-  const scrollToIndex = (index: number) => {
-    console.log(index);
-  };
-
   return (
     <Animated.View
       style={[
@@ -29,7 +27,10 @@ export const StoryCubeCarouseItem: React.FC<Props> = ({
         },
       ]}
     >
-      <SingleStory story={story} scrollToIndex={scrollToIndex} />
+      <SingleStory
+        story={story}
+        localCurrentStoryIndex={localCurrentStoryIndex}
+      />
     </Animated.View>
   );
 };

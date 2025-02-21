@@ -36,7 +36,6 @@ export const StoriesList = () => {
       })
     );
 
-    // if (allStories[authorId]) return;
     fetchAuthorMedias(authorId);
   };
 

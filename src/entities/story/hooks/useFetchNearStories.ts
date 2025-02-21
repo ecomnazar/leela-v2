@@ -1,5 +1,6 @@
-import { useAppSelector } from "@/shared/hooks/useAppSelector";
 import React from "react";
+
+import { useAppSelector } from "@/shared/hooks/useAppSelector";
 import { useFetchAuthorMedias } from "./useFetchAuthorMedias";
 
 export const useFetchNearStories = () => {

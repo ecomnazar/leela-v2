@@ -11,7 +11,6 @@ export const StoryCubeCarousel = () => {
   const { currentStoryIndex } = useAppSelector(
     (state) => state.story.storyModal
   );
-
   const { all: allStories } = useAppSelector(
     (state) => state.story.publicStories
   );
@@ -22,7 +21,7 @@ export const StoryCubeCarousel = () => {
   const scrollToIndex = () => {
     flatListRef.current?.scrollToIndex({
       index: currentStoryIndex,
-      animated: false,
+      animated: true,
     });
   };
 
@@ -42,9 +41,11 @@ export const StoryCubeCarousel = () => {
         [{ nativeEvent: { contentOffset: { x: scrollX } } }],
         { useNativeDriver: true }
       )}
+      windowSize={5}
+      maxToRenderPerBatch={2}
       initialScrollIndex={currentStoryIndex}
       scrollEventThrottle={16}
-      getItemLayout={(data, index) => ({
+      getItemLayout={(_, index) => ({
         length: WINDOW_WIDTH,
         offset: WINDOW_WIDTH * index,
         index,
@@ -60,6 +61,7 @@ export const StoryCubeCarousel = () => {
             rotateY={rotateY}
             translateX={translateX}
             story={story}
+            localCurrentStoryIndex={index}
           />
         );
       }}

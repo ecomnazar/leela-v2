@@ -13,29 +13,31 @@ import { STORY_DURATION } from "../lib/constants";
 import { useStoryNavgation } from "../hooks/useStoryNavgation";
 import { IStoryAuthor } from "@/entities/story/model/interfaces";
 import { useFetchNearStories } from "@/entities/story/hooks/useFetchNearStories";
+import { useSingleStoryData } from "@/entities/story/hooks/useSingleStoryData";
+import { useSingleStoryIndicatorData } from "@/entities/story/hooks/useSingleStoryIndicatorData";
 
 interface Props {
-  scrollToIndex: (index: number) => void;
   story: IStoryAuthor;
+  localCurrentStoryIndex: number;
 }
 
-export const SingleStory: React.FC<Props> = ({ scrollToIndex, story }) => {
-  const { stories: allStories } = useAppSelector(
-    (state) => state.story.storyModal
-  );
-
+export const SingleStory: React.FC<Props> = ({
+  story,
+  localCurrentStoryIndex,
+}) => {
   const { authorId } = story || {};
 
-  const stories = allStories[authorId]?.stories || [];
-  const storiesLength = stories.length;
-  const storyLoading = stories.length === 0;
-
-  const [currentMediaIndex, setCurrentMediaIndex] = React.useState(0);
-
-  const progress = useSharedValue(0);
-  const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
-
-  // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     CONTROL USER CLICKS     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  const {
+    mediaUrl,
+    mediaType,
+    description,
+    stories,
+    storiesLength,
+    currentMediaIndex,
+    setCurrentMediaIndex,
+    isMediaLoaded,
+    setIsMediaLoaded,
+  } = useSingleStoryData({ authorId });
 
   const { handlePress, goToNextStory } = useStoryNavgation({
     stories,
@@ -43,38 +45,12 @@ export const SingleStory: React.FC<Props> = ({ scrollToIndex, story }) => {
     setCurrentMediaIndex,
   });
 
-  // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     CONTROL USER CLICKS     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-
-  // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     INDICATOR     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-
-  const [isMediaLoaded, setIsMediaLoaded] = React.useState(
-    Array.from({ length: storiesLength }).map(() => false)
-  );
-
-  const startTimer = (durationProp?: number) => {
-    const duration = durationProp ? durationProp : STORY_DURATION;
-    progress.value = 0;
-    progress.value = withTiming(1, {
-      duration: duration,
-      easing: Easing.linear,
-    });
-
-    timeoutRef.current = setTimeout(goToNextStory, duration);
-  };
-
-  React.useEffect(() => {
-    if (!isMediaLoaded[currentMediaIndex]) return;
-    startTimer();
-    return () =>
-      clearTimeout(timeoutRef.current ? timeoutRef.current : undefined);
-  }, [isMediaLoaded[currentMediaIndex], currentMediaIndex]);
-
-  // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     INDICATOR     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-
-  const currentMedia = stories[currentMediaIndex];
-  const mediaUrl = currentMedia?.mediaUrl;
-  const mediaType = "photo";
-  const description = currentMedia?.description;
+  const { progress } = useSingleStoryIndicatorData({
+    currentMediaIndex,
+    goToNextStory,
+    isMediaLoaded,
+    localCurrentStoryIndex,
+  });
 
   useFetchNearStories();
 
@@ -82,12 +58,6 @@ export const SingleStory: React.FC<Props> = ({ scrollToIndex, story }) => {
     <>
       <StoryGestureHandlerWrapper>
         <View style={{ width: "100%", height: "100%" }}>
-          {/* // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */}
-
-          {/* // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */}
-
-          {/* // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */}
-
           <Pressable
             className="flex items-center justify-center"
             style={{ width: "100%", height: "100%" }}
@@ -109,12 +79,6 @@ export const SingleStory: React.FC<Props> = ({ scrollToIndex, story }) => {
               />
             )}
           </Pressable>
-
-          {/* // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */}
-
-          {/* // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */}
-
-          {/* // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */}
           {/* <LinearGradient
             colors={colors}
             style={{
