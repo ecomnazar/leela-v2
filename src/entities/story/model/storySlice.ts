@@ -83,6 +83,9 @@ export const storySlice = createSlice({
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    setCurrentStoryIndex: (state, action: PayloadAction<number>) => {
+      state.storyModal.currentStoryIndex = action.payload;
+    },
 
     openStoryModal: (state, action: PayloadAction<IOpenStoryModalProps>) => {
       const { me, authorId, name, previewMediaUrl, currentStoryIndex } =
@@ -115,8 +118,6 @@ export const storySlice = createSlice({
       if (step === "next") {
         const allStories = state.publicStories.all;
         if (currentStoryIndex < allStories.length - 1) {
-          console.log("123");
-
           state.storyModal.currentStoryIndex += 1;
         } else {
           state.storyModal.modal = false;
@@ -235,4 +236,5 @@ export const {
   openStoryModal,
   closeStoryModal,
   scrollStoryCarousel,
+  setCurrentStoryIndex,
 } = storySlice.actions;

@@ -6,8 +6,16 @@ import { Animated, Text, View } from "react-native";
 import { getCubePosition } from "../lib/getCubePosition";
 import { StoryCubeCarouseItem } from "./StoryCubeCarouseItem";
 import { IStoryAuthor } from "../model/interfaces";
+import { scrollStoryCarousel, setCurrentStoryIndex } from "../model/storySlice";
+import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
+
+const viewabilityConfig = {
+  itemVisiblePercentThreshold: 50, // At least 50% of the item should be visible
+};
 
 export const StoryCubeCarousel = () => {
+  const dispatch = useAppDispatch();
+
   const { currentStoryIndex } = useAppSelector(
     (state) => state.story.storyModal
   );
@@ -29,6 +37,15 @@ export const StoryCubeCarousel = () => {
     scrollToIndex();
   }, [currentStoryIndex]);
 
+  const onViewableItemsChanged = useRef(
+    ({ viewableItems }: { viewableItems: any[] }) => {
+      if (viewableItems.length > 0) {
+        const idx = viewableItems[0].index;
+        dispatch(setCurrentStoryIndex(idx));
+      }
+    }
+  ).current;
+
   return (
     <Animated.FlatList
       ref={flatListRef}
@@ -45,6 +62,12 @@ export const StoryCubeCarousel = () => {
       maxToRenderPerBatch={2}
       initialScrollIndex={currentStoryIndex}
       scrollEventThrottle={16}
+      // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+      onViewableItemsChanged={onViewableItemsChanged}
+      viewabilityConfig={viewabilityConfig}
+      // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
       getItemLayout={(_, index) => ({
         length: WINDOW_WIDTH,
         offset: WINDOW_WIDTH * index,
