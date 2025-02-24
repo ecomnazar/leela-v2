@@ -31,8 +31,10 @@ export const useAuth = () => {
 
   // web dev env
   React.useEffect(() => {
-    const code = params?.code as string;
-    if (code) authorize(code);
+    if (__DEV__) {
+      const code = params?.code as string;
+      if (code) authorize(code);
+    }
   }, []);
 
   // miniapp
