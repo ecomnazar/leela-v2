@@ -8,6 +8,7 @@ interface Props {
   isMediaLoaded: boolean[];
   currentMediaIndex: number;
   localCurrentStoryIndex: number;
+  currentMediaLoaded: boolean;
 }
 
 export const useSingleStoryIndicatorData = ({
@@ -15,6 +16,7 @@ export const useSingleStoryIndicatorData = ({
   isMediaLoaded,
   currentMediaIndex,
   localCurrentStoryIndex,
+  currentMediaLoaded,
 }: Props) => {
   const { currentStoryIndex } = useAppSelector(
     (state) => state.story.storyModal
@@ -42,6 +44,13 @@ export const useSingleStoryIndicatorData = ({
     return () =>
       clearTimeout(timeoutRef.current ? timeoutRef.current : undefined);
   }, [isMediaLoaded[currentMediaIndex], currentMediaIndex, currentStoryIndex]);
+
+  React.useEffect(() => {
+    if (!currentMediaLoaded && timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      progress.value = 0;
+    }
+  }, [currentMediaLoaded]);
 
   return { progress };
 };

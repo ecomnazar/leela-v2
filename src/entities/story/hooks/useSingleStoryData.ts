@@ -22,6 +22,7 @@ export const useSingleStoryData = ({ authorId }: Props) => {
   const mediaUrl = currentMedia?.mediaUrl;
   const mediaType = "photo";
   const description = currentMedia?.description;
+  const currentMediaLoaded = isMediaLoaded[currentMediaIndex];
 
   return {
     mediaType,
@@ -33,5 +34,6 @@ export const useSingleStoryData = ({ authorId }: Props) => {
     setCurrentMediaIndex,
     isMediaLoaded,
     setIsMediaLoaded,
+    currentMediaLoaded,
   };
 };

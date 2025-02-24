@@ -15,6 +15,7 @@ import { useSingleStoryIndicatorData } from "@/entities/story/hooks/useSingleSto
 import ImageColors from "react-native-image-colors";
 import { DETECT_IMAGE_COLORS } from "@/shared/hooks/useDetectImageColors";
 import { LinearGradient } from "expo-linear-gradient";
+import { sleep } from "@/shared/lib/sleep";
 
 interface Props {
   story: IStoryAuthor;
@@ -37,6 +38,7 @@ export const SingleStory: React.FC<Props> = ({
     setCurrentMediaIndex,
     isMediaLoaded,
     setIsMediaLoaded,
+    currentMediaLoaded,
   } = useSingleStoryData({ authorId });
 
   const { handlePress, goToNextStory } = useStoryNavgation({
@@ -50,6 +52,7 @@ export const SingleStory: React.FC<Props> = ({
     goToNextStory,
     isMediaLoaded,
     localCurrentStoryIndex,
+    currentMediaLoaded,
   });
 
   useFetchNearStories();
@@ -78,6 +81,26 @@ export const SingleStory: React.FC<Props> = ({
     fetchColors();
   }, [mediaUrl]);
 
+  React.useEffect(() => {
+    if (!mediaUrl && !stories.length) return;
+    const fetch = () => {
+      for (let index = 0; index < stories.length; index++) {
+        Image.prefetch(stories[index].mediaUrl)
+          .then(async () => {
+            setIsMediaLoaded((prev) => {
+              const copy = [...prev];
+              copy[index] = true;
+              return copy;
+            });
+          })
+          .catch((error) => {
+            console.error("Error prefetching image:", error);
+          });
+      }
+    };
+    fetch();
+  }, [mediaUrl]);
+
   return (
     <>
       <StoryGestureHandlerWrapper>
@@ -87,33 +110,33 @@ export const SingleStory: React.FC<Props> = ({
             style={{ width: "100%", height: "100%" }}
             onPress={(e) => handlePress(e)}
           >
-            {mediaType === "photo" && (
+            {currentMediaLoaded && mediaType === "photo" && (
               <Image
+                key={mediaUrl}
                 source={mediaUrl}
                 style={{ width: "100%", height: "100%" }}
                 contentFit="contain"
                 contentPosition={"center"}
-                onLoad={() => {
-                  setIsMediaLoaded((prev) => {
-                    const copy = [...prev];
-                    copy[currentMediaIndex] = true;
-                    return copy;
-                  });
-                }}
               />
             )}
           </Pressable>
-          <LinearGradient
-            colors={colors}
-            style={{
-              position: "absolute",
-              left: 0,
-              top: 0,
-              width: "100%",
-              height: "100%",
-              zIndex: 0,
-            }}
-          />
+
+          {!currentMediaLoaded && (
+            <View className="w-full h-full absolute top-0 left-0 bg-black z-[0]"></View>
+          )}
+          {currentMediaLoaded && (
+            <LinearGradient
+              colors={colors}
+              style={{
+                position: "absolute",
+                left: 0,
+                top: 0,
+                width: "100%",
+                height: "100%",
+                zIndex: 0,
+              }}
+            />
+          )}
           <StoryIndicator
             progress={progress}
             storiesLength={stories.length}
