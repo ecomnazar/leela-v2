@@ -1,20 +1,20 @@
 import React from "react";
 
 import { Pressable, View } from "react-native";
-import { Easing, useSharedValue, withTiming } from "react-native-reanimated";
-import { useAppSelector } from "@/shared/hooks/useAppSelector";
 
 import { StoryIndicator } from "./StoryIndicator";
 
 import { SingleStoryFooter } from "./SingleStoryFooter";
 import { StoryGestureHandlerWrapper } from "../wrappers/StoryGestureHandlerWrapper";
 import { Image } from "expo-image";
-import { STORY_DURATION } from "../lib/constants";
 import { useStoryNavgation } from "../hooks/useStoryNavgation";
 import { IStoryAuthor } from "@/entities/story/model/interfaces";
 import { useFetchNearStories } from "@/entities/story/hooks/useFetchNearStories";
 import { useSingleStoryData } from "@/entities/story/hooks/useSingleStoryData";
 import { useSingleStoryIndicatorData } from "@/entities/story/hooks/useSingleStoryIndicatorData";
+import ImageColors from "react-native-image-colors";
+import { DETECT_IMAGE_COLORS } from "@/shared/hooks/useDetectImageColors";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface Props {
   story: IStoryAuthor;
@@ -54,12 +54,36 @@ export const SingleStory: React.FC<Props> = ({
 
   useFetchNearStories();
 
+  const [colors, setColors] = React.useState<any>([]);
+
+  React.useEffect(() => {
+    const fetchColors = async () => {
+      if (!mediaUrl) return;
+      await ImageColors.getColors(mediaUrl, {
+        fallback: "#7C9484",
+      }).then((res) => {
+        const detectedColors = Object.entries(res)
+          .map(([key, value]) => {
+            return {
+              key,
+              value,
+            };
+          })
+          .filter((item) => DETECT_IMAGE_COLORS.includes(item.key))
+          .map((item) => item.value) as [string, string, ...string[]];
+        setColors(detectedColors);
+      });
+    };
+
+    fetchColors();
+  }, [mediaUrl]);
+
   return (
     <>
       <StoryGestureHandlerWrapper>
         <View style={{ width: "100%", height: "100%" }}>
           <Pressable
-            className="flex items-center justify-center"
+            className="flex items-center justify-center relative z-[10]"
             style={{ width: "100%", height: "100%" }}
             onPress={(e) => handlePress(e)}
           >
@@ -79,7 +103,7 @@ export const SingleStory: React.FC<Props> = ({
               />
             )}
           </Pressable>
-          {/* <LinearGradient
+          <LinearGradient
             colors={colors}
             style={{
               position: "absolute",
@@ -87,8 +111,9 @@ export const SingleStory: React.FC<Props> = ({
               top: 0,
               width: "100%",
               height: "100%",
+              zIndex: 0,
             }}
-          /> */}
+          />
           <StoryIndicator
             progress={progress}
             storiesLength={stories.length}

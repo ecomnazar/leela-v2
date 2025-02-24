@@ -25,10 +25,10 @@ export const MainPage = () => {
       <PageHeader enableEnergyShowcase enableBalanceShowcase disableBorder />
       <View style={{ flex: 1, marginTop: 10 }}>
         <Stories />
-        <AnimatedContainer>
+        {/* <AnimatedContainer>
           <Search />
           <CardsSection />
-        </AnimatedContainer>
+        </AnimatedContainer> */}
       </View>
       <FixedButton />
 

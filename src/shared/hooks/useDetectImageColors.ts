@@ -6,7 +6,7 @@ interface Props {
 }
 type TReturnType = [string, string, ...string[]];
 
-const colorTypes = ["dominant", "darkMuted", "darkVibrant"];
+export const DETECT_IMAGE_COLORS = ["dominant", "darkMuted", "darkVibrant"];
 
 export const useDetectImageColors = ({ assetUri }: Props): TReturnType => {
   const [colors, setColors] = React.useState<TReturnType>(["", ""]);
@@ -25,7 +25,7 @@ export const useDetectImageColors = ({ assetUri }: Props): TReturnType => {
             value,
           };
         })
-        .filter((item) => colorTypes.includes(item.key))
+        .filter((item) => DETECT_IMAGE_COLORS.includes(item.key))
         .map((item) => item.value) as [string, string, ...string[]];
 
       setColors(colors);
