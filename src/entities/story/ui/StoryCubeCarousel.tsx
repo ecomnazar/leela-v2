@@ -26,16 +26,16 @@ export const StoryCubeCarousel = () => {
   const flatListRef = useRef<Animated.FlatList<any>>(null);
   const scrollX = useRef(new Animated.Value(0)).current;
 
-  const scrollToIndex = () => {
+  const scrollToIndex = (idx: number) => {
     flatListRef.current?.scrollToIndex({
-      index: currentStoryIndex,
+      index: idx,
       animated: true,
     });
   };
 
-  React.useEffect(() => {
-    scrollToIndex();
-  }, [currentStoryIndex]);
+  // React.useEffect(() => {
+  //   scrollToIndex();
+  // }, [currentStoryIndex]);
 
   const onViewableItemsChanged = useRef(
     ({ viewableItems }: { viewableItems: any[] }) => {
@@ -85,6 +85,7 @@ export const StoryCubeCarousel = () => {
             translateX={translateX}
             story={story}
             localCurrentStoryIndex={index}
+            scrollToIndex={scrollToIndex}
           />
         );
       }}

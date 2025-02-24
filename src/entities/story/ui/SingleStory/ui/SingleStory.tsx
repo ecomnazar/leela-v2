@@ -20,11 +20,13 @@ import { sleep } from "@/shared/lib/sleep";
 interface Props {
   story: IStoryAuthor;
   localCurrentStoryIndex: number;
+  scrollToIndex: (idx: number) => void;
 }
 
 export const SingleStory: React.FC<Props> = ({
   story,
   localCurrentStoryIndex,
+  scrollToIndex,
 }) => {
   const { authorId } = story || {};
 
@@ -45,6 +47,7 @@ export const SingleStory: React.FC<Props> = ({
     stories,
     currentMediaIndex,
     setCurrentMediaIndex,
+    scrollToIndex,
   });
 
   const { progress } = useSingleStoryIndicatorData({

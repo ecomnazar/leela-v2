@@ -13,12 +13,14 @@ interface Props {
   stories: IStoryMedia[];
   currentMediaIndex: number;
   setCurrentMediaIndex: React.Dispatch<React.SetStateAction<number>>;
+  scrollToIndex: (idx: number) => void;
 }
 
 export const useStoryNavgation = ({
   stories,
   currentMediaIndex,
   setCurrentMediaIndex,
+  scrollToIndex,
 }: Props) => {
   const dispatch = useAppDispatch();
 
@@ -35,6 +37,7 @@ export const useStoryNavgation = ({
     // if it is first media of story
     if (currentMediaIndex === 0) {
       dispatch(scrollStoryCarousel("prev"));
+      scrollToIndex(currentStoryIndex - 1);
       return;
     }
 
@@ -51,6 +54,7 @@ export const useStoryNavgation = ({
     await sleep(200);
     // if current stories medias end
     dispatch(scrollStoryCarousel("next"));
+    scrollToIndex(currentStoryIndex + 1);
   };
 
   return { handlePress, goToNextStory };

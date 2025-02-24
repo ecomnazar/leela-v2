@@ -10,6 +10,7 @@ interface Props {
   translateX: Animated.AnimatedInterpolation<string | number>;
   story: IStoryAuthor;
   localCurrentStoryIndex: number;
+  scrollToIndex: (idx: number) => void;
 }
 
 export const StoryCubeCarouseItem: React.FC<Props> = ({
@@ -17,6 +18,7 @@ export const StoryCubeCarouseItem: React.FC<Props> = ({
   translateX,
   story,
   localCurrentStoryIndex,
+  scrollToIndex,
 }) => {
   return (
     <Animated.View
@@ -30,6 +32,7 @@ export const StoryCubeCarouseItem: React.FC<Props> = ({
       <SingleStory
         story={story}
         localCurrentStoryIndex={localCurrentStoryIndex}
+        scrollToIndex={}
       />
     </Animated.View>
   );
