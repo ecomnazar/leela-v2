@@ -103,48 +103,48 @@ export const SingleStory: React.FC<Props> = ({
 
   return (
     <>
-      <StoryGestureHandlerWrapper>
-        <View style={{ width: "100%", height: "100%" }}>
-          <Pressable
-            className="flex items-center justify-center relative z-[10]"
-            style={{ width: "100%", height: "100%" }}
-            onPress={(e) => handlePress(e)}
-          >
-            {currentMediaLoaded && mediaType === "photo" && (
-              <Image
-                // key={mediaUrl}
-                source={mediaUrl}
-                style={{ width: "100%", height: "100%" }}
-                contentFit="contain"
-                contentPosition={"center"}
-              />
-            )}
-          </Pressable>
-
-          {!currentMediaLoaded && (
-            <View className="w-full h-full absolute top-0 left-0 bg-black z-[0]"></View>
-          )}
-          {currentMediaLoaded && (
-            <LinearGradient
-              colors={colors}
-              style={{
-                position: "absolute",
-                left: 0,
-                top: 0,
-                width: "100%",
-                height: "100%",
-                zIndex: 0,
-              }}
+      {/* <StoryGestureHandlerWrapper> */}
+      <View style={{ width: "100%", height: "100%" }}>
+        <Pressable
+          className="flex items-center justify-center relative z-[10]"
+          style={{ width: "100%", height: "100%" }}
+          onPress={(e) => handlePress(e)}
+        >
+          {currentMediaLoaded && mediaType === "photo" && (
+            <Image
+              // key={mediaUrl}
+              source={mediaUrl}
+              style={{ width: "100%", height: "100%" }}
+              contentFit="contain"
+              contentPosition={"center"}
             />
           )}
-          <StoryIndicator
-            progress={progress}
-            storiesLength={stories.length}
-            activeStoryIndex={currentMediaIndex}
+        </Pressable>
+
+        {!currentMediaLoaded && (
+          <View className="w-full h-full absolute top-0 left-0 bg-black z-[0]"></View>
+        )}
+        {currentMediaLoaded && (
+          <LinearGradient
+            colors={colors}
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              width: "100%",
+              height: "100%",
+              zIndex: 0,
+            }}
           />
-          <SingleStoryFooter story={story} description={description} />
-        </View>
-      </StoryGestureHandlerWrapper>
+        )}
+        <StoryIndicator
+          progress={progress}
+          storiesLength={stories.length}
+          activeStoryIndex={currentMediaIndex}
+        />
+        <SingleStoryFooter story={story} description={description} />
+      </View>
+      {/* </StoryGestureHandlerWrapper> */}
     </>
   );
 };

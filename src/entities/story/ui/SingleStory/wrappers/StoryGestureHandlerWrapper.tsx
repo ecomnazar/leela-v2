@@ -14,6 +14,8 @@ export const StoryGestureHandlerWrapper = ({
   const dispatch = useAppDispatch();
 
   const onHandlerStateChange = (event: any) => {
+    console.log(event.nativeEvent.state);
+
     if (event.nativeEvent.state === State.END) {
       const { translationY } = event.nativeEvent;
       if (translationY > SWIPE_THRESHOLD) {

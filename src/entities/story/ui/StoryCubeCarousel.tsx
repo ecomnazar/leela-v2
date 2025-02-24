@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 
 import { useAppSelector } from "@/shared/hooks/useAppSelector";
 import { WINDOW_WIDTH } from "@gorhom/bottom-sheet";
-import { Animated } from "react-native";
+import { Animated, Text, View } from "react-native";
 import { getCubePosition } from "../lib/getCubePosition";
 import { StoryCubeCarouseItem } from "./StoryCubeCarouseItem";
 import { IStoryAuthor } from "../model/interfaces";
