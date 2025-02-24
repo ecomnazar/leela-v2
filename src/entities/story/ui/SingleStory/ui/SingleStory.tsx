@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Pressable, View } from "react-native";
+import { Animated, Pressable, View } from "react-native";
 
 import { StoryIndicator } from "./StoryIndicator";
 
@@ -112,7 +112,7 @@ export const SingleStory: React.FC<Props> = ({
           >
             {currentMediaLoaded && mediaType === "photo" && (
               <Image
-                key={mediaUrl}
+                // key={mediaUrl}
                 source={mediaUrl}
                 style={{ width: "100%", height: "100%" }}
                 contentFit="contain"

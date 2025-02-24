@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "90%",
     alignSelf: "center",
+    zIndex: 11,
   },
   indicatorBackground: {
     flex: 1,

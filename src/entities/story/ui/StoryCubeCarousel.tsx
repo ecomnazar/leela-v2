@@ -39,7 +39,7 @@ export const StoryCubeCarousel = () => {
       showsHorizontalScrollIndicator={false}
       onScroll={Animated.event(
         [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-        { useNativeDriver: true }
+        { useNativeDriver: false }
       )}
       windowSize={5}
       maxToRenderPerBatch={2}
