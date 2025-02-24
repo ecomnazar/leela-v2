@@ -32,7 +32,7 @@ export const StoryCubeCarouseItem: React.FC<Props> = ({
       <SingleStory
         story={story}
         localCurrentStoryIndex={localCurrentStoryIndex}
-        scrollToIndex={}
+        scrollToIndex={scrollToIndex}
       />
     </Animated.View>
   );
