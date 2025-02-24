@@ -17,7 +17,7 @@ export const SingleStoryFooter: React.FC<Props> = ({ description, story }) => {
   const { name, previewMediaUrl } = story || {};
 
   return (
-    <View className="absolute bottom-0 left-0 px-4 pb-8 pt-16 h-[250px] w-full">
+    <View className="absolute bottom-0 left-0 px-4 pb-8 pt-16 h-[250px] w-full z-[11]">
       <LinearGradient
         colors={[
           "rgba(0,0,0,0)",
